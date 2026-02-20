@@ -1,0 +1,190 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background: #1e1f22;   /* softer dark grey */
+    color: #eaeaea;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+#questions {
+    max-width: 720px;
+    margin: auto;
+    padding: 20px;
+}
+
+#questions div {
+    background: #26272b;     /* card grey */
+    border: 1px solid #333;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+}
+
+.options {
+    margin-top: 12px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: nowrap;        /* prevents Always from dropping */
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid #3a3a3a;
+    cursor: pointer;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+.options label:hover {
+    border-color: #aaa;
+}
+
+/* 🔥 custom radio style */
+.options input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #bbb;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.options input[type="radio"]:checked {
+    background: white;
+    border-color: white;
+}
+
+/* label highlight when selected */
+.options input[type="radio"]:checked + span {
+    color: white;
+}
+
+button {
+    display: block;
+    margin: 35px auto;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    background: #eaeaea;
+    color: #1e1f22;
+    cursor: pointer;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+/* 🔥 animated selection highlight */
+.options label:has(input:checked) {
+    background: rgba(255,255,255,0.08);
+    border-color: #ffffff;
+    transform: scale(1.03);
+}
+
+/* smooth animation */
+.options label {
+    transition: 0.18s ease;
+}
+
+/* optional radio pop effect */
+.options input[type="radio"]:checked {
+    background: white;
+    border-color: white;
+    transform: scale(1.1);
+    transition: 0.15s ease;
+}
+
+/* result page centering */
+.result-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-card {
+    background: #26272b;
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    max-width: 450px;
+}
+
+.result-card h1 {
+    font-size: 34px;
+    margin: 15px 0;
+}
+
+.result-card p {
+    margin: 10px 0;
+}
+
+.disclaimer {
+    margin-top: 20px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #1f2024;
+    color: white;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.divider {
+    margin: 15px 0;
+    opacity: 0.6;
+}
+
+.google-btn {
+    background: white;
+    color: black;
+}
+
+.switch-auth {
+    margin-top: 12px;
+    font-size: 14px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.switch-auth:hover {
+    opacity: 1;
+}
+
+.password-box {
+    position: relative;
+}
+
+#eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    fill: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}

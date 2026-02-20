@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/medical-theme.css">
+</head>
+
+<body>
+
+<div class="result-wrapper">
+    <div class="result-card">
+
+        <h2>Welcome Back</h2>
+
+        <input id="email" placeholder="Email" class="input-field">
+
+        <div class="password-box">
+            <input id="password" type="password" placeholder="Password" class="input-field">
+
+            <svg id="eye" onclick="togglePassword()" viewBox="0 0 24 24" class="eye-icon">
+                <path id="eyePath" d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+            </svg>
+        </div>
+
+        <button onclick="login()">Login</button>
+
+        <div class="divider">or</div>
+
+        <button class="google-btn" onclick="googleLogin()">Continue with Google</button>
+
+        <p class="switch-auth" onclick="goSignup()">Don't have an account? Create one</p>
+
+    </div>
+</div>
+
+<div id="authModal" class="modal hidden">
+    <div class="modal-card">
+        <p id="modalText"></p>
+        <button onclick="goSignup()">Create Account</button>
+        <button class="google-btn" onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script src="js/login.js"></script>
+
+</body>
+</html>
