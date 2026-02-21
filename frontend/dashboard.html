@@ -8,30 +8,38 @@
 <body>
 
 <div class="dashboard-container">
-    
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-            MedAI Toolkit
+        <div>
+            <div class="sidebar-header">Medzilla</div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    Home
+                </a>
+                <a href="questionnaire.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                    Autism Test
+                </a>
+                <a href="upload.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    Video Analysis
+                </a>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="questionnaire.html" class="nav-link">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
-                Autism Test
-            </a>
-            <a onclick="alert('Video Analysis Module is currently under construction for the ML Pipeline! 🦖')" class="nav-link">
-                <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                Video Analysis
-            </a>
+        
+        <div class="sidebar-footer">
+            <button class="sidebar-logout-btn" onclick="logout()">
+                <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                Logout
+            </button>
         </div>
     </aside>
 
     <main class="main-content">
-        
         <header class="top-header">
             <button class="menu-btn" onclick="toggleSidebar()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
             </button>
-            
             <div class="user-profile">
                 <span id="greetingText">Hi, User</span>
                 <div id="avatarLetter" class="avatar">U</div>
@@ -40,17 +48,31 @@
 
         <section class="content-area">
             <div class="info-card">
-                <h1>Understanding Autism</h1>
-                <p>Before you begin the screening process, it is essential to understand exactly what we are looking at. <span class="highlight">Autism is not a disease, and it is not a disorder that needs to be "cured."</span></p>
-                <p>It is a form of neurodivergence a natural variation in the human brain regarding how it processes information, socializes, and perceives the environment. Individuals on the autism spectrum simply experience the world through a different, often highly detailed and unique, neurological lens.</p>
-                <p>This toolkit is designed to provide clarity and understanding, leveraging AI to help map these unique neurological patterns so individuals can get the support and environment they need to thrive.</p>
+                <h1>Understanding Autism (ASD)</h1>
+                <p>Before proceeding with the screening, it's vital to establish a medically accurate foundation. <span class="highlight">Autism Spectrum Disorder (ASD) is a neurodevelopmental condition, not a disease.</span> It cannot be "cured," and it does not need to be. It is a natural variation in the human neurological blueprint.</p>
+
+                <h3 style="margin-top: 30px;">The Medical Reality</h3>
+                <p>According to global medical consensus, ASD affects how people interact with others, communicate, learn, and behave. The word "spectrum" highlights the wide variation in challenges and strengths possessed by each autistic person. Some may require significant daily support, while others live entirely independently, often leveraging their hyper-focus and pattern-recognition skills in highly specialized fields.</p>
+
+                <h3 style="margin-top: 30px;">Key Characteristics</h3>
+                <ul style="line-height: 1.8; margin-bottom: 30px;">
+                    <li><strong>Social Communication:</strong> Differences in processing social cues, maintaining eye contact, or understanding non-verbal communication.</li>
+                    <li><strong>Repetitive Behaviors:</strong> Engaging in routines or repetitive movements (stimming) to self-regulate sensory input.</li>
+                    <li><strong>Sensory Processing:</strong> Hyper- or hypo-reactivity to sensory stimuli like lights, sounds, and textures.</li>
+                    <li><strong>Deep Focus:</strong> Highly intense, passionate interests in specific topics.</li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">Globally Recognized Resources</h3>
+                <p>For more comprehensive, peer-reviewed, and medically verified information, please consult the following global health organizations:</p>
                 
-                <button class="logout-btn" onclick="logout()">Logout</button>
+                <div style="margin-top: 20px;">
+                    <a href="https://www.who.int/news-room/questions-and-answers/item/autism-spectrum-disorders-(asd)" target="_blank" rel="noopener noreferrer" class="info-link">World Health Organization (WHO) - ASD Q&A</a>
+                    <a href="https://www.cdc.gov/ncbddd/autism/index.html" target="_blank" rel="noopener noreferrer" class="info-link">CDC - Autism Spectrum Disorder Basics</a>
+                    <a href="https://www.nhs.uk/conditions/autism/" target="_blank" rel="noopener noreferrer" class="info-link">NHS UK - What is Autism?</a>
+                </div>
             </div>
         </section>
-
     </main>
-
 </div>
 
 <script src="js/dashboard.js"></script>

@@ -8,7 +8,8 @@ body {
 
 h2 {
     text-align: center;
-    margin-top: 30px;
+    margin: 0 0 20px 0;
+    padding-top: 20px;
     font-weight: 600;
 }
 
@@ -30,7 +31,7 @@ h2 {
     margin-top: 12px;
     display: flex;
     gap: 14px;
-    flex-wrap: nowrap;        /* prevents Always from dropping */
+    flex-wrap: nowrap;
 }
 
 .options label {
@@ -49,7 +50,6 @@ h2 {
     border-color: #aaa;
 }
 
-/* 🔥 custom radio style */
 .options input[type="radio"] {
     appearance: none;
     width: 16px;
@@ -65,12 +65,10 @@ h2 {
     border-color: white;
 }
 
-/* label highlight when selected */
 .options input[type="radio"]:checked + span {
     color: white;
 }
 
-/* 🔥 The Upgraded, Animated Button (NO GLOW) */
 button {
     display: block;
     margin: 35px auto;
@@ -85,45 +83,39 @@ button {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Hover State: Lift up only, NO glow */
 button:hover {
     transform: translateY(-4px);
     background: #ffffff;
 }
 
-/* Active/Click State: Squish down into the page */
 button:active {
     transform: translateY(2px) scale(0.96);
     transition: all 0.1s ease;
 }
 
-/* 🔥 New Button Group for Side-by-Side Alignment */
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Perfect spacing between buttons */
+    gap: 20px; 
     margin-top: 25px;
     margin-bottom: 25px;
 }
 
 .button-group button {
-    margin: 0; /* Overrides the default auto margins so flexbox can do the math */
+    margin: 0; 
     display: inline-block;
 }
 
-/* 🔥 animated selection highlight */
 .options label:has(input:checked) {
     background: rgba(255,255,255,0.08);
     border-color: #ffffff;
     transform: scale(1.03);
 }
 
-/* smooth animation */
 .options label {
     transition: 0.18s ease;
 }
 
-/* optional radio pop effect */
 .options input[type="radio"]:checked {
     background: white;
     border-color: white;
@@ -131,12 +123,17 @@ button:active {
     transition: 0.15s ease;
 }
 
-/* result page centering */
 .result-wrapper {
-    height: 100vh;
+    min-height: calc(100vh - 70px); 
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body:not(:has(.dashboard-container)) .result-wrapper {
+    height: 100vh;
 }
 
 .result-card {
@@ -146,9 +143,9 @@ button:active {
     padding: 40px;
     text-align: center;
     max-width: 450px;
+    width: 100%;
 }
 
-/* 🔥 Locked-in Auth Box Dimensions for Login & Signup */
 .auth-box {
     width: 420px; 
     height: 520px; 
@@ -186,7 +183,6 @@ button:active {
     box-sizing: border-box; 
 }
 
-/* Input fields outline on focus */
 .input-field:focus {
     outline: none;
     border-color: #eaeaea;
@@ -213,7 +209,6 @@ button:active {
     position: relative;
 }
 
-/* Generic class for eye icons */
 .eye-icon {
     position: absolute;
     right: 14px;
@@ -226,7 +221,6 @@ button:active {
     z-index: 10; 
 }
 
-/* Modal Styling */
 .modal {
     position: fixed;
     top: 0;
@@ -246,14 +240,24 @@ button:active {
 
 .modal-card {
     background: #26272b;
-    padding: 30px;
+    padding: 40px 30px; 
     border-radius: 14px;
     border: 1px solid #444;
     text-align: center;
-    min-width: 300px;
+    min-width: 320px;
 }
 
-/* Adjusted Error Message Styling */
+#modalText {
+    margin: 0 0 30px 0; 
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.modal-card button {
+    margin: 10px auto 0 auto;
+}
+
 .error-message {
     color: #ff6b6b; 
     font-size: 14px;
@@ -278,12 +282,12 @@ button:active {
     background: #1e1f22;
 }
 
-/* Sidebar */
 .sidebar {
     width: 260px;
     background: #17181a;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.3s ease;
     overflow: hidden;
     white-space: nowrap;
@@ -308,6 +312,7 @@ button:active {
     flex-direction: column;
     gap: 8px;
     padding: 0 15px;
+    flex: 1;
 }
 
 .nav-link {
@@ -320,20 +325,65 @@ button:active {
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: background 0.2s;
+    transition: all 0.2s;
     cursor: pointer;
+    border-left: 4px solid transparent; 
 }
 
 .nav-link:hover {
     background: #2a2b30;
 }
 
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.08); 
+    color: #ffffff;
+    border-left: 4px solid #ffffff;
+}
+
 .nav-link svg {
     width: 20px;
     fill: #eaeaea;
+    transition: fill 0.2s;
 }
 
-/* Main Content Area */
+.nav-link.active svg {
+    fill: #ffffff;
+}
+
+.sidebar-footer {
+    padding: 20px 15px;
+    border-top: 1px solid #2e2f34;
+}
+
+.sidebar-logout-btn {
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+    border-radius: 12px;
+    background: transparent;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sidebar-logout-btn:hover {
+    background: rgba(255, 107, 107, 0.1);
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+.sidebar-logout-btn svg {
+    fill: #ff6b6b;
+    width: 18px;
+}
+
 .main-content {
     flex: 1;
     display: flex;
@@ -341,13 +391,16 @@ button:active {
     overflow-y: auto;
 }
 
-/* Top Header Bar */
 .top-header {
     height: 70px;
+    min-height: 70px; 
+    flex-shrink: 0;   
     padding: 0 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #2e2f34; 
+    box-sizing: border-box;
 }
 
 .menu-btn {
@@ -383,7 +436,7 @@ button:active {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #6ba4ff;
+    background: #eaeaea; 
     color: #17181a;
     display: flex;
     align-items: center;
@@ -392,7 +445,6 @@ button:active {
     font-size: 18px;
 }
 
-/* Educational Content Area */
 .content-area {
     padding: 40px 25px;
     max-width: 850px;
@@ -417,24 +469,36 @@ button:active {
     margin-bottom: 20px;
 }
 
-.info-card p {
+.info-card p, .info-card li {
     color: #cccccc;
     font-size: 16px;
     margin-bottom: 15px;
 }
 
 .info-card .highlight {
-    color: #6ba4ff;
+    color: #ffffff; 
+    font-weight: 700;
+}
+
+.info-link {
+    display: block;
+    color: #eaeaea;
+    text-decoration: none;
+    border: 1px solid #444;
+    padding: 14px 20px;
+    border-radius: 10px;
+    width: 80%;
+    margin: 0 auto 10px auto;
+    transition: all 0.2s ease;
+    background: #1e1f22;
+    text-align: center;
     font-weight: 600;
 }
 
-.logout-btn {
-    margin: 20px 0 0 0;
-    display: inline-block;
-    background: #ff6b6b;
-    color: white;
-    padding: 10px 24px;
-}
-.logout-btn:hover {
-    background: #ff4c4c;
+/* 🔥 The Fix: Border color is now pure white on hover! */
+.info-link:hover {
+    background: #2a2b30;
+    border-color: #ffffff; 
+    transform: translateX(6px);
+    color: #ffffff;
 }

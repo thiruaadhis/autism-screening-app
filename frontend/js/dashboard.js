@@ -7,24 +7,26 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // 🔥 String Manipulation Magic: Extract Name from Email
-    // If email is "thiruaadhi@gmail.com", split("@")[0] gets "thiruaadhi"
+    // Extract Name from Email
     const rawName = userEmail.split("@")[0];
-    
-    // Capitalize the first letter so it looks professional
     const displayName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
 
-    // Update the DOM
-    document.getElementById("greetingText").innerText = `Hi, ${displayName}`;
+    // Update the DOM for the header (Safe check in case it's missing)
+    const greetingEl = document.getElementById("greetingText");
+    const avatarEl = document.getElementById("avatarLetter");
     
-    // Set the Avatar bubble to the first letter of their name
-    document.getElementById("avatarLetter").innerText = displayName.charAt(0).toUpperCase();
+    if (greetingEl && avatarEl) {
+        greetingEl.innerText = `Hi, ${displayName}`;
+        avatarEl.innerText = displayName.charAt(0).toUpperCase();
+    }
 });
 
 // 🔥 Sidebar Toggle Logic
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("collapsed");
+    if(sidebar) {
+        sidebar.classList.toggle("collapsed");
+    }
 }
 
 function logout(){

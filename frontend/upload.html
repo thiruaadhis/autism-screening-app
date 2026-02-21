@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Analysis | ERROR 420</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/medical-theme.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+    <aside id="sidebar" class="sidebar">
+        <div>
+            <div class="sidebar-header">Medzilla</div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    Home
+                </a>
+                <a href="questionnaire.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                    Autism Test
+                </a>
+                <a href="upload.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    Video Analysis
+                </a>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <button class="sidebar-logout-btn" onclick="logout()">
+                <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </button>
+            <div class="user-profile">
+                <span id="greetingText">Hi, User</span>
+                <div id="avatarLetter" class="avatar">U</div>
+            </div>
+        </header>
+
+        <div class="result-wrapper">
+            <div class="result-card" style="max-width: 600px;">
+                <h1 style="font-size: 60px; margin: 0;">Hol up cuz</h1>
+                <h2 style="color: #ff6b6b; font-weight: 800; text-transform: uppercase;">Ayo Bruh, The ML Kaiju is Sleeping.</h2>
+                
+                <div class="divider"></div>
+
+                <p style="font-size: 16px; line-height: 1.6;">
+                    Our Convolutional Neural Networks are currently taking a heavily mandated spicy chicken break. The Video Analysis pipeline is actively being forged in the hyper-dimensional fires of VS Code. 
+                </p>
+
+                <p style="font-size: 16px; line-height: 1.6;">
+                   System Status: GPUs are melting. OpenCV is crying in the corner. PyTorch tensors have achieved sentience and are demanding better working conditions. Please stand by while we reroute matrix multiplications to the ISRO satellites.
+                </p>
+
+                <p style="color: #a0a0a0; font-size: 14px; margin-top: 20px;">
+                    In the meantime, why not take the autism screening questionnaire? It's way more fun than waiting for video analysis anyway. We promise it's not just a ploy to keep you busy while we get our AI overlords in line.
+                </p>
+
+                <button onclick="window.location.href='questionnaire.html'" style="margin-top: 40px;">Take a Test</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>

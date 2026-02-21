@@ -1,6 +1,6 @@
-# MedAI: Autism Screening & Video Analysis Toolkit 🧠🦖
+# MedAI: Autism Screening & Video Analysis Toolkit
 
-## 🌟 What This Project Does
+## What This Project Does
 This project is a full-stack, AI-powered web application designed to provide an accessible and insightful screening tool for autism. 
 
 Unlike traditional, purely text-based questionnaires, this platform is being engineered to feature a **Hybrid Screening Architecture**:
@@ -11,7 +11,7 @@ Unlike traditional, purely text-based questionnaires, this platform is being eng
 
 ---
 
-## 🚀 The Journey So Far (Current Features)
+## The Journey So Far (Current Features)
 We have successfully built a bulletproof, monolithic foundation for the web application. The frontend and backend are fully integrated with a sleek, custom-built UI.
 
 * **Sleek, Gemini-Inspired UI/UX:** A monochromatic, dark-mode medical theme with hardware-accelerated CSS animations and a collapsible dashboard sidebar.
@@ -24,7 +24,7 @@ We have successfully built a bulletproof, monolithic foundation for the web appl
 
 ---
 
-## 🗺️ The Kaiju Roadmap (What's Next)
+## The Kaiju Roadmap (What's Next)
 The structural foundation is complete. Next, we awaken the Machine Learning models. 
 
 - [ ] **Video Upload Pipeline:** Build `video_routes.py` and frontend logic to securely chunk and upload user videos to the backend storage.
@@ -35,7 +35,7 @@ The structural foundation is complete. Next, we awaken the Machine Learning mode
 
 ---
 
-## 💻 Tech Stack (Up to Now)
+## Tech Stack (Up to Now)
 
 **Frontend:**
 * **HTML5 / CSS3:** Custom monochromatic dark theme, Flexbox architecture, and hardware-accelerated CSS transforms.
@@ -48,4 +48,4 @@ The structural foundation is complete. Next, we awaken the Machine Learning mode
 * **JSON:** Lightweight, localized database for rapid prototyping.
 
 ---
-*Built with savage grind, 24/7 dedication, and zero distractions. Code, eat, sleep, repeat.* 🐊🇯🇵
+*Built with savage grind, 24/7 dedication, and zero distractions. Code, eat, sleep, repeat.*
