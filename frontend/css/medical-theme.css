@@ -284,19 +284,18 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 
 .sidebar {
     width: 260px;
-    background: #17181a;
+    /* 🔥 Upgraded Sidebar Color: Matches the elevated card look */
+    background: #26272b;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.3s ease;
     overflow: hidden;
     white-space: nowrap;
-    border-right: 1px solid #2e2f34;
 }
 
 .sidebar.collapsed {
     width: 0;
-    border-right: none;
 }
 
 .sidebar-header {
@@ -331,7 +330,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 }
 
 .nav-link:hover {
-    background: #2a2b30;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-link.active {
@@ -352,7 +351,6 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 
 .sidebar-footer {
     padding: 20px 15px;
-    border-top: 1px solid #2e2f34;
 }
 
 .sidebar-logout-btn {
@@ -399,7 +397,6 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #2e2f34; 
     box-sizing: border-box;
 }
 
@@ -495,7 +492,6 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     font-weight: 600;
 }
 
-/* 🔥 The Fix: Border color is now pure white on hover! */
 .info-link:hover {
     background: #2a2b30;
     border-color: #ffffff; 
