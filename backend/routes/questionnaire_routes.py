@@ -15,11 +15,11 @@ def submit_questionnaire():
     likelihood = (total_score / max_score) * 100
 
     if likelihood < 30:
-        interpretation = "Low likelihood"
+        interpretation = "Low likelihood, but consider monitoring and consulting a specialist if concerns persist."
     elif likelihood < 60:
-        interpretation = "Moderate likelihood"
+        interpretation = "Moderate likelihood, consider seeking a professional evaluation for a more comprehensive assessment."
     else:
-        interpretation = "High likelihood"
+        interpretation = "High likelihood, strongly recommend seeking a professional evaluation for a comprehensive assessment and potential early intervention."
 
     return jsonify({
         "likelihood": round(likelihood, 2),

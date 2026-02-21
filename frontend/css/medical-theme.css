@@ -70,6 +70,7 @@ h2 {
     color: white;
 }
 
+/* 🔥 The Upgraded, Animated Button (NO GLOW) */
 button {
     display: block;
     margin: 35px auto;
@@ -80,6 +81,34 @@ button {
     color: #1e1f22;
     cursor: pointer;
     font-family: 'Comfortaa', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover State: Lift up only, NO glow */
+button:hover {
+    transform: translateY(-4px);
+    background: #ffffff;
+}
+
+/* Active/Click State: Squish down into the page */
+button:active {
+    transform: translateY(2px) scale(0.96);
+    transition: all 0.1s ease;
+}
+
+/* 🔥 New Button Group for Side-by-Side Alignment */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Perfect spacing between buttons */
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.button-group button {
+    margin: 0; /* Overrides the default auto margins so flexbox can do the math */
+    display: inline-block;
 }
 
 /* 🔥 animated selection highlight */
@@ -119,6 +148,16 @@ button {
     max-width: 450px;
 }
 
+/* 🔥 Locked-in Auth Box Dimensions for Login & Signup */
+.auth-box {
+    width: 420px; 
+    height: 520px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    box-sizing: border-box;
+}
+
 .result-card h1 {
     font-size: 34px;
     margin: 15px 0;
@@ -143,6 +182,14 @@ button {
     background: #1f2024;
     color: white;
     font-family: 'Comfortaa', sans-serif;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box; 
+}
+
+/* Input fields outline on focus */
+.input-field:focus {
+    outline: none;
+    border-color: #eaeaea;
 }
 
 .divider {
@@ -150,16 +197,12 @@ button {
     opacity: 0.6;
 }
 
-.google-btn {
-    background: white;
-    color: black;
-}
-
 .switch-auth {
     margin-top: 12px;
     font-size: 14px;
     opacity: 0.7;
     cursor: pointer;
+    transition: opacity 0.2s ease;
 }
 
 .switch-auth:hover {
@@ -170,14 +213,7 @@ button {
     position: relative;
 }
 
-#eye {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
+/* Generic class for eye icons */
 .eye-icon {
     position: absolute;
     right: 14px;
@@ -187,4 +223,218 @@ button {
     fill: white;
     cursor: pointer;
     transition: 0.2s ease;
+    z-index: 10; 
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-card {
+    background: #26272b;
+    padding: 30px;
+    border-radius: 14px;
+    border: 1px solid #444;
+    text-align: center;
+    min-width: 300px;
+}
+
+/* Adjusted Error Message Styling */
+.error-message {
+    color: #ff6b6b; 
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px 0 0 0; 
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(255, 107, 107, 0.1); 
+    border: 1px solid #ff6b6b;
+    display: none; 
+}
+
+/* ====================================================
+   🔥 GEMINI-STYLE DASHBOARD UI 
+   ==================================================== */
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background: #1e1f22;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: #17181a;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 1px solid #2e2f34;
+}
+
+.sidebar.collapsed {
+    width: 0;
+    border-right: none;
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 15px;
+}
+
+.nav-link {
+    padding: 14px 18px;
+    border-radius: 12px;
+    color: #eaeaea;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    background: #2a2b30;
+}
+
+.nav-link svg {
+    width: 20px;
+    fill: #eaeaea;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Top Header Bar */
+.top-header {
+    height: 70px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0;
+    padding: 8px;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.menu-btn:hover {
+    background: #2a2b30;
+    transform: none;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #6ba4ff;
+    color: #17181a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* Educational Content Area */
+.content-area {
+    padding: 40px 25px;
+    max-width: 850px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.info-card {
+    background: #26272b;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+.info-card h1 {
+    margin-top: 0;
+    color: #ffffff;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.info-card p {
+    color: #cccccc;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.info-card .highlight {
+    color: #6ba4ff;
+    font-weight: 600;
+}
+
+.logout-btn {
+    margin: 20px 0 0 0;
+    display: inline-block;
+    background: #ff6b6b;
+    color: white;
+    padding: 10px 24px;
+}
+.logout-btn:hover {
+    background: #ff4c4c;
 }

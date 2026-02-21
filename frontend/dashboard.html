@@ -1,21 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
-
+    <title>Dashboard | Autism Screening</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
 </head>
-
 <body>
 
-<div class="result-wrapper">
-    <div class="result-card">
-        <h2>Dashboard</h2>
-        <p id="welcome"></p>
+<div class="dashboard-container">
+    
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            MedAI Toolkit
+        </div>
+        <div class="nav-links">
+            <a href="questionnaire.html" class="nav-link">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                Autism Test
+            </a>
+            <a onclick="alert('Video Analysis Module is currently under construction for the ML Pipeline! 🦖')" class="nav-link">
+                <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                Video Analysis
+            </a>
+        </div>
+    </aside>
 
-        <button onclick="logout()">Logout</button>
-    </div>
+    <main class="main-content">
+        
+        <header class="top-header">
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </button>
+            
+            <div class="user-profile">
+                <span id="greetingText">Hi, User</span>
+                <div id="avatarLetter" class="avatar">U</div>
+            </div>
+        </header>
+
+        <section class="content-area">
+            <div class="info-card">
+                <h1>Understanding Autism</h1>
+                <p>Before you begin the screening process, it is essential to understand exactly what we are looking at. <span class="highlight">Autism is not a disease, and it is not a disorder that needs to be "cured."</span></p>
+                <p>It is a form of neurodivergence a natural variation in the human brain regarding how it processes information, socializes, and perceives the environment. Individuals on the autism spectrum simply experience the world through a different, often highly detailed and unique, neurological lens.</p>
+                <p>This toolkit is designed to provide clarity and understanding, leveraging AI to help map these unique neurological patterns so individuals can get the support and environment they need to thrive.</p>
+                
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </section>
+
+    </main>
+
 </div>
 
 <script src="js/dashboard.js"></script>
