@@ -1,35 +1,59 @@
+// ==========================================
+// GLOBAL SETTINGS INJECTION
+// ==========================================
+function applySettings() {
+    const reduceMotion = localStorage.getItem('setting_reduceMotion') === 'true';
+    const dyslexiaFont = localStorage.getItem('setting_dyslexiaFont') === 'true';
+    const lightMode = localStorage.getItem('setting_lightMode') === 'true';
+
+    if (reduceMotion) document.body.classList.add('reduce-motion');
+    else document.body.classList.remove('reduce-motion');
+
+    if (dyslexiaFont) document.body.classList.add('dyslexia-mode');
+    else document.body.classList.remove('dyslexia-mode');
+
+    if (lightMode) document.body.classList.add('light-mode');
+    else document.body.classList.remove('light-mode');
+}
+
+applySettings();
+
+// ==========================================
+// UI LOGIC
+// ==========================================
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.replace('login.html'); 
+}
+
+// ==========================================
+// DYNAMIC PROFILE EXTRACTION ENGINE
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-    const userEmail = localStorage.getItem("user");
+    const userPayload = localStorage.getItem('currentUser');
+    let displayString = "User";
 
-    // Kick them out if they aren't logged in
-    if(!userEmail){
-        window.location.href = "login.html";
-        return;
-    }
+    if (userPayload) {
+        try {
+            const user = JSON.parse(userPayload);
+            if (user.username && user.username !== "Xyz" && user.username.trim() !== "") {
+                displayString = user.username;
+            } 
+            else if (user.email) {
+                displayString = user.email.split('@')[0];
+            }
+        } catch (e) {
+            console.error("Matrix parse error:", e);
+        }
+    } 
 
-    // Extract Name from Email
-    const rawName = userEmail.split("@")[0];
-    const displayName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
-
-    // Update the DOM for the header (Safe check in case it's missing)
-    const greetingEl = document.getElementById("greetingText");
-    const avatarEl = document.getElementById("avatarLetter");
-    
-    if (greetingEl && avatarEl) {
-        greetingEl.innerText = `Hi, ${displayName}`;
-        avatarEl.innerText = displayName.charAt(0).toUpperCase();
+    if (document.getElementById('greetingText')) {
+        document.getElementById('greetingText').innerText = `Hi, ${displayString}`;
+        const avatarChar = displayString.charAt(0).toUpperCase();
+        document.getElementById('avatarLetter').innerText = avatarChar;
     }
 });
-
-// 🔥 Sidebar Toggle Logic
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    if(sidebar) {
-        sidebar.classList.toggle("collapsed");
-    }
-}
-
-function logout(){
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
-}

@@ -4,8 +4,18 @@
     <title>Results | Medzilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
+    <script>
+        (function() {
+            const reduceMotion = localStorage.getItem('setting_reduceMotion') === 'true';
+            const dyslexiaFont = localStorage.getItem('setting_dyslexiaFont') === 'true';
+            const lightMode = localStorage.getItem('setting_lightMode') === 'true';
+            if (reduceMotion) document.documentElement.classList.add('reduce-motion');
+            if (dyslexiaFont) document.documentElement.classList.add('dyslexia-mode');
+            if (lightMode) document.documentElement.classList.add('light-mode');
+        })();
+    </script>
 </head>
-<body>
+<body onload="document.body.className = document.documentElement.className;">
 
 <div class="dashboard-container">
     <aside id="sidebar" class="sidebar">

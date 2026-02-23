@@ -497,20 +497,20 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     display: block;
     color: #eaeaea;
     text-decoration: none;
-    border: 1px solid #444;
+    border: 1px solid #555;
     padding: 14px 20px;
     border-radius: 10px;
     width: 80%;
     margin: 0 auto 10px auto;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    background: #1e1f22;
+    background: #313338; 
     text-align: center;
     font-weight: 600;
 }
 
 .info-link:hover {
-    background: #3f4147;
-    border-color: #ffffff; 
+    background: #404249;
+    border-color: #6ba4ff; 
     transform: translateX(6px) scale(1.01);
     color: #ffffff;
 }
@@ -519,40 +519,343 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     transform: translateX(3px) scale(0.98);
 }
 
-#profile-logout-target {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    margin: 30px auto 0 auto !important;
-    padding: 12px 24px !important;
-    width: auto !important;
-    min-width: 160px !important;
-    background: transparent !important;
-    color: #ff6b6b !important;
-    border: 1px solid #ff6b6b !important;
-    border-radius: 12px !important;
-    font-family: 'Comfortaa', sans-serif !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid #3f4147;
 }
 
-#profile-logout-target:hover {
-    background: rgba(255, 107, 107, 0.1) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: none !important;
+.setting-item:last-child {
+    border-bottom: none;
 }
 
-#profile-logout-target:active {
-    transform: translateY(2px) scale(0.96) !important;
+.setting-info {
+    flex: 1;
+    padding-right: 20px;
 }
 
-#profile-logout-target svg {
-    fill: #ff6b6b !important;
-    width: 20px !important;
-    height: 20px !important;
-    flex-shrink: 0 !important;
-    margin: 0 !important;
+.setting-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.setting-desc {
+    font-size: 13px;
+    color: #a0a0a0;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #3f4147;
+    transition: .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #6ba4ff;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #6ba4ff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.action-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.stealth-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: transparent;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+    border-radius: 12px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-sizing: border-box;
+}
+
+.stealth-btn:hover {
+    background: rgba(255, 107, 107, 0.1);
+    transform: translateY(-2px);
+}
+
+.stealth-btn:active {
+    transform: translateY(2px) scale(0.96);
+}
+
+.stealth-btn svg {
+    fill: #ff6b6b;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+
+/* ====================================================
+   SYSTEM OVERRIDES (ACCESSIBILITY & THEMES)
+   ==================================================== */
+
+body.dyslexia-mode * {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important;
+    letter-spacing: 0.5px !important;
+    word-spacing: 1.5px !important;
+    line-height: 1.6 !important;
+}
+
+body.reduce-motion * {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* ====================================================
+   LIGHT MODE: MONOCHROMATIC DARK GREY OVERRIDE
+   ==================================================== */
+
+body.light-mode,
+body.light-mode .dashboard-container {
+    background: #f4f5f7 !important;
+    color: #1e1f22 !important;
+}
+
+body.light-mode .sidebar {
+    background: #ffffff !important;
+    border-right: 1px solid #e0e0e0 !important;
+}
+
+body.light-mode .top-header {
+    background: #f4f5f7 !important;
+}
+
+body.light-mode .brand-title {
+    color: #1e1f22 !important;
+}
+
+body.light-mode .nav-link {
+    color: #444444 !important;
+}
+
+body.light-mode .nav-link svg {
+    fill: #444444 !important;
+}
+
+body.light-mode .nav-link:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .nav-link.active {
+    background: rgba(49, 51, 56, 0.1) !important;
+    color: #1e1f22 !important;
+    border-left: 4px solid #1e1f22 !important;
+}
+
+body.light-mode .nav-link.active svg {
+    fill: #1e1f22 !important;
+}
+
+body.light-mode .user-profile {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .avatar {
+    background: #1e1f22 !important;
+    color: #ffffff !important;
+}
+
+body.light-mode .info-card, 
+body.light-mode .result-card, 
+body.light-mode .modal-card,
+body.light-mode #questions div {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+body.light-mode h1, 
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode .info-card h3[style],
+body.light-mode .setting-label,
+body.light-mode .info-card p, 
+body.light-mode .info-card li {
+    color: #1e1f22 !important;
+}
+
+body.light-mode .setting-desc,
+body.light-mode p {
+    color: #666666 !important;
+}
+
+/* ====================================================
+   LIGHT MODE BUTTONS & OPTIONS (Strict Dark Grey)
+   ==================================================== */
+
+/* Global primary buttons (Submit, Login, Take Test) */
+body.light-mode button {
+    background-color: #313338 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+body.light-mode button:hover {
+    background-color: #1e1f22 !important;
+    transform: translateY(-4px) !important;
+}
+
+/* Exempt the Hamburger Menu from becoming a solid grey block */
+body.light-mode button.menu-btn {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+body.light-mode button.menu-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode button.menu-btn svg {
+    fill: #1e1f22 !important;
+}
+
+/* Exempt the Red Action Buttons (Purge / Logout) from turning grey */
+body.light-mode button[style*="#ff6b6b"],
+body.light-mode .stealth-btn {
+    background-color: transparent !important;
+    color: #d32f2f !important;
+    border: 1px solid #d32f2f !important;
+}
+
+body.light-mode button[style*="#ff6b6b"]:hover,
+body.light-mode .stealth-btn:hover {
+    background-color: rgba(211, 47, 47, 0.1) !important;
+}
+
+body.light-mode button[style*="#ff6b6b"] svg,
+body.light-mode button[style*="#ff6b6b"] svg path,
+body.light-mode .stealth-btn svg,
+body.light-mode .stealth-btn svg path {
+    fill: #d32f2f !important;
+}
+
+/* Dashboard Resource Links */
+body.light-mode .info-link {
+    background: #ffffff !important;
+    color: #313338 !important;
+    border-color: #313338 !important;
+}
+
+body.light-mode .info-link:hover {
+    background: #313338 !important;
+    color: #ffffff !important;
+    border-color: #313338 !important;
+}
+
+/* Toggle Slider */
+body.light-mode .slider {
+    background-color: #d0d0d0 !important;
+}
+
+body.light-mode input:checked + .slider {
+    background-color: #313338 !important;
+}
+
+/* Questionnaire Radio Options */
+body.light-mode .options label {
+    border-color: #cccccc !important;
+}
+
+body.light-mode .options label:hover {
+    border-color: #888888 !important;
+}
+
+body.light-mode .options input[type="radio"] {
+    border-color: #aaaaaa !important;
+}
+
+body.light-mode .options input[type="radio"]:checked {
+    background: #313338 !important;
+    border-color: #313338 !important;
+}
+
+body.light-mode .options label:has(input:checked) {
+    background: rgba(49, 51, 56, 0.1) !important;
+    border-color: #313338 !important;
+}
+
+body.light-mode .options input[type="radio"]:checked + span {
+    color: #1e1f22 !important;
+}
+
+/* Auth Page Inputs */
+body.light-mode .input-field {
+    background-color: #ffffff !important;
+    color: #1e1f22 !important;
+    border: 1px solid #cccccc !important;
+}
+
+body.light-mode .input-field::placeholder {
+    color: #888888 !important;
+}
+
+body.light-mode .input-field:focus {
+    background-color: #ffffff !important;
+    border-color: #313338 !important;
+    box-shadow: 0 0 0 3px rgba(49, 51, 56, 0.1) !important;
+}
+
+body.light-mode .password-box .eye-icon {
+    fill: #666666 !important;
+}
+
+body.light-mode .switch-auth {
+    color: #313338 !important;
+}
+
+body.light-mode .switch-auth:hover {
+    color: #1e1f22 !important;
 }

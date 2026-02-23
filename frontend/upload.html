@@ -4,9 +4,19 @@
     <title>Video Analysis | Medzilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
+    <script>
+        (function() {
+            const reduceMotion = localStorage.getItem('setting_reduceMotion') === 'true';
+            const dyslexiaFont = localStorage.getItem('setting_dyslexiaFont') === 'true';
+            const lightMode = localStorage.getItem('setting_lightMode') === 'true';
+            if (reduceMotion) document.documentElement.classList.add('reduce-motion');
+            if (dyslexiaFont) document.documentElement.classList.add('dyslexia-mode');
+            if (lightMode) document.documentElement.classList.add('light-mode');
+        })();
+    </script>
 </head>
 
-<body>
+<body onload="document.body.className = document.documentElement.className;">
 
 <div class="dashboard-container">
     <aside id="sidebar" class="sidebar">
@@ -51,14 +61,14 @@
 
         <div class="result-wrapper">
             <div class="result-card" style="max-width: 600px;">
-                <h1 style="font-size: 60px; margin: 0;">Under Construction</h1>
-                <h2 style="color: #ff6b6b; font-weight: 800; text-transform: uppercase;">Ayo Bruh, The ML Kaiju is Sleeping.</h2>
+                <h1 style="font-size: 60px; margin: 0;">M Z</h1>
+                <h2 style="color: #ff6b6b; font-weight: 800; text-transform: uppercase;">Hol up nigga<br>Ayo Bruh, The ML Kaiju is Sleeping.</h2>
                 <div class="divider"></div>
                 <p style="font-size: 16px; line-height: 1.6;">
                     Our Convolutional Neural Networks are currently taking a heavily mandated spicy chicken break. The Video Analysis pipeline is actively being forged in the hyper-dimensional fires of VS Code. 
                 </p>
-                <p style="font-size: 16px; line-height: 1.6">
-                    We know, we know... you were really looking forward to uploading videos of your adorable toddler's quirky behaviors and getting instant insights. In the meantime, why not explore the Autism Screening Questionnaire or customize your settings? The ML Kaiju is working hard to bring you a powerful video analysis tool that will make you say "Wow, Medzilla really thought of everything!".
+                <p style="color: #a0a0a0; font-size: 14px; margin-top: 20px; font-style: italic;">
+                    System Status: GPUs are melting. OpenCV is crying in the corner. PyTorch tensors have achieved sentience and are demanding better working conditions. Please stand by while we reroute matrix multiplications to the ISRO satellites.
                 </p>
                 <button onclick="window.location.href='questionnaire.html'" style="margin-top: 40px;">Take a Test</button>
             </div>
