@@ -8,10 +8,9 @@ REVERSE_SCORED_QUESTIONS = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 18
 }
 
-# 🔥 CLINICAL RED FLAGS & CRITICAL THRESHOLDS
+# 🔥 CLINICAL RED FLAGS
 CRITICAL_QUESTIONS = {0, 1, 4, 20}
 WEIGHT_MULTIPLIER = 1.5
-CRITICAL_TRIGGER_LIMIT = 2 # If 2 or more critical flags are triggered, auto-escalate to High Risk
 
 @questionnaire_bp.route("/submit-questionnaire", methods=["POST"])
 def submit_questionnaire():
@@ -24,9 +23,7 @@ def submit_questionnaire():
     max_possible_score = 0
     critical_flags_triggered = 0
 
-    # 🔥 DSM-5 Sub-Domain Tracking
-    # Questions 0-14: Social Communication (Criteria A)
-    # Questions 15-29: Repetitive/Sensory Behaviors (Criteria B)
+    # DSM-5 Sub-Domain Tracking
     social_score = 0
     social_max = 0
     behavioral_score = 0
@@ -41,7 +38,7 @@ def submit_questionnaire():
 
         # 2. Critical Red Flag Tracking
         is_critical = i in CRITICAL_QUESTIONS
-        if is_critical and base_score >= 3: # If they scored 3 (Often) or 4 (Always) on a high-risk symptom
+        if is_critical and base_score >= 3: # Scored 3 (Often) or 4 (Always) on a high-risk symptom
             critical_flags_triggered += 1
 
         weight = WEIGHT_MULTIPLIER if is_critical else 1.0
@@ -59,22 +56,26 @@ def submit_questionnaire():
             behavioral_score += final_score
             behavioral_max += max_q_score
 
-    # 4. Calculate Percentages
-    likelihood = (total_score / max_possible_score) * 100
+    # 4. Calculate Raw Percentages
+    likelihood = (total_score / max_possible_score) * 100 if max_possible_score > 0 else 0
     social_percent = (social_score / social_max) * 100 if social_max > 0 else 0
     behavioral_percent = (behavioral_score / behavioral_max) * 100 if behavioral_max > 0 else 0
 
-    # 5. Clinical Interpretations with Auto-Escalation
-    if critical_flags_triggered >= CRITICAL_TRIGGER_LIMIT:
-        interpretation = "High likelihood. Multiple critical developmental markers were flagged. A formal evaluation by a specialist is strongly recommended immediately."
-        # Artificially bump the likelihood to a minimum of 75% so the UI matches the severity
-        likelihood = max(likelihood, 75.0) 
-    elif likelihood < 35:
-        interpretation = "Low likelihood, but consider monitoring and consulting a specialist if concerns persist."
-    elif likelihood < 70:
-        interpretation = "Moderate likelihood. It is recommended to consult a developmental pediatrician or healthcare professional."
+    # 5. 🔥 UPGRADED CLINICAL LOGIC (The False-Positive Fix)
+    # We blend the raw percentage with the critical flags using an Escalation Matrix.
+    
+    if likelihood >= 70 or critical_flags_triggered >= 3:
+        interpretation = "High likelihood. Significant developmental markers were flagged. A formal evaluation by a specialist is strongly recommended."
+        # Gently ensure the UI reflects the severity if triggered by flags, but no massive 75% jumps
+        likelihood = max(likelihood, 70.0) 
+        
+    elif likelihood >= 35 or critical_flags_triggered >= 1:
+        interpretation = "Moderate likelihood. Some specific behaviors were flagged. It is recommended to consult a developmental pediatrician for a follow-up."
+        # Escalate to the moderate floor if a single critical flag is caught
+        likelihood = max(likelihood, 35.0)
+        
     else:
-        interpretation = "High likelihood. A formal evaluation by a specialist is strongly recommended."
+        interpretation = "Low likelihood, but consider monitoring and consulting a healthcare professional if concerns persist."
 
     return jsonify({
         "likelihood": round(likelihood, 2),

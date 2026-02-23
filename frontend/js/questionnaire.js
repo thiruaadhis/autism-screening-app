@@ -1,105 +1,108 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-const questions = [
-    "How often does your child comfortably make eye contact when interacting with you or others?",
-    "When you call your child's name, how consistently do they respond or acknowledge you?",
-    "How interested does your child seem in playing or interacting with other children of a similar age?",
-    "When you smile at your child, how often do they respond with a smile or positive facial expression?",
-    "How frequently does your child try to share objects, toys, or experiences with you to gain your attention?",
-    "When you point to something interesting, how often does your child follow your gesture or look in the same direction?",
-    "How often does your child attempt to draw your attention to things they find interesting or exciting?",
-    "In unfamiliar situations, how often does your child look at your face for reassurance or emotional cues?",
-    "How often does your child use gestures such as pointing, waving, or nodding to communicate needs or interests?",
-    "How frequently does your child imitate actions, sounds, or facial expressions shown by others?",
-    "How well does your child understand and respond to simple instructions without needing repeated prompts or gestures?",
-    "How comfortably does your child attempt to express their needs using words, sounds, or gestures?",
-    "How often does your child engage in back-and-forth vocalization or conversational attempts with you?",
-    "How frequently does your child engage in pretend communication, such as talking on a toy phone or role-playing?",
-    "How often does your child struggle to clearly communicate their emotions, needs, or discomfort?",
-    "How frequently does your child engage in imaginative or pretend play activities?",
-    "Does your child tend to prefer playing alone rather than engaging in interactive or shared play with others?",
-    "How often does your child use toys in repetitive or unusual ways instead of typical play patterns?",
-    "How much enjoyment does your child show when participating in interactive games like peek-a-boo or turn-taking activities?",
-    "How often does your child show limited interest in exploring a variety of play activities?",
-    "How frequently does your child repeat certain body movements such as rocking, spinning, or hand-flapping?",
-    "When daily routines change unexpectedly, how often does your child become noticeably upset or distressed?",
-    "How strongly does your child insist on performing activities in a specific order or familiar way?",
-    "How intensely does your child focus on specific objects, activities, or topics for extended periods?",
-    "How often does your child repeat particular sounds, words, or phrases multiple times?",
-    "How sensitive is your child to sounds, lights, textures, or other sensory experiences in their environment?",
-    "How often does your child avoid certain physical sensations such as touch, clothing textures, or grooming activities?",
-    "How frequently does your child seek sensory stimulation such as spinning objects, staring at lights, or repetitive movement?",
-    "How often does your child show emotional reactions that seem delayed, unusually intense, or difficult to interpret?",
-    "Compared to interacting with people, how often does your child appear more interested in objects or specific activities?"
+const autismQuestions = [
+    "1. Does your child look at you when you call their name?",
+    "2. How often does your child make eye contact?",
+    "3. Does your child point to indicate what they want?",
+    "4. Does your child show interest in other children?",
+    "5. Does your child imitate your actions (e.g., waving bye-bye)?",
+    "6. Does your child respond to your smile with a smile?",
+    "7. Does your child bring objects to show you?",
+    "8. Does your child understand simple verbal instructions?",
+    "9. Does your child engage in pretend play (e.g., feeding a doll)?",
+    "10. Does your child look where you are pointing?",
+    "11. Does your child have unusual finger movements near their eyes?",
+    "12. Does your child spin objects or themselves frequently?",
+    "13. Does your child get upset by everyday noises (e.g., a vacuum)?",
+    "14. Does your child have an intense interest in specific objects?",
+    "15. Does your child flap their hands or rock back and forth?",
+    "16. Does your child seem overly sensitive to textures (e.g., clothing tags)?",
+    "17. Does your child arrange toys in strict lines?",
+    "18. Does your child struggle with changes to their routine?",
+    "19. Does your child repeat words or phrases out of context?",
+    "20. Does your child seem to not feel pain like others do?",
+    "21. Does your child focus intensely on parts of toys (e.g., wheels)?",
+    "22. Does your child avoid physical contact or cuddling?",
+    "23. Does your child have unusual eating habits or extreme picky eating?",
+    "24. Does your child use your hand as a tool to get what they want?",
+    "25. Does your child show extreme distress during transitions?",
+    "26. Does your child have difficulty understanding other people's feelings?",
+    "27. Does your child use gestures to communicate (e.g., nodding)?",
+    "28. Does your child play with toys in conventional ways?",
+    "29. Does your child seek comfort from you when hurt or upset?",
+    "30. Does your child share enjoyment with you (e.g., laughing together)?"
 ];
 
-const container = document.getElementById("questions");
+const questionsDiv = document.getElementById("questions");
 
-questions.forEach((q, i) => {
+autismQuestions.forEach((q, index) => {
     const div = document.createElement("div");
-
+    
+    const questionText = q.substring(q.indexOf('.') + 1).trim();
+    
     div.innerHTML = `
-        <p>${i+1}. ${q}</p>
+        <p><strong>Question ${index + 1}:</strong> ${questionText}</p>
         <div class="options">
-            <label><input type="radio" name="q${i}" value="0" checked><span>Never</span></label>
-            <label><input type="radio" name="q${i}" value="1"><span>Rarely</span></label>
-            <label><input type="radio" name="q${i}" value="2"><span>Sometimes</span></label>
-            <label><input type="radio" name="q${i}" value="3"><span>Often</span></label>
-            <label><input type="radio" name="q${i}" value="4"><span>Always</span></label>
+            <label><input type="radio" name="q${index}" value="0"> <span>Never</span></label>
+            <label><input type="radio" name="q${index}" value="1"> <span>Rarely</span></label>
+            <label><input type="radio" name="q${index}" value="2"> <span>Sometimes</span></label>
+            <label><input type="radio" name="q${index}" value="3"> <span>Often</span></label>
+            <label><input type="radio" name="q${index}" value="4"> <span>Always</span></label>
         </div>
     `;
-
-    container.appendChild(div);
+    questionsDiv.appendChild(div);
 });
 
-window.submitAnswers = async function () {
-    const submitBtn = document.querySelector("button");
-    const originalText = submitBtn.innerText;
+async function submitAnswers() {
+    const btn = document.getElementById("submit-btn");
+    const errorDiv = document.getElementById("form-error");
+    const originalText = btn.innerText;
     
-    // Give UI feedback that something is happening
-    submitBtn.innerText = "Submitting...";
-    submitBtn.disabled = true;
+    errorDiv.style.display = "none";
+    btn.innerText = "Submitting...";
+    btn.disabled = true;
+
+    const answers = [];
+    let allAnswered = true;
+
+    for (let i = 0; i < 30; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+            answers.push(parseInt(selected.value));
+        } else {
+            allAnswered = false;
+            break;
+        }
+    }
+
+    if (!allAnswered) {
+        errorDiv.innerText = "Please answer all 30 questions to ensure clinical accuracy.";
+        errorDiv.style.display = "block";
+        btn.innerText = originalText;
+        btn.disabled = false;
+        
+        errorDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+    }
 
     try {
-        const answers = [];
+        const response = await fetch("http://127.0.0.1:5000/submit-questionnaire", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ answers })
+        });
 
-        for(let i=0; i<30; i++){
-            const selected = document.querySelector(`input[name="q${i}"]:checked`);
-            if (!selected) {
-                showError(`Hold up! Question ${i+1} is missing an answer.`);
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            answers.push(parseInt(selected.value));
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
 
-        const result = await submitQuestionnaire(answers);
-
-        if (result && result.likelihood !== undefined) {
-            localStorage.setItem("result", JSON.stringify(result));
-            window.location.href = "results.html";
-        } else {
-            showError("The backend returned an error. Check the browser console.");
-        }
+        const data = await response.json();
+        
+        localStorage.setItem("screeningResult", JSON.stringify(data));
+        
+        window.location.href = "results.html";
 
     } catch (error) {
-        console.error("Submission crashed:", error);
-        showError("Failed to connect! Is your Flask backend definitely running on port 5000?");
-    } finally {
-        submitBtn.innerText = originalText;
-        submitBtn.disabled = false;
+        console.error("Error:", error);
+        errorDiv.innerText = "Failed to submit to the ML Pipeline. Is the Python server running?";
+        errorDiv.style.display = "block";
+        btn.innerText = originalText;
+        btn.disabled = false;
     }
 }
-
-// Attach modal functions to the window object so the HTML buttons can reach them
-window.showError = function(message) {
-    document.getElementById("modalText").innerText = message;
-    document.getElementById("authModal").classList.remove("hidden");
-};
-
-window.closeModal = function() {
-    document.getElementById("authModal").classList.add("hidden");
-};
-
-});
