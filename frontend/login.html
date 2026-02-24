@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login | Medzilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
+</head>
+<body>
     
     <script>
         (function() {
@@ -11,13 +13,11 @@
             const dyslexiaFont = localStorage.getItem('setting_dyslexiaFont') === 'true';
             const lightMode = localStorage.getItem('setting_lightMode') === 'true';
 
-            if (reduceMotion) document.documentElement.classList.add('reduce-motion');
-            if (dyslexiaFont) document.documentElement.classList.add('dyslexia-mode');
-            if (lightMode) document.documentElement.classList.add('light-mode');
+            if (reduceMotion) document.body.classList.add('reduce-motion');
+            if (dyslexiaFont) document.body.classList.add('dyslexia-mode');
+            if (lightMode) document.body.classList.add('light-mode');
         })();
     </script>
-</head>
-<body onload="document.body.className = document.documentElement.className;">
 
 <div class="result-wrapper">
     <div class="result-card auth-box">
@@ -28,7 +28,7 @@
 
         <div class="password-box">
             <input id="password" type="password" placeholder="Password" class="input-field">
-            <svg id="eye" onclick="togglePassword()" viewBox="0 0 24 24" class="eye-icon">
+            <svg id="eye" onclick="togglePassword('password')" viewBox="0 0 24 24" class="eye-icon">
                 <path id="eyePath" d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
             </svg>
         </div>

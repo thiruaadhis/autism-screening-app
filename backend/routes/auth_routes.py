@@ -23,23 +23,26 @@ def save_accounts(data):
     with open(FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-@auth_bp.route("/signup", methods=["POST"])
+# Notice we added /api/ to match the frontend fetch command
+@auth_bp.route("/api/signup", methods=["POST"])
 def signup():
     data = request.json
     email = data.get("email")
     password = data.get("password")
+    username = data.get("username") # Extracting the username the JS sent!
 
     accounts = load_accounts()
 
     if any(acc["email"] == email for acc in accounts):
-        return jsonify({"error": "Account already exists"}), 400
+        # This exact string triggers the frontend red box!
+        return jsonify({"error": "Account already exists."}), 400
 
-    accounts.append({"email": email, "password": password})
+    accounts.append({"email": email, "password": password, "username": username})
     save_accounts(accounts)
 
-    return jsonify({"message": "Account created"})
+    return jsonify({"message": "Account created", "email": email, "username": username}), 201
 
-@auth_bp.route("/login", methods=["POST"])
+@auth_bp.route("/api/login", methods=["POST"])
 def login():
     data = request.json
     email = data.get("email")
@@ -47,11 +50,20 @@ def login():
 
     accounts = load_accounts()
 
-    for acc in accounts:
-        if acc["email"] == email:
-            if acc["password"] == password:
-                return jsonify({"success": True})
-            else:
-                return jsonify({"error": "Wrong password"}), 401
+    # Find the user in the database
+    user = next((acc for acc in accounts if acc["email"] == email), None)
 
-    return jsonify({"error": "Account not found"}), 404
+    if not user:
+        # This triggers the "Create Account" modal in the frontend
+        return jsonify({"error": "Account not found"}), 404
+
+    if user["password"] == password:
+        # Success! Send the username back so the dashboard can display it
+        return jsonify({
+            "success": True, 
+            "email": email, 
+            "username": user.get("username", email.split('@')[0])
+        }), 200
+    else:
+        # This exact string triggers the wrong password red box!
+        return jsonify({"error": "Wrong password."}), 401

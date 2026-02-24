@@ -172,6 +172,10 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     opacity: 0.7;
 }
 
+/* ====================================================
+   INPUT & AUTOFILL PHYSICS
+   ==================================================== */
+
 .input-field {
     width: 100%;
     padding: 12px;
@@ -188,6 +192,15 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 .input-field:focus {
     outline: none;
     border-color: #eaeaea;
+}
+
+.input-field:-webkit-autofill,
+.input-field:-webkit-autofill:hover, 
+.input-field:-webkit-autofill:focus, 
+.input-field:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #1f2024 inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .divider {
@@ -207,21 +220,46 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     opacity: 1;
 }
 
+/* ====================================================
+   EYE TOGGLE GEOMETRY FIX (BULLETPROOF AUTO-MARGIN)
+   ==================================================== */
+
 .password-box {
     position: relative;
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.password-box .input-field {
+    margin: 0 !important; 
+    width: 100%;
+    padding-right: 45px; 
+    box-sizing: border-box;
 }
 
 .eye-icon {
     position: absolute;
     right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    bottom: 0;
+    margin: auto;
     width: 20px;
-    fill: white;
+    height: 20px;
+    fill: #a0a0a0;
     cursor: pointer;
     transition: 0.2s ease;
     z-index: 10; 
 }
+
+.eye-icon:hover {
+    fill: #ffffff;
+}
+
+/* ====================================================
+   MODALS & UI CONTAINERS
+   ==================================================== */
 
 .modal {
     position: fixed;
@@ -493,6 +531,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     font-weight: 700;
 }
 
+/* Dashboard Information Links (DARK MODE DEFAULT) */
 .info-link {
     display: block;
     color: #eaeaea;
@@ -655,7 +694,7 @@ body.reduce-motion * {
 }
 
 /* ====================================================
-   LIGHT MODE: MONOCHROMATIC DARK GREY OVERRIDE
+   LIGHT MODE OVERRIDE
    ==================================================== */
 
 body.light-mode,
@@ -717,14 +756,19 @@ body.light-mode #questions div {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
 }
 
+/* THE FIX: Specifically shielding Red & Blue text from the wipe! */
 body.light-mode h1, 
-body.light-mode h2,
-body.light-mode h3,
-body.light-mode .info-card h3[style],
+body.light-mode h2:not([style*="#ff6b6b"]), 
 body.light-mode .setting-label,
 body.light-mode .info-card p, 
 body.light-mode .info-card li {
     color: #1e1f22 !important;
+}
+
+/* Makes sure h3 elements keep their sleek blue accent */
+body.light-mode h3,
+body.light-mode h3[style*="#6ba4ff"] {
+    color: #1a73e8 !important; 
 }
 
 body.light-mode .setting-desc,
@@ -732,11 +776,6 @@ body.light-mode p {
     color: #666666 !important;
 }
 
-/* ====================================================
-   LIGHT MODE BUTTONS & OPTIONS (Strict Dark Grey)
-   ==================================================== */
-
-/* Global primary buttons (Submit, Login, Take Test) */
 body.light-mode button {
     background-color: #313338 !important;
     color: #ffffff !important;
@@ -748,7 +787,6 @@ body.light-mode button:hover {
     transform: translateY(-4px) !important;
 }
 
-/* Exempt the Hamburger Menu from becoming a solid grey block */
 body.light-mode button.menu-btn {
     background-color: transparent !important;
     border: none !important;
@@ -762,7 +800,6 @@ body.light-mode button.menu-btn svg {
     fill: #1e1f22 !important;
 }
 
-/* Exempt the Red Action Buttons (Purge / Logout) from turning grey */
 body.light-mode button[style*="#ff6b6b"],
 body.light-mode .stealth-btn {
     background-color: transparent !important;
@@ -782,20 +819,24 @@ body.light-mode .stealth-btn svg path {
     fill: #d32f2f !important;
 }
 
-/* Dashboard Resource Links */
+/* THE FIX: Re-engineered Light Mode Hover Animation! */
 body.light-mode .info-link {
     background: #ffffff !important;
     color: #313338 !important;
-    border-color: #313338 !important;
+    border-color: #cccccc !important;
 }
 
 body.light-mode .info-link:hover {
-    background: #313338 !important;
-    color: #ffffff !important;
-    border-color: #313338 !important;
+    background: rgba(26, 115, 232, 0.05) !important; 
+    color: #1a73e8 !important; 
+    border-color: #1a73e8 !important; 
+    transform: translateX(6px) scale(1.01) !important; 
 }
 
-/* Toggle Slider */
+body.light-mode .info-link:active {
+    transform: translateX(3px) scale(0.98) !important;
+}
+
 body.light-mode .slider {
     background-color: #d0d0d0 !important;
 }
@@ -804,7 +845,6 @@ body.light-mode input:checked + .slider {
     background-color: #313338 !important;
 }
 
-/* Questionnaire Radio Options */
 body.light-mode .options label {
     border-color: #cccccc !important;
 }
@@ -831,7 +871,14 @@ body.light-mode .options input[type="radio"]:checked + span {
     color: #1e1f22 !important;
 }
 
-/* Auth Page Inputs */
+body.light-mode .input-field:-webkit-autofill,
+body.light-mode .input-field:-webkit-autofill:hover, 
+body.light-mode .input-field:-webkit-autofill:focus, 
+body.light-mode .input-field:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #1e1f22 !important;
+}
+
 body.light-mode .input-field {
     background-color: #ffffff !important;
     color: #1e1f22 !important;
@@ -848,8 +895,12 @@ body.light-mode .input-field:focus {
     box-shadow: 0 0 0 3px rgba(49, 51, 56, 0.1) !important;
 }
 
-body.light-mode .password-box .eye-icon {
+body.light-mode .eye-icon {
     fill: #666666 !important;
+}
+
+body.light-mode .eye-icon:hover {
+    fill: #1e1f22 !important;
 }
 
 body.light-mode .switch-auth {

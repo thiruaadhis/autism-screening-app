@@ -5,6 +5,8 @@ from routes.questionnaire_routes import questionnaire_bp
 from routes.auth_routes import auth_bp
 
 app = Flask(__name__)
+
+# This is the magic bridge that allows Live Server (5500) to talk to Flask (5000)
 CORS(app)
 
 # Register routes
