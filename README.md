@@ -1,57 +1,197 @@
-# Medzilla: Autism Screening & Video Analysis Toolkit
+# MEDZILLA  
+### The Neurodivergence Screening Kaiju Quietly Cooking In Your Backend
+
+---
 
 ## What This Project Does
-This project is a full-stack, AI-powered web application designed to provide an accessible and insightful screening tool for autism. 
 
-Unlike traditional, purely text-based questionnaires, this platform is being engineered to feature a **Hybrid Screening Architecture**:
-1. **Clinical Questionnaire Engine:** A rigorous 30-question behavioral assessment utilizing an Escalation Matrix to handle false positives.
-2. **Computer Vision Analysis (In Development):** A machine learning pipeline that will analyze user-uploaded videos using OpenCV and deep learning to track facial landmarks, pose, and repetitive motions.
+Medzilla is a full-stack AI screening platform designed to analyze neurodivergent behavioral patterns through a hybrid intelligence pipeline.
 
-**Mission Statement:** Autism is not a disease; it is neurodivergence. This toolkit is designed to map these unique neurological patterns to help individuals get the support and understanding they need to thrive.
+This is not a personality quiz.  
+This is not vibes-based analysis.  
+This is not guesswork pretending to be science.
 
----
+Medzilla combines structured psychological screening with computer vision analysis to produce meaningful behavioral insight instead of confusion disguised as information.
 
-## The Journey So Far (Current Features)
-We have successfully built a bulletproof, monolithic foundation for the web application. The frontend and backend are fully integrated with a sleek, highly-optimized custom UI.
+The system exists to replace the classic experience of receiving a massive medical PDF and immediately losing cognitive stability.
 
-* **Advanced Clinical Scoring Logic:** * Implemented reverse-scoring mathematics for inverted psychological questions.
-    * Engineered an **Escalation Matrix** that tracks "Critical Flags" (e.g., lack of eye contact) to establish moderate vs. high likelihood floors, drastically reducing false-positive panic.
-    * Divides raw scores into specific DSM-5 sub-domains: "Social Communication" and "Behavioral" percentages.
-* **Sleek, Tactile UI/UX Architecture:** * A monochromatic, dark-mode medical theme utilizing Z-index layering for physical depth.
-    * Physics-based, hardware-accelerated CSS animations utilizing custom `cubic-bezier` curves for a tactile, native-app feel.
-    * A responsive "Mini-Sidebar" that collapses seamlessly, centering SVG icons and hiding text to maximize viewport real estate.
-    * Dedicated, decoupled user hubs for **Profile Management** and **Settings & Accessibility**.
-* **Modern State & Error Management:** * Replaced all synchronous, blocking browser `alert()` popups with smooth-scrolling, DOM-based inline error banners for a fluid, uninterrupted user experience.
-* **Bulletproof Authentication System:** * Real-time Regex validation for email formatting.
-    * Password verification checks with interactive "eye" toggles for visibility.
-    * Localized JSON database (`accounts.json`) for rapid prototyping and secure, localized testing.
-* **Seamless UX Flow:** Fluid routing between login, signup, the assessment, result generation, and the central command dashboard without relying on page-refresh lag.
+You are not filling a form.  
+You are entering a controlled data boss fight.
 
 ---
 
-## The Kaiju Roadmap (What's Next)
-The structural foundation is complete. Next, we awaken the Machine Learning models. 
+## Hybrid Screening Architecture
 
-- [ ] **Data Parsing & UI Rendering (`results.js`):** Intercept the new sub-domain scores from the backend and render dynamic, visual progress bars on the results dashboard.
-- [ ] **Video Upload Pipeline:** Build `video_routes.py` and frontend logic to securely chunk and upload user videos to the backend storage.
-- [ ] **Frame Extraction:** Implement Python scripts to slice video data into processable image frames.
-- [ ] **Computer Vision Core (`face_detection.py`):** Integrate OpenCV and facial landmark models to detect eye contact frequency and emotional reactivity.
-- [ ] **Pose & Motion Analytics (`pose_analysis.py`):** Utilize pose-estimation to track and classify repetitive motor movements (e.g., rocking, hand-flapping).
-- [ ] **Data Synthesis:** Merge the questionnaire score with the ML video analysis score to provide a comprehensive, multi-modal screening report.
+### Clinical Questionnaire Engine
+
+* 30-question structured screening designed to capture behavioral and cognitive indicators  
+* Escalation Matrix preventing false-positive optimism and response bias speedruns  
+* Reverse scoring logic implemented to neutralize inattentive answering and questionnaire manipulation  
+* DSM-5 aligned subdomain segmentation producing interpretable Social Communication and Behavioral metrics  
+
+This component ensures the screening does not become a self-diagnosis any% run.
+
+---
+
+### Computer Vision Analysis (In Progress)
+
+* Video-based behavioral observation pipeline  
+* Facial landmark tracking for eye-contact and emotional response estimation  
+* Pose geometry and motion analytics to identify repetitive behavioral signatures  
+* Multi-frame temporal analysis powered by deep learning models  
+
+We are not watching users.  
+We are respectfully performing tensor investigation.
 
 ---
 
-## Tech Stack (Up to Now)
+## Mission
 
-**Frontend:**
-* **HTML5 / CSS3:** Custom monochromatic dark theme, Flexbox architecture, and advanced CSS transitions.
-* **Vanilla JavaScript (ES6+):** Asynchronous `fetch` API integration, local storage session management, and precise DOM manipulation.
+Autism is not a malfunction.  
+It is a distinct neurological configuration with unique strengths, challenges, and behavioral signatures.
 
-**Backend:**
-* **Python 3:** The core server language.
-* **Flask:** Lightweight WSGI web application framework used for building the API endpoints and Blueprint routing.
-* **Flask-CORS:** Handling Cross-Origin Resource Sharing to bridge the frontend and backend.
-* **JSON:** Lightweight, localized database for rapid prototyping.
+Medzilla exists to map those signatures so individuals gain clarity, validation, and informed direction instead of uncertainty and algorithmic guesswork.
+
+This is clarity infrastructure.  
+Not diagnostic replacement — but confusion reduction technology.
 
 ---
+
+## Current System Capabilities
+
+### Cognitive Scoring Engine
+
+* Reverse scoring pipeline for inverted questionnaire items  
+* Escalation Matrix tracking critical behavioral indicators like a zero-tolerance moderation system  
+* Automated DSM-5 trait segmentation with percentage visualization readiness  
+* Bias suppression mechanisms preventing accidental over-interpretation  
+
+The system does not trust blind agreement patterns.  
+And honestly, neither should you.
+
+---
+
+### UI and Interaction Design
+
+* Monochromatic dark and light themes engineered for cognitive comfort  
+* Hardware-accelerated animation pipelines with intentionally smooth transitions  
+* Layered layout hierarchy preventing visual chaos while still looking suspiciously premium  
+* Responsive sidebar behavior optimized for assessment flow stability  
+
+The UI attempts to remain calm even when the backend is doing psychological calculus.
+
+---
+
+### Authentication and Data Handling
+
+* Regex-based real-time validation ensuring input sanity  
+* Password verification with visibility toggle and precision alignment  
+* Local JSON datastore enabling rapid offline prototyping and low-friction iteration  
+* Modular architecture allowing painless migration to SQLite  
+
+Trust is good.  
+Validation is better.
+
+---
+
+### Navigation and Flow Stability
+
+* Fluid routing across login, dashboard, and assessment states  
+* Zero unnecessary reload philosophy  
+* Interaction latency minimized to preserve cognitive momentum  
+
+If the app feels smooth, that was intentional.  
+If it feels suspiciously smooth, also intentional.
+
+---
+
+## Roadmap (Where The GPU Starts Negotiating With Reality)
+
+- [ ] Results Rendering Pipeline  
+Dynamic visualization of backend scoring outputs without overwhelming the user
+
+- [ ] Video Upload Infrastructure  
+Chunked upload architecture preventing server memory meltdowns
+
+- [ ] Frame Extraction Engine  
+OpenCV-based frame segmentation for downstream analysis
+
+- [ ] Facial Landmark Detection Core  
+Eye-contact frequency and affect estimation models
+
+- [ ] Pose and Motion Analytics  
+3D pose estimation and repetitive motion classification
+
+- [ ] Multi-Modal Fusion Layer  
+Questionnaire cognition merged with behavioral video tensors for holistic screening output
+
+This is the point where the system stops being polite and starts doing real math.
+
+---
+
+## Technology Stack
+
+### Frontend
+
+HTML5 / CSS3  
+Structured layout systems, monochromatic theming, and geometry-aware design
+
+Vanilla JavaScript (ES6+)  
+Direct DOM manipulation, async communication pipelines, and state persistence via local storage
+
+No framework dependency spiral.  
+Intentional minimalism for performance and control.
+
+---
+
+### Backend
+
+Python  
+Primary computational environment and model orchestration layer
+
+Flask  
+API routing and service architecture without unnecessary complexity inflation
+
+Flask-CORS  
+Secure cross-origin communication layer enabling frontend-backend diplomacy
+
+JSON  
+Temporary lightweight datastore pending structured database escalation
+
+---
+
+## Development Philosophy
+
+Medzilla was built through iterative experimentation, aggressive debugging sessions, and moments where the code worked first try and nobody emotionally trusted it.
+
+The project prioritizes:
+
+* clarity over complexity  
+* signal over noise  
+* functionality over aesthetic theater  
+* meaningful insight over superficial metrics  
+
+Progress occasionally looks like chaos.  
+But the architecture remembers the plan.
+
+---
+
+## Disclaimer
+
+Medzilla is a screening and behavioral insight tool, not a clinical diagnostic authority.
+
+Its purpose is to assist understanding, encourage reflection, and support informed next steps — not replace professional evaluation.
+
+Think of it as cognitive reconnaissance, not final judgment.
+
+---
+
+## Build Status
+
+System stable.  
+Models warming up.  
+GPU fans emotionally preparing.
+
+The kaiju is currently dormant but breathing.
+
 *Built with savage grind, 24/7 dedication, and zero distractions. Code, eat, sleep, repeat.*
