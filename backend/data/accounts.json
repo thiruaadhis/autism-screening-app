@@ -1,10 +1,20 @@
 [
     {
         "email": "xyz@gmail.com",
-        "password": "123"
+        "password": "scrypt:32768:8:1$MYfjxjqsGyCaS1bl$925d2e17114a26a0d082cd721f01fec6b1b031fccd4c290b18d7d532a4c7caae1e6a3b54d0b411cf4a7ec5943ee499f10a8efc3ddef9581f77edb2d071b77bcb"
     },
     {
         "email": "thiruaadhis15@gmail.com",
-        "password": "123"
+        "password": "scrypt:32768:8:1$9wqpewu1RaYVkg9N$e8b7a0f8ce1ef4b35ff9437899358587c966263b0f5be629dadb85acf5f7d6203bd82dd4016ea248b16d70bbbe4e89e749c2a1d1df072ae22b3c63e5ec114301"
+    },
+    {
+        "email": "test@medzilla.com",
+        "password": "scrypt:32768:8:1$2YIy4RQZZkxldxNk$9cdd5bbd2c6879f88c5c1a66aa4cd2f6c7fc00af4ddfb0fdc9b310bb74720e9050f5e1a335d7b4ca5b9c6a94cebeda33797f9d1c5e841f4929703be0d96d5716",
+        "username": "TestKaiju"
+    },
+    {
+        "email": "test@example.com",
+        "password": "scrypt:32768:8:1$ELFsQdwPe514K9RV$93c7683c93e0cc6c78338d1e5908b23dba327dd8ac421dcae996a01912ddd13111d35cfcaf6e726e54ed00e0fb3b2ec23c0185d3f36546f2f61c715da877109c",
+        "username": "test"
     }
 ]

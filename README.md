@@ -33,7 +33,7 @@ This component ensures the screening does not become a self-diagnosis any% run.
 
 ---
 
-### Computer Vision Analysis (In Progress)
+### Computer Vision Analysis (Coming Soon — The ML Arc Begins)
 
 * Video-based behavioral observation pipeline  
 * Facial landmark tracking for eye-contact and emotional response estimation  
@@ -57,7 +57,7 @@ Not diagnostic replacement — but confusion reduction technology.
 
 ---
 
-## Current System Capabilities
+## What Has Been Built (The Accomplishments So Far)
 
 ### Cognitive Scoring Engine
 
@@ -68,6 +68,39 @@ Not diagnostic replacement — but confusion reduction technology.
 
 The system does not trust blind agreement patterns.  
 And honestly, neither should you.
+
+---
+
+### Age-Aware Screening Pipeline
+
+* Pre-screening age input flow — users provide the child's age before the assessment begins  
+* Age-weighted likelihood calculation influencing the final screening output  
+* Age data collected but deliberately excluded from profile history displays for privacy  
+
+The system respects developmental context.  
+It also respects the right to not have that context staring back at you from a history table.
+
+---
+
+### Results Rendering Pipeline
+
+* Dynamic visualization of backend scoring outputs without overwhelming the user  
+* Likelihood indicators and subdomain breakdowns rendered with clarity  
+* "Test Again" and "Past Tests" navigation options post-results — because one assessment is data, but multiple assessments are a dataset  
+
+The results page does not panic.  
+Even when the numbers are interesting.
+
+---
+
+### Profile and History System
+
+* User profile page displaying account details and past screening results  
+* Historical test data shown without exposing the child's age per entry  
+* Clean, scrollable history layout designed for repeat users tracking patterns over time  
+
+Your data lives here.  
+Quietly. Respectfully. Without unnecessary commentary.
 
 ---
 
@@ -96,19 +129,35 @@ Validation is better.
 
 ### Navigation and Flow Stability
 
-* Fluid routing across login, dashboard, and assessment states  
+* Fluid routing across login, signup, dashboard, questionnaire, results, profile, and settings states  
 * Zero unnecessary reload philosophy  
 * Interaction latency minimized to preserve cognitive momentum  
+* Post-assessment flow branching — retake, review history, or return to dashboard  
 
 If the app feels smooth, that was intentional.  
 If it feels suspiciously smooth, also intentional.
 
 ---
 
-## Roadmap (Where The GPU Starts Negotiating With Reality)
+## What's Next (The ML Model Arc)
 
-- [ ] Results Rendering Pipeline  
-Dynamic visualization of backend scoring outputs without overwhelming the user
+The questionnaire engine is locked in. The scoring pipeline is live. The frontend is polished.  
+
+Now the system evolves.
+
+The next phase is the **machine learning model** — the core intelligence layer that takes Medzilla from structured screening to adaptive behavioral analysis.
+
+- [ ] ML Model Architecture Design  
+Defining the model topology, input features, and training strategy
+
+- [ ] Training Data Pipeline  
+Preprocessing, feature engineering, and dataset curation for model consumption
+
+- [ ] Model Training and Validation  
+Supervised learning pipeline with cross-validation and performance benchmarking
+
+- [ ] Inference Integration  
+Connecting the trained model to the backend scoring engine for real-time predictions
 
 - [ ] Video Upload Infrastructure  
 Chunked upload architecture preventing server memory meltdowns
@@ -188,10 +237,14 @@ Think of it as cognitive reconnaissance, not final judgment.
 
 ## Build Status
 
-System stable.  
-Models warming up.  
-GPU fans emotionally preparing.
+Questionnaire engine — **deployed and operational.**  
+Scoring pipeline — **live and computing.**  
+Results rendering — **active and visualizing.**  
+Profile and history — **tracking and displaying.**  
+Age-aware screening — **calibrated and influencing.**  
 
-The kaiju is currently dormant but breathing.
+ML model — **next in the queue. The tensors are stretching.**
+
+The kaiju is no longer dormant. It walked through Phase 1 and is now eyeing the machine learning horizon.
 
 *Built with savage grind, 24/7 dedication, and zero distractions. Code, eat, sleep, repeat.*

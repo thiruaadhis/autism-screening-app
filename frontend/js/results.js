@@ -1,4 +1,4 @@
-const data = JSON.parse(localStorage.getItem("result"));
+const data = JSON.parse(localStorage.getItem("screeningResult"));
 
 if (data) {
     document.getElementById("score").innerText = `Likelihood: ${data.likelihood}%`;

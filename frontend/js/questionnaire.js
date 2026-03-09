@@ -1,34 +1,47 @@
+// ==========================================
+// QUESTION BANK WITH CUSTOM OPTION LABELS
+// ==========================================
+
+// Option sets tailored to question type:
+// Type A: Positive behaviors (Never = concerning)
+// Type B: Unusual/repetitive behaviors (Very Often = concerning)
+// Type C: Sensitivity/intensity questions
+
+const OPTIONS_A = ["Never", "Rarely", "Sometimes", "Often", "Always"];
+const OPTIONS_B = ["Not at all", "Rarely", "Sometimes", "Often", "Very Often"];
+const OPTIONS_C = ["Not at all", "Mildly", "Moderately", "Significantly", "Extremely"];
+
 const autismQuestions = [
-    "1. Does your child look at you when you call their name?",
-    "2. How often does your child make eye contact?",
-    "3. Does your child point to indicate what they want?",
-    "4. Does your child show interest in other children?",
-    "5. Does your child imitate your actions (e.g., waving bye-bye)?",
-    "6. Does your child respond to your smile with a smile?",
-    "7. Does your child bring objects to show you?",
-    "8. Does your child understand simple verbal instructions?",
-    "9. Does your child engage in pretend play (e.g., feeding a doll)?",
-    "10. Does your child look where you are pointing?",
-    "11. Does your child have unusual finger movements near their eyes?",
-    "12. Does your child spin objects or themselves frequently?",
-    "13. Does your child get upset by everyday noises (e.g., a vacuum)?",
-    "14. Does your child have an intense interest in specific objects?",
-    "15. Does your child flap their hands or rock back and forth?",
-    "16. Does your child seem overly sensitive to textures (e.g., clothing tags)?",
-    "17. Does your child arrange toys in strict lines?",
-    "18. Does your child struggle with changes to their routine?",
-    "19. Does your child repeat words or phrases out of context?",
-    "20. Does your child seem to not feel pain like others do?",
-    "21. Does your child focus intensely on parts of toys (e.g., wheels)?",
-    "22. Does your child avoid physical contact or cuddling?",
-    "23. Does your child have unusual eating habits or extreme picky eating?",
-    "24. Does your child use your hand as a tool to get what they want?",
-    "25. Does your child show extreme distress during transitions?",
-    "26. Does your child have difficulty understanding other people's feelings?",
-    "27. Does your child use gestures to communicate (e.g., nodding)?",
-    "28. Does your child play with toys in conventional ways?",
-    "29. Does your child seek comfort from you when hurt or upset?",
-    "30. Does your child share enjoyment with you (e.g., laughing together)?"
+    { text: "Does your child look at you when you call their name?", opts: OPTIONS_A },
+    { text: "How often does your child make eye contact?", opts: OPTIONS_A },
+    { text: "Does your child point to indicate what they want?", opts: OPTIONS_A },
+    { text: "Does your child show interest in other children?", opts: OPTIONS_A },
+    { text: "Does your child imitate your actions (e.g., waving bye-bye)?", opts: OPTIONS_A },
+    { text: "Does your child respond to your smile with a smile?", opts: OPTIONS_A },
+    { text: "Does your child bring objects to show you?", opts: OPTIONS_A },
+    { text: "Does your child understand simple verbal instructions?", opts: OPTIONS_A },
+    { text: "Does your child engage in pretend play (e.g., feeding a doll)?", opts: OPTIONS_A },
+    { text: "Does your child look where you are pointing?", opts: OPTIONS_A },
+    { text: "Does your child have unusual finger movements near their eyes?", opts: OPTIONS_B },
+    { text: "Does your child spin objects or themselves frequently?", opts: OPTIONS_B },
+    { text: "Does your child get upset by everyday noises (e.g., a vacuum)?", opts: OPTIONS_C },
+    { text: "Does your child have an intense interest in specific objects?", opts: OPTIONS_C },
+    { text: "Does your child flap their hands or rock back and forth?", opts: OPTIONS_B },
+    { text: "Does your child seem overly sensitive to textures (e.g., clothing tags)?", opts: OPTIONS_C },
+    { text: "Does your child arrange toys in strict lines?", opts: OPTIONS_B },
+    { text: "Does your child struggle with changes to their routine?", opts: OPTIONS_C },
+    { text: "Does your child repeat words or phrases out of context?", opts: OPTIONS_B },
+    { text: "Does your child seem to not feel pain like others do?", opts: OPTIONS_B },
+    { text: "Does your child focus intensely on parts of toys (e.g., wheels)?", opts: OPTIONS_B },
+    { text: "Does your child avoid physical contact or cuddling?", opts: OPTIONS_B },
+    { text: "Does your child have unusual eating habits or extreme picky eating?", opts: OPTIONS_C },
+    { text: "Does your child use your hand as a tool to get what they want?", opts: OPTIONS_B },
+    { text: "Does your child show extreme distress during transitions?", opts: OPTIONS_C },
+    { text: "Does your child have difficulty understanding other people's feelings?", opts: OPTIONS_C },
+    { text: "Does your child use gestures to communicate (e.g., nodding)?", opts: OPTIONS_A },
+    { text: "Does your child play with toys in conventional ways?", opts: OPTIONS_A },
+    { text: "Does your child seek comfort from you when hurt or upset?", opts: OPTIONS_A },
+    { text: "Does your child share enjoyment with you (e.g., laughing together)?", opts: OPTIONS_A }
 ];
 
 const questionsDiv = document.getElementById("questions");
@@ -36,16 +49,14 @@ const questionsDiv = document.getElementById("questions");
 autismQuestions.forEach((q, index) => {
     const div = document.createElement("div");
     
-    const questionText = q.substring(q.indexOf('.') + 1).trim();
-    
+    const optionsHtml = q.opts.map((label, val) => 
+        `<label><input type="radio" name="q${index}" value="${val}"> <span>${label}</span></label>`
+    ).join("\n            ");
+
     div.innerHTML = `
-        <p><strong>Question ${index + 1}:</strong> ${questionText}</p>
+        <p><strong>Question ${index + 1}:</strong> ${q.text}</p>
         <div class="options">
-            <label><input type="radio" name="q${index}" value="0"> <span>Never</span></label>
-            <label><input type="radio" name="q${index}" value="1"> <span>Rarely</span></label>
-            <label><input type="radio" name="q${index}" value="2"> <span>Sometimes</span></label>
-            <label><input type="radio" name="q${index}" value="3"> <span>Often</span></label>
-            <label><input type="radio" name="q${index}" value="4"> <span>Always</span></label>
+            ${optionsHtml}
         </div>
     `;
     questionsDiv.appendChild(div);
@@ -83,11 +94,30 @@ async function submitAnswers() {
         return;
     }
 
+    // Validate age
+    const ageInput = document.getElementById("child-age");
+    const ageYears = parseInt(ageInput.value);
+    if (!ageInput.value || isNaN(ageYears) || ageYears < 1 || ageYears > 18) {
+        errorDiv.innerText = "Please enter the child's age (1-18 years) before submitting.";
+        errorDiv.style.display = "block";
+        btn.innerText = originalText;
+        btn.disabled = false;
+        ageInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+    }
+
     try {
+        // Get email from session for server-side result storage
+        let email = "";
+        try {
+            const user = JSON.parse(localStorage.getItem("currentUser"));
+            if (user && user.email) email = user.email;
+        } catch (e) {}
+
         const response = await fetch("http://127.0.0.1:5000/submit-questionnaire", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ answers })
+            body: JSON.stringify({ answers, email, age_months: ageYears * 12 })
         });
 
         if (!response.ok) throw new Error("Network response was not ok");

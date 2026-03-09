@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# OS files
+*.tmp
+*.bak
+
+# Video uploads (large files)
+storage/uploads/
+storage/frames/
+
+# Model files (large binaries)
+*.h5
+*.pkl
+*.pt
+*.pth
+*.onnx
+*.tflite
+
+# Node (just in case)
+node_modules/
+
+# Jupyter
+.ipynb_checkpoints/

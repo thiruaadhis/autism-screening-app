@@ -169,8 +169,28 @@
         localStorage.setItem("setting_mlConsent", this.checked);
     });
 
-    function initiatePurge() {
+    async function initiatePurge() {
+        // 1. Clear localStorage screening data
         localStorage.removeItem("screeningResult");
+
+        // 2. Call backend to purge server-side data
+        try {
+            const user = JSON.parse(localStorage.getItem("currentUser"));
+            if (user && user.email) {
+                await fetch("http://127.0.0.1:5000/api/purge", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: user.email })
+                });
+
+                // Clear username from local session too
+                user.username = user.email.split('@')[0];
+                localStorage.setItem("currentUser", JSON.stringify(user));
+            }
+        } catch (e) {
+            console.error("Server purge failed:", e);
+        }
+
         const notif = document.getElementById("purge-notification");
         notif.style.display = "block";
         setTimeout(() => {

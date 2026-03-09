@@ -1,86 +1,70 @@
+import json
+import os
+import uuid
+from datetime import datetime, timezone
 from flask import Blueprint, request, jsonify
+from services.scoring_service import calculate_score, TOTAL_QUESTIONS, MAX_ANSWER_VALUE
 
 questionnaire_bp = Blueprint("questionnaire", __name__)
 
-# 🔥 REVERSE SCORING MATRIX
-# Answering "Never" (0) means HIGH likelihood (4 points).
-REVERSE_SCORED_QUESTIONS = {
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 18
-}
+# --- Results Storage ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RESULTS_FILE = os.path.join(BASE_DIR, "../data/results.json")
 
-# 🔥 CLINICAL RED FLAGS
-CRITICAL_QUESTIONS = {0, 1, 4, 20}
-WEIGHT_MULTIPLIER = 1.5
+def load_results():
+    if not os.path.exists(RESULTS_FILE):
+        return []
+    with open(RESULTS_FILE, "r") as f:
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return []
+
+def save_results(data):
+    os.makedirs(os.path.dirname(RESULTS_FILE), exist_ok=True)
+    with open(RESULTS_FILE, "w") as f:
+        json.dump(data, f, indent=4)
+
 
 @questionnaire_bp.route("/submit-questionnaire", methods=["POST"])
 def submit_questionnaire():
-    data = request.json.get("answers", [])
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"error": "Invalid request body."}), 400
 
-    if not data or len(data) != 30:
-        return jsonify({"error": "Invalid answers"}), 400
+        answers = data.get("answers", [])
+        email = data.get("email", "").strip()
+        age_months = data.get("age_months", None)
 
-    total_score = 0
-    max_possible_score = 0
-    critical_flags_triggered = 0
+        # --- Input Validation ---
+        if not isinstance(answers, list) or len(answers) != TOTAL_QUESTIONS:
+            return jsonify({"error": f"Expected exactly {TOTAL_QUESTIONS} answers."}), 400
 
-    # DSM-5 Sub-Domain Tracking
-    social_score = 0
-    social_max = 0
-    behavioral_score = 0
-    behavioral_max = 0
+        for i, answer in enumerate(answers):
+            if not isinstance(answer, int) or answer < 0 or answer > MAX_ANSWER_VALUE:
+                return jsonify({"error": f"Answer {i + 1} must be an integer between 0 and {MAX_ANSWER_VALUE}."}), 400
 
-    for i, answer in enumerate(data):
-        # 1. Reverse Scoring
-        if i in REVERSE_SCORED_QUESTIONS:
-            base_score = 4 - answer
-        else:
-            base_score = answer
+        # --- Score Calculation (delegated to service) ---
+        result = calculate_score(answers, age_months=age_months)
 
-        # 2. Critical Red Flag Tracking
-        is_critical = i in CRITICAL_QUESTIONS
-        if is_critical and base_score >= 3: # Scored 3 (Often) or 4 (Always) on a high-risk symptom
-            critical_flags_triggered += 1
+        # --- Auto-save result if email is provided ---
+        if email:
+            record = {
+                "id": str(uuid.uuid4()),
+                "email": email,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "likelihood": result["likelihood"],
+                "social_percent": result["social_percent"],
+                "behavioral_percent": result["behavioral_percent"],
+                "critical_flags": result["critical_flags"],
+                "interpretation": result["interpretation"]
+            }
+            results = load_results()
+            results.append(record)
+            save_results(results)
 
-        weight = WEIGHT_MULTIPLIER if is_critical else 1.0
-        final_score = base_score * weight
-        max_q_score = 4 * weight
+        return jsonify(result)
 
-        total_score += final_score
-        max_possible_score += max_q_score
-
-        # 3. Sub-domain Allocation
-        if i < 15:
-            social_score += final_score
-            social_max += max_q_score
-        else:
-            behavioral_score += final_score
-            behavioral_max += max_q_score
-
-    # 4. Calculate Raw Percentages
-    likelihood = (total_score / max_possible_score) * 100 if max_possible_score > 0 else 0
-    social_percent = (social_score / social_max) * 100 if social_max > 0 else 0
-    behavioral_percent = (behavioral_score / behavioral_max) * 100 if behavioral_max > 0 else 0
-
-    # 5. 🔥 UPGRADED CLINICAL LOGIC (The False-Positive Fix)
-    # We blend the raw percentage with the critical flags using an Escalation Matrix.
-    
-    if likelihood >= 70 or critical_flags_triggered >= 3:
-        interpretation = "High likelihood. Significant developmental markers were flagged. A formal evaluation by a specialist is strongly recommended."
-        # Gently ensure the UI reflects the severity if triggered by flags, but no massive 75% jumps
-        likelihood = max(likelihood, 70.0) 
-        
-    elif likelihood >= 35 or critical_flags_triggered >= 1:
-        interpretation = "Moderate likelihood. Some specific behaviors were flagged. It is recommended to consult a developmental pediatrician for a follow-up."
-        # Escalate to the moderate floor if a single critical flag is caught
-        likelihood = max(likelihood, 35.0)
-        
-    else:
-        interpretation = "Low likelihood, but consider monitoring and consulting a healthcare professional if concerns persist."
-
-    return jsonify({
-        "likelihood": round(likelihood, 2),
-        "social_percent": round(social_percent, 2),
-        "behavioral_percent": round(behavioral_percent, 2),
-        "critical_flags": critical_flags_triggered,
-        "interpretation": interpretation
-    })
+    except Exception as e:
+        return jsonify({"error": "Internal server error."}), 500

@@ -60,6 +60,16 @@
 
         <section class="content-area" style="padding-top: 20px;">
             <h2>Autism Screening Questionnaire</h2>
+
+            <!-- Age Input -->
+            <div id="age-section" style="max-width: 900px; margin: auto; padding: 0 20px 0 20px;">
+                <div style="background: #2b2d31; border: 1px solid #3f4147; padding: 24px 28px; margin-bottom: 16px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                    <p><strong>Child's Age (in years)</strong></p>
+                    <p style="color: #a0a0a0; font-size: 13px; margin-bottom: 14px;">Used to adjust scoring for developmental stage. Not stored in results.</p>
+                    <input type="text" id="child-age" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 3" class="input-field" style="width: 120px; text-align: center; font-size: 16px; padding: 10px 14px;">
+                </div>
+            </div>
+
             <div id="questions"></div>
             
             <div id="form-error" class="error-message" style="margin-bottom: 20px; max-width: 720px; margin-left: auto; margin-right: auto;"></div>
