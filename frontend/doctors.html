@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Video Analysis | Medzilla</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor | Medzilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
     <script>
@@ -15,8 +17,8 @@
         })();
     </script>
 </head>
-
-<body onload="document.body.className = document.documentElement.className;">
+<body>
+<script>document.body.className = document.documentElement.className;</script>
 
 <div class="dashboard-container">
     <aside id="sidebar" class="sidebar">
@@ -35,13 +37,13 @@
                     <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
                     <span>Autism Test</span>
                 </a>
-                <a href="upload.html" class="nav-link active">
-                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                    <span>Video Analysis</span>
+                <a href="doctors.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
+                    <span>Doctors</span>
                 </a>
+
             </div>
         </div>
-        
         <div class="sidebar-footer">
             <a href="settings.html" class="nav-link" style="font-size: 14px;">
                 <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
@@ -59,24 +61,49 @@
             </div>
         </header>
 
-        <div class="result-wrapper">
-            <div class="result-card" style="max-width: 600px;">
-                <h1 style="font-size: 60px; margin: 0;">hol up cuz</h1>
-                <h2 style="color: #ff6b6b; font-weight: 800; text-transform: uppercase;">Ayo Bruh, The ML Kaiju is Sleeping.</h2>
-                <div class="divider"></div>
-                <p style="font-size: 16px; line-height: 1.6;">
-                    Our Convolutional Neural Networks are currently taking a heavily mandated spicy chicken break. The Video Analysis pipeline is actively being forged in the hyper-dimensional fires of VS Code. 
-                </p>
-                <p style="color: #a0a0a0; font-size: 14px; margin-top: 20px; font-style: italic;">
-                    In the meantime, why not take our Autism Test? We promise it's way more fun than waiting for the kaiju to be unleashed. We promise it won't bite... much.
-                </p>
-                <button onclick="window.location.href='questionnaire.html'" style="margin-top: 40px;">Take a Test</button>
+        <section class="content-area">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+                <div>
+                    <h2 style="margin:0;">Find a Specialist</h2>
+                    <p style="color:#a0a0a0; font-size:13px; margin:4px 0 0 0;">Browse verified doctors and share your feedback</p>
+                </div>
+                <input id="doctor-search" class="input-field" placeholder="Search by name or specialization…" style="width:260px; margin:0; padding:9px 14px; font-size:13px;" oninput="filterDoctors(this.value)">
             </div>
-        </div>
+
+            <div id="doctors-grid" class="doctor-cards-grid">
+                <p style="color:#a0a0a0; text-align:center; width:100%;">Loading doctors…</p>
+            </div>
+        </section>
     </main>
 </div>
 
-<script src="js/dashboard.js"></script>
+<!-- Rating Modal -->
+<div id="rating-modal" class="modal hidden">
+    <div class="modal-card" style="max-width:420px; width:90%;">
+        <h3 id="rating-modal-title" style="margin:0 0 6px 0;">Rate Doctor</h3>
+        <p id="rating-modal-subtitle" style="color:#a0a0a0; font-size:13px; margin:0 0 20px 0;"></p>
 
+        <div class="star-input-row" id="star-input">
+            <span class="star-input-item" data-val="1" onclick="selectStar(1)">★</span>
+            <span class="star-input-item" data-val="2" onclick="selectStar(2)">★</span>
+            <span class="star-input-item" data-val="3" onclick="selectStar(3)">★</span>
+            <span class="star-input-item" data-val="4" onclick="selectStar(4)">★</span>
+            <span class="star-input-item" data-val="5" onclick="selectStar(5)">★</span>
+        </div>
+        <p id="star-label" style="font-size:12px; color:#a0a0a0; text-align:center; margin:6px 0 14px 0;">Tap a star to rate</p>
+
+        <textarea id="rating-comment" class="input-field" rows="3" placeholder="Optional comment…" style="resize:none; line-height:1.6;"></textarea>
+
+        <div id="rating-error" class="error-message" style="display:none;"></div>
+        <div style="display:flex; gap:10px; margin-top:14px;">
+            <button onclick="submitRating()" style="flex:1;">Submit Rating</button>
+            <button onclick="closeRatingModal()" style="flex:1; background:#444; color:white;">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/api.js?v=2"></script>
+<script src="js/dashboard.js?v=2"></script>
+<script src="js/doctors.js?v=2"></script>
 </body>
 </html>

@@ -20,28 +20,16 @@ You are entering a controlled data boss fight.
 
 ---
 
-## Hybrid Screening Architecture
+## Core Screening Architecture
 
 ### Clinical Questionnaire Engine
 
-* 30-question structured screening designed to capture behavioral and cognitive indicators  
-* Escalation Matrix preventing false-positive optimism and response bias speedruns  
-* Reverse scoring logic implemented to neutralize inattentive answering and questionnaire manipulation  
+* 10-question AQ-10 format, aligned with clinical screening standards  
+* Binary scoring system (1 or 0) capturing specific autistic traits per question  
+* Backend evaluation computing likelihoods and critical behavioral flags  
 * DSM-5 aligned subdomain segmentation producing interpretable Social Communication and Behavioral metrics  
 
-This component ensures the screening does not become a self-diagnosis any% run.
-
----
-
-### Computer Vision Analysis (Coming Soon — The ML Arc Begins)
-
-* Video-based behavioral observation pipeline  
-* Facial landmark tracking for eye-contact and emotional response estimation  
-* Pose geometry and motion analytics to identify repetitive behavioral signatures  
-* Multi-frame temporal analysis powered by deep learning models  
-
-We are not watching users.  
-We are respectfully performing tensor investigation.
+This component ensures the screening remains evidence-based and immediately actionable.
 
 ---
 
@@ -61,13 +49,24 @@ Not diagnostic replacement — but confusion reduction technology.
 
 ### Cognitive Scoring Engine
 
-* Reverse scoring pipeline for inverted questionnaire items  
-* Escalation Matrix tracking critical behavioral indicators like a zero-tolerance moderation system  
+* Transitioned to the clinical AQ-10 dataset logic  
+* Evaluation matrix tracking critical behavioral indicators like a zero-tolerance moderation system  
 * Automated DSM-5 trait segmentation with percentage visualization readiness  
 * Bias suppression mechanisms preventing accidental over-interpretation  
 
 The system does not trust blind agreement patterns.  
 And honestly, neither should you.
+
+---
+
+### Doctor Dashboard & Analytics
+
+* Dedicated, secure dashboard exclusively for medical professionals  
+* Real-time metrics tracking global patient risk distribution  
+* Interactive Chart.js visualizations adapting flawlessly to dark and light modes  
+* Patient table rendering individual screening histories for immediate clinical review  
+
+Doctors shouldn't have to decipher UI matrices. The dashboard gives them the data immediately.
 
 ---
 
@@ -139,42 +138,27 @@ If it feels suspiciously smooth, also intentional.
 
 ---
 
-## What's Next (The ML Model Arc)
+## What's Next (The AQ-10 ML Model Arc)
 
-The questionnaire engine is locked in. The scoring pipeline is live. The frontend is polished.  
+The questionnaire engine is locked in. The Doctor Dashboard is live. The frontend is polished.  
 
 Now the system evolves.
 
-The next phase is the **machine learning model** — the core intelligence layer that takes Medzilla from structured screening to adaptive behavioral analysis.
+The next phase is the **machine learning model** — the core intelligence layer that takes Medzilla from static deterministic scoring to an adaptive predictive engine using clinical AQ-10 data.
 
-- [ ] ML Model Architecture Design  
-Defining the model topology, input features, and training strategy
+- [ ] Public Dataset Acquisition  
+Downloading and preparing a validated AQ-10 dataset for model consumption
 
-- [ ] Training Data Pipeline  
-Preprocessing, feature engineering, and dataset curation for model consumption
+- [ ] Data Pipeline Implementation  
+Preprocessing, feature engineering, and class balancing
 
 - [ ] Model Training and Validation  
-Supervised learning pipeline with cross-validation and performance benchmarking
+Supervised learning pipeline (XGBoost / Random Forest) to identify complex behavioral patterns
 
-- [ ] Inference Integration  
-Connecting the trained model to the backend scoring engine for real-time predictions
+- [ ] Inference Engine Integration  
+Connecting the trained model to the backend scoring service so patient results are predicted by ML
 
-- [ ] Video Upload Infrastructure  
-Chunked upload architecture preventing server memory meltdowns
-
-- [ ] Frame Extraction Engine  
-OpenCV-based frame segmentation for downstream analysis
-
-- [ ] Facial Landmark Detection Core  
-Eye-contact frequency and affect estimation models
-
-- [ ] Pose and Motion Analytics  
-3D pose estimation and repetitive motion classification
-
-- [ ] Multi-Modal Fusion Layer  
-Questionnaire cognition merged with behavioral video tensors for holistic screening output
-
-This is the point where the system stops being polite and starts doing real math.
+This is the point where the system stops being an elaborate calculator and starts doing real math.
 
 ---
 
@@ -237,13 +221,13 @@ Think of it as cognitive reconnaissance, not final judgment.
 
 ## Build Status
 
-Questionnaire engine — **deployed and operational.**  
+Questionnaire engine — **AQ-10 integration complete.**  
 Scoring pipeline — **live and computing.**  
-Results rendering — **active and visualizing.**  
+Doctor Dashboard — **deployed and rendering insights.**  
 Profile and history — **tracking and displaying.**  
 Age-aware screening — **calibrated and influencing.**  
 
-ML model — **next in the queue. The tensors are stretching.**
+ML model — **next in the queue. The AQ-10 dataset awaits.**
 
 The kaiju is no longer dormant. It walked through Phase 1 and is now eyeing the machine learning horizon.
 

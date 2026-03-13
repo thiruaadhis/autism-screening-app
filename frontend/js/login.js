@@ -1,10 +1,15 @@
+// Role tracking — default to parent
+let selectedRole = "parent";
+
+function selectRole(role) {
+    selectedRole = role;
+    document.getElementById("role-parent").classList.toggle("role-active", role === "parent");
+    document.getElementById("role-doctor").classList.toggle("role-active", role === "doctor");
+}
+
 function togglePassword(inputId) {
     const input = document.getElementById(inputId || 'password');
-    if (input.type === 'password') {
-        input.type = 'text';
-    } else {
-        input.type = 'password';
-    }
+    input.type = input.type === 'password' ? 'text' : 'password';
 }
 
 function goSignup() {
@@ -19,17 +24,14 @@ async function login() {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const errorDiv = document.getElementById('login-error');
-
     errorDiv.style.display = 'none';
 
-    // 1. Basic empty check
     if (!email || !password) {
         errorDiv.innerText = "Please fill in all fields.";
         errorDiv.style.display = 'block';
         return;
     }
 
-    // 2. Strict Regex Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         errorDiv.innerText = "Please enter a valid email format.";
@@ -38,37 +40,59 @@ async function login() {
     }
 
     try {
-        // Send the data to the Python Backend!
-        const response = await fetch('http://127.0.0.1:5000/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, password: password })
-        });
+        const { ok, data } = await apiLogin(email, password);
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            // If Python says the account doesn't exist, fire the modal
+        if (!ok) {
             if (data.error === "Account not found") {
                 document.getElementById('modalText').innerText = "Account not found. Would you like to create one?";
                 document.getElementById('createAccountBtn').style.display = "inline-block";
                 document.getElementById('authModal').classList.remove('hidden');
                 return;
             }
-            
-            // For wrong passwords or other errors, show the red box
             errorDiv.innerText = data.error || "Login failed.";
             errorDiv.style.display = 'block';
             return;
         }
 
-        // Success! Save session and teleport
-        localStorage.setItem('currentUser', JSON.stringify({ email: data.email, username: data.username }));
-        window.location.replace('dashboard.html');
+        // Trust the server's stored role — no manual toggle check needed
+        const accountRole = data.role || "parent";
+        
+        // --- DIAGNOSTIC ALERTS FOR USER ---
+        alert(`Login Success! Server says your email is: ${data.email}\nServer says your role is: ${accountRole}`);
+        // ----------------------------------
+
+        console.log("Login Success! Server returned role:", accountRole);
+
+        // Nuke any stale session data before writing the new one
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('screeningResult');
+
+        localStorage.setItem('currentUser', JSON.stringify({
+            email: data.email,
+            username: data.username,
+            role: accountRole
+        }));
+
+        console.log("Session saved. Redirecting...");
+
+        // Redirect based on account role, not the UI toggle
+        if (accountRole === "doctor") {
+            window.location.href = 'doctor-dashboard.html';
+        } else {
+            window.location.href = 'dashboard.html';
+        }
 
     } catch (error) {
-        console.error("Backend fetch error:", error);
-        errorDiv.innerText = "Cannot connect to Python Backend. Is app.py running?";
+        console.error("Login error:", error);
+        errorDiv.innerText = SERVER_DOWN_MSG;
         errorDiv.style.display = 'block';
     }
 }
+
+// Pre-select role from URL param if provided
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const roleParam = params.get("role");
+    if (roleParam === "doctor") selectRole("doctor");
+    else selectRole("parent");
+});

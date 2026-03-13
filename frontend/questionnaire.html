@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autism Screening | Medzilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
@@ -15,7 +17,8 @@
         })();
     </script>
 </head>
-<body onload="document.body.className = document.documentElement.className;">
+<body>
+<script>document.body.className = document.documentElement.className;</script>
 
 <div class="dashboard-container">
     <aside id="sidebar" class="sidebar">
@@ -34,10 +37,11 @@
                     <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
                     <span>Autism Test</span>
                 </a>
-                <a href="upload.html" class="nav-link">
-                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                    <span>Video Analysis</span>
+                <a href="doctors.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
+                    <span>Doctors</span>
                 </a>
+
             </div>
         </div>
         
@@ -62,11 +66,11 @@
             <h2>Autism Screening Questionnaire</h2>
 
             <!-- Age Input -->
-            <div id="age-section" style="max-width: 900px; margin: auto; padding: 0 20px 0 20px;">
-                <div style="background: #2b2d31; border: 1px solid #3f4147; padding: 24px 28px; margin-bottom: 16px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+            <div id="age-section" class="age-section-wrapper">
+                <div class="age-input-card">
                     <p><strong>Child's Age (in years)</strong></p>
-                    <p style="color: #a0a0a0; font-size: 13px; margin-bottom: 14px;">Used to adjust scoring for developmental stage. Not stored in results.</p>
-                    <input type="text" id="child-age" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 3" class="input-field" style="width: 120px; text-align: center; font-size: 16px; padding: 10px 14px;">
+                    <p class="age-input-hint">Used to adjust scoring for developmental stage. Not stored in results.</p>
+                    <input type="text" id="child-age" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 3" class="input-field age-input-field">
                 </div>
             </div>
 
@@ -79,9 +83,9 @@
     </main>
 </div>
 
-<script src="js/dashboard.js"></script>
-<script src="js/api.js"></script>
-<script src="js/questionnaire.js"></script>
+<script src="js/api.js?v=2"></script>
+<script src="js/dashboard.js?v=2"></script>
+<script src="js/questionnaire.js?v=2"></script>
 
 </body>
 </html>

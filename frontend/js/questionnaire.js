@@ -74,7 +74,8 @@ async function submitAnswers() {
     const answers = [];
     let allAnswered = true;
 
-    for (let i = 0; i < 30; i++) {
+    // Use autismQuestions.length instead of magic number
+    for (let i = 0; i < autismQuestions.length; i++) {
         const selected = document.querySelector(`input[name="q${i}"]:checked`);
         if (selected) {
             answers.push(parseInt(selected.value));
@@ -85,11 +86,10 @@ async function submitAnswers() {
     }
 
     if (!allAnswered) {
-        errorDiv.innerText = "Please answer all 30 questions to ensure clinical accuracy.";
+        errorDiv.innerText = `Please answer all ${autismQuestions.length} questions to ensure clinical accuracy.`;
         errorDiv.style.display = "block";
         btn.innerText = originalText;
         btn.disabled = false;
-        
         errorDiv.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
     }
@@ -98,7 +98,7 @@ async function submitAnswers() {
     const ageInput = document.getElementById("child-age");
     const ageYears = parseInt(ageInput.value);
     if (!ageInput.value || isNaN(ageYears) || ageYears < 1 || ageYears > 18) {
-        errorDiv.innerText = "Please enter the child's age (1-18 years) before submitting.";
+        errorDiv.innerText = "Please enter the child's age (1–18 years) before submitting.";
         errorDiv.style.display = "block";
         btn.innerText = originalText;
         btn.disabled = false;
@@ -107,30 +107,22 @@ async function submitAnswers() {
     }
 
     try {
-        // Get email from session for server-side result storage
         let email = "";
         try {
             const user = JSON.parse(localStorage.getItem("currentUser"));
             if (user && user.email) email = user.email;
         } catch (e) {}
 
-        const response = await fetch("http://127.0.0.1:5000/submit-questionnaire", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ answers, email, age_months: ageYears * 12 })
-        });
+        const { ok, data } = await apiSubmitQuestionnaire(answers, email, ageYears * 12);
 
-        if (!response.ok) throw new Error("Network response was not ok");
+        if (!ok) throw new Error(data.error || "Submission failed.");
 
-        const data = await response.json();
-        
         localStorage.setItem("screeningResult", JSON.stringify(data));
-        
         window.location.href = "results.html";
 
     } catch (error) {
-        console.error("Error:", error);
-        errorDiv.innerText = "Failed to submit to the ML Pipeline. Is the Python server running?";
+        console.error("Submission error:", error);
+        errorDiv.innerText = "Submission failed. Please check your connection and try again.";
         errorDiv.style.display = "block";
         btn.innerText = originalText;
         btn.disabled = false;

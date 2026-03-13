@@ -169,7 +169,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     border-radius: 16px;
     padding: 40px;
     text-align: center;
-    max-width: 450px;
+    max-width: 560px;
     width: 100%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -880,7 +880,9 @@ body.light-mode .info-card,
 body.light-mode .result-card, 
 body.light-mode .modal-card,
 body.light-mode #questions div,
-body.light-mode .history-card {
+body.light-mode .history-card,
+body.light-mode .stat-card,
+body.light-mode .chart-card {
     background: #ffffff !important;
     border: 1px solid #e0e0e0 !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
@@ -890,14 +892,16 @@ body.light-mode .history-stat {
     background: rgba(0, 0, 0, 0.03) !important;
 }
 
-body.light-mode .history-stat-value {
+body.light-mode .history-stat-value,
+body.light-mode .stat-card-value:not(.stat-danger):not(.stat-warn):not(.stat-ok) {
     color: #1e1f22 !important;
 }
 
 body.light-mode .history-stat-label,
 body.light-mode .history-label,
 body.light-mode .history-date,
-body.light-mode .history-interpretation {
+body.light-mode .history-interpretation,
+body.light-mode .stat-card-label {
     color: #666666 !important;
 }
 
@@ -1062,3 +1066,648 @@ body.light-mode .switch-auth {
 body.light-mode .switch-auth:hover {
     color: #1e1f22 !important;
 }
+
+body.light-mode .patient-table th {
+    border-bottom: 1px solid #e0e0e0 !important;
+    color: #666666 !important;
+}
+
+body.light-mode .patient-table td {
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+body.light-mode .patient-table tbody tr:hover td {
+    background: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ====================================================
+   AGE INPUT SECTION (questionnaire.html)
+   ==================================================== */
+
+.age-section-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 0 20px;
+}
+
+.age-input-card {
+    background: #2b2d31;
+    border: 1px solid #3f4147;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.age-input-hint {
+    color: #a0a0a0;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.age-input-field {
+    width: 120px !important;
+    text-align: center;
+    font-size: 16px !important;
+    padding: 10px 14px !important;
+}
+
+body.light-mode .age-input-card {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+body.light-mode .age-input-hint {
+    color: #666666 !important;
+}
+
+/* ====================================================
+   RESULTS PAGE — SUB-DOMAIN BREAKDOWN
+   ==================================================== */
+
+.result-stats {
+    margin: 28px 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.result-stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.result-stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-stat-label {
+    font-size: 13px;
+    color: #a0a0a0;
+    font-weight: 600;
+}
+
+.result-stat-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.result-progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.result-progress-bar {
+    height: 100%;
+    border-radius: 99px;
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.result-progress-bar.social {
+    background: linear-gradient(90deg, #6ba4ff, #a78bfa);
+}
+
+.result-progress-bar.behavioral {
+    background: linear-gradient(90deg, #ffb347, #ff6b6b);
+}
+
+.result-flags-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+}
+
+.result-flags-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffb347;
+}
+
+.result-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+/* Light mode overrides for results breakdown */
+body.light-mode .result-stat-label {
+    color: #666666 !important;
+}
+
+body.light-mode .result-stat-value {
+    color: #1e1f22 !important;
+}
+
+body.light-mode .result-progress-track {
+    background: rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .result-flags-row {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ====================================================
+   BRAND LOGO (auth pages)
+   ==================================================== */
+
+.brand-logo-auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+/* ====================================================
+   ROLE SELECTOR TOGGLE (login / signup)
+   ==================================================== */
+
+.role-selector {
+    display: flex;
+    gap: 10px;
+    background: #1f2024;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.role-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: transparent;
+    color: #a0a0a0;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: none;
+    margin: 0;
+}
+
+.role-btn svg {
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.role-btn:hover {
+    background: rgba(255,255,255,0.05);
+    color: #eaeaea;
+    transform: none;
+    box-shadow: none;
+}
+
+.role-btn.role-active {
+    background: #2b2d31;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.role-btn.role-active svg {
+    fill: #6ba4ff;
+}
+
+body.light-mode .role-selector {
+    background: #f0f0f0 !important;
+}
+
+body.light-mode .role-btn.role-active {
+    background: #ffffff !important;
+    color: #1e1f22 !important;
+}
+
+/* ====================================================
+   DOCTOR DASHBOARD — STAT CARDS
+   ==================================================== */
+
+.stat-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: #2b2d31;
+    border: 1px solid #3f4147;
+    border-radius: 16px;
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+    border-color: #555;
+    transform: translateY(-2px);
+}
+
+.stat-card-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.stat-card-label {
+    font-size: 12px;
+    color: #a0a0a0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-danger { color: #ff6b6b; }
+.stat-warn   { color: #ffb347; }
+.stat-ok     { color: #6bff8d; }
+
+/* ====================================================
+   CHART ROW
+   ==================================================== */
+
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+    .chart-row { grid-template-columns: 1fr; }
+}
+
+.chart-card {
+    background: #2b2d31;
+    border: 1px solid #3f4147;
+    border-radius: 16px;
+    padding: 22px 20px 16px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #a0a0a0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 16px 0;
+}
+
+.chart-container {
+    position: relative;
+    max-height: 220px;
+}
+
+/* ====================================================
+   PATIENT TABLE
+   ==================================================== */
+
+.patient-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.patient-table th {
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    color: #a0a0a0;
+    font-weight: 600;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid #3f4147;
+    white-space: nowrap;
+}
+
+.patient-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+}
+
+.patient-table tr:last-child td {
+    border-bottom: none;
+}
+
+.patient-table tr:hover td {
+    background: rgba(255,255,255,0.03);
+}
+
+.table-empty {
+    text-align: center;
+    color: #a0a0a0;
+    padding: 40px !important;
+}
+
+.risk-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.risk-high     { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+.risk-moderate { background: rgba(255,179,71,0.15);  color: #ffb347; }
+.risk-low      { background: rgba(107,255,141,0.15); color: #6bff8d; }
+.risk-none     { background: rgba(160,160,160,0.15); color: #a0a0a0; }
+
+/* ====================================================
+   DOCTOR CARDS GRID (parent doctors page)
+   ==================================================== */
+
+.doctor-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+}
+
+.doctor-card {
+    background: #2b2d31;
+    border: 1px solid #3f4147;
+    border-radius: 18px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.25s cubic-bezier(0.25,0.8,0.25,1);
+}
+
+.doctor-card:hover {
+    border-color: #6ba4ff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(107,164,255,0.12);
+}
+
+.doctor-card-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6ba4ff, #a78bfa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+}
+
+.doctor-card-body {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.doctor-card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 3px;
+}
+
+.doctor-card-spec {
+    font-size: 13px;
+    color: #6ba4ff;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.doctor-card-clinic,
+.doctor-card-location {
+    font-size: 12px;
+    color: #a0a0a0;
+    margin-bottom: 4px;
+}
+
+.doctor-card-bio {
+    font-size: 13px;
+    color: #cccccc;
+    line-height: 1.5;
+    margin: 10px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.doctor-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.doctor-star-row { font-size: 16px; }
+
+.doctor-rating-text {
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+.doctor-card-actions {
+    border-top: 1px solid #3f4147;
+    padding-top: 14px;
+    margin-top: 2px;
+}
+
+.rate-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    background: rgba(107,164,255,0.12);
+    color: #6ba4ff;
+    border: 1px solid #6ba4ff;
+    border-radius: 10px;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+.rate-btn:hover {
+    background: rgba(107,164,255,0.22);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ====================================================
+   STAR COMPONENTS
+   ==================================================== */
+
+.star-filled { color: #ffb347; }
+.star-half   { color: #ffb347; opacity: 0.6; }
+.star-empty  { color: #3f4147; }
+
+.star-input-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 4px 0;
+}
+
+.star-input-item {
+    font-size: 32px;
+    color: #3f4147;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star-input-item:hover,
+.star-input-item.star-input-active {
+    color: #ffb347;
+}
+
+.star-input-item:hover {
+    transform: scale(1.2);
+}
+
+.star-display {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+    font-size: 20px;
+}
+
+.rating-stars-sm {
+    font-size: 14px;
+    margin-left: auto;
+}
+
+/* ====================================================
+   DOCTOR PROFILE PAGE
+   ==================================================== */
+
+.doctor-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 28px;
+    background: #2b2d31;
+    border: 1px solid #3f4147;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.doctor-profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6ba4ff, #a78bfa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.profile-field-group {
+    margin-bottom: 16px;
+}
+
+.profile-field-label {
+    display: block;
+    font-size: 12px;
+    color: #a0a0a0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 7px;
+}
+
+.rating-review-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #3f4147;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+}
+
+.rating-review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.rating-review-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #313338;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #a0a0a0;
+    flex-shrink: 0;
+}
+
+.rating-review-comment {
+    font-size: 13px;
+    color: #cccccc;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Light mode overrides for new components */
+body.light-mode .stat-card,
+body.light-mode .chart-card,
+body.light-mode .doctor-card,
+body.light-mode .doctor-profile-header,
+body.light-mode .rating-review-card {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+body.light-mode .stat-card-label,
+body.light-mode .chart-title,
+body.light-mode .doctor-card-clinic,
+body.light-mode .doctor-card-location,
+body.light-mode .doctor-rating-text,
+body.light-mode .profile-field-label,
+body.light-mode .rating-review-avatar { color: #666 !important; }
+
+body.light-mode .stat-card-value,
+body.light-mode .doctor-card-name { color: #1e1f22 !important; }
+
+body.light-mode .patient-table th { background: rgba(0,0,0,0.03) !important; }
+body.light-mode .patient-table td { border-color: rgba(0,0,0,0.05) !important; }
+body.light-mode .patient-table tr:hover td { background: rgba(0,0,0,0.02) !important; }
+body.light-mode .star-empty { color: #d0d0d0 !important; }
+
+body.light-mode .role-btn { color: #888 !important; }
+body.light-mode .role-btn.role-active { color: #1e1f22 !important; }

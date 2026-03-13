@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Medzilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
 </head>
 <body>
-    
     <script>
         (function() {
             const reduceMotion = localStorage.getItem('setting_reduceMotion') === 'true';
             const dyslexiaFont = localStorage.getItem('setting_dyslexiaFont') === 'true';
             const lightMode = localStorage.getItem('setting_lightMode') === 'true';
-
             if (reduceMotion) document.body.classList.add('reduce-motion');
             if (dyslexiaFont) document.body.classList.add('dyslexia-mode');
             if (lightMode) document.body.classList.add('light-mode');
@@ -20,25 +20,42 @@
     </script>
 
 <div class="result-wrapper">
-    <div class="result-card auth-box">
+    <div class="result-card auth-box" style="max-width: 440px; height: auto; padding: 36px 40px;">
 
-        <h2>Welcome Back</h2>
+        <div class="brand-logo-auth">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#6ba4ff"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
+            <span>Medzilla</span>
+        </div>
 
-        <input id="email" placeholder="Email" class="input-field">
+        <h2 style="margin: 18px 0 6px 0; font-size: 22px;">Welcome back</h2>
+        <p style="color: #a0a0a0; font-size: 13px; margin-bottom: 22px;">Sign in to your account to continue</p>
+
+        <!-- Role Selector -->
+        <div class="role-selector">
+            <button id="role-parent" class="role-btn role-active" onclick="selectRole('parent')">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                Parent
+            </button>
+            <button id="role-doctor" class="role-btn" onclick="selectRole('doctor')">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
+                Doctor
+            </button>
+        </div>
+
+        <input id="email" placeholder="Email" class="input-field" style="margin-top: 18px;">
 
         <div class="password-box">
             <input id="password" type="password" placeholder="Password" class="input-field">
             <svg id="eye" onclick="togglePassword('password')" viewBox="0 0 24 24" class="eye-icon">
-                <path id="eyePath" d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+                <path d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
             </svg>
         </div>
 
         <div id="login-error" class="error-message"></div>
 
-        <button onclick="login()">Login</button>
+        <button onclick="login()" style="margin-top: 8px; width: 100%;">Sign In</button>
 
         <p class="switch-auth" onclick="goSignup()">Don't have an account? Create one</p>
-
     </div>
 </div>
 
@@ -50,7 +67,7 @@
     </div>
 </div>
 
-<script src="js/login.js"></script>
-
+<script src="js/api.js?v=2"></script>
+<script src="js/login.js?v=2"></script>
 </body>
 </html>

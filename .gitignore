@@ -41,9 +41,11 @@ desktop.ini
 *.tmp
 *.bak
 
-# Video uploads (large files)
-storage/uploads/
-storage/frames/
+# ML Datasets (large files/data)
+*.csv
+dataset/
+data/raw/
+data/processed/
 
 # Model files (large binaries)
 *.h5

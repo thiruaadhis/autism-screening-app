@@ -2,8 +2,6 @@
 // PROFILE — Screening History Engine
 // ==========================================
 
-const API_BASE = "http://127.0.0.1:5000";
-
 function getUserEmail() {
     try {
         const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -85,10 +83,9 @@ async function loadHistory() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/api/results?email=${encodeURIComponent(email)}`);
-        const data = await response.json();
+        const { ok, data } = await apiGetResults(email);
 
-        if (!response.ok) {
+        if (!ok) {
             container.innerHTML = '<p style="text-align: center; color: #ff6b6b; font-size: 14px;">Failed to load history.</p>';
             return;
         }
@@ -106,17 +103,15 @@ async function loadHistory() {
 
     } catch (error) {
         console.error("History fetch error:", error);
-        container.innerHTML = '<p style="text-align: center; color: #ff6b6b; font-size: 14px;">Cannot connect to server. Is the Python backend running?</p>';
+        container.innerHTML = '<p style="text-align: center; color: #ff6b6b; font-size: 14px;">Unable to reach the server. Please check your connection.</p>';
     }
 }
 
 async function deleteResult(resultId) {
     try {
-        const response = await fetch(`${API_BASE}/api/results/${resultId}`, {
-            method: "DELETE"
-        });
+        const { ok } = await apiDeleteResult(resultId);
 
-        if (response.ok) {
+        if (ok) {
             const card = document.getElementById(`result-${resultId}`);
             if (card) {
                 card.style.transition = "all 0.3s ease";
@@ -124,7 +119,6 @@ async function deleteResult(resultId) {
                 card.style.transform = "translateX(20px)";
                 setTimeout(() => {
                     card.remove();
-                    // Check if any cards remain
                     const container = document.getElementById("history-container");
                     if (!container.querySelector(".history-card")) {
                         container.innerHTML = '<p style="text-align: center; color: #a0a0a0; font-size: 14px;">No screening results yet. Take your first test to see results here.</p>';
@@ -132,7 +126,7 @@ async function deleteResult(resultId) {
                 }, 300);
             }
         } else {
-            console.error("Delete failed");
+            console.error("Delete failed — result not found or server error.");
         }
     } catch (error) {
         console.error("Delete error:", error);

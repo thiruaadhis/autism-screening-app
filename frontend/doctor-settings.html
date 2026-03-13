@@ -31,31 +31,24 @@
                     </button>
                 </div>
                 <div class="nav-links">
-                    <a href="dashboard.html" class="nav-link">
+                    <a href="doctor-dashboard.html" class="nav-link">
                         <svg viewBox="0 0 24 24">
-                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
                         </svg>
-                        <span>Home</span>
+                        <span>Dashboard</span>
                     </a>
-                    <a href="questionnaire.html" class="nav-link">
+                    <a href="doctor-profile.html" class="nav-link">
                         <svg viewBox="0 0 24 24">
                             <path
-                                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z" />
+                                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
                         </svg>
-                        <span>Autism Test</span>
-                    </a>
-                    <a href="doctors.html" class="nav-link">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z" />
-                        </svg>
-                        <span>Doctors</span>
+                        <span>My Profile</span>
                     </a>
                 </div>
             </div>
 
             <div class="sidebar-footer">
-                <a href="settings.html" class="nav-link active" style="font-size: 14px;">
+                <a href="doctor-settings.html" class="nav-link active" style="font-size: 14px;">
                     <svg viewBox="0 0 24 24">
                         <path
                             d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
@@ -68,10 +61,6 @@
         <main class="main-content">
             <header class="top-header">
                 <h1 class="brand-title">Medzilla</h1>
-                <div class="user-profile" onclick="window.location.href='profile.html'">
-                    <span id="greetingText">Hi, User</span>
-                    <div id="avatarLetter" class="avatar">U</div>
-                </div>
             </header>
 
             <section class="content-area">
@@ -110,19 +99,7 @@
 
                     <div class="divider" style="margin: 30px 0;"></div>
 
-                    <h3 style="color: #6ba4ff; margin-bottom: 20px;">Privacy & Data Matrix</h3>
-
-                    <div class="setting-item">
-                        <div class="setting-info">
-                            <div class="setting-label">Anonymous ML Contribution</div>
-                            <div class="setting-desc">Allow Medzilla to securely use your anonymized data to train the
-                                next epoch of our diagnostic models.</div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="toggle-ml" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
+                    <h3 style="color: #6ba4ff; margin-bottom: 20px;">Data Wipe</h3>
 
                     <div class="setting-item" style="border-bottom: none; padding-top: 25px; align-items: flex-start;">
                         <div class="setting-info">
@@ -167,7 +144,7 @@
         </main>
     </div>
 
-    <script src="js/dashboard.js?v=2"></script>
+    <script src="js/dashboard.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("toggle-motion").checked = localStorage.getItem("setting_reduceMotion") === "true";
@@ -219,7 +196,7 @@
             }, 3000);
         }
 
-        // Apply settings specifically for the UI dynamically
+        // In settings, apply settings strictly for UI preview
         function applySettings() {
             const docClass = document.documentElement.classList;
 

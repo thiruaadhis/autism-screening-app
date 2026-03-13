@@ -1,29 +1,14 @@
-import json
 import os
 import uuid
 from datetime import datetime, timezone
 from flask import Blueprint, request, jsonify
 from services.scoring_service import calculate_score, TOTAL_QUESTIONS, MAX_ANSWER_VALUE
+from utils import load_json, save_json
 
 questionnaire_bp = Blueprint("questionnaire", __name__)
 
-# --- Results Storage ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RESULTS_FILE = os.path.join(BASE_DIR, "../data/results.json")
-
-def load_results():
-    if not os.path.exists(RESULTS_FILE):
-        return []
-    with open(RESULTS_FILE, "r") as f:
-        try:
-            return json.load(f)
-        except json.JSONDecodeError:
-            return []
-
-def save_results(data):
-    os.makedirs(os.path.dirname(RESULTS_FILE), exist_ok=True)
-    with open(RESULTS_FILE, "w") as f:
-        json.dump(data, f, indent=4)
 
 
 @questionnaire_bp.route("/submit-questionnaire", methods=["POST"])
@@ -60,9 +45,9 @@ def submit_questionnaire():
                 "critical_flags": result["critical_flags"],
                 "interpretation": result["interpretation"]
             }
-            results = load_results()
+            results = load_json(RESULTS_FILE)
             results.append(record)
-            save_results(results)
+            save_json(RESULTS_FILE, results)
 
         return jsonify(result)
 

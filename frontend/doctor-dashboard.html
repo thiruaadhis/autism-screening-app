@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard | Medzilla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/medical-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        (function() {
+            if (localStorage.getItem('setting_reduceMotion') === 'true') document.documentElement.classList.add('reduce-motion');
+            if (localStorage.getItem('setting_dyslexiaFont') === 'true') document.documentElement.classList.add('dyslexia-mode');
+            if (localStorage.getItem('setting_lightMode') === 'true') document.documentElement.classList.add('light-mode');
+        })();
+    </script>
+</head>
+<body>
+<script>document.body.className = document.documentElement.className;</script>
+
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <button class="menu-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
+            </div>
+            <div class="nav-links">
+                <a href="doctor-dashboard.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="doctor-profile.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <a href="doctor-settings.html" class="nav-link" style="font-size: 14px;">
+                <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                <span>Settings</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-header">
+            <h1 class="brand-title">Medzilla</h1>
+        </header>
+
+        <section class="content-area" style="max-width: 1100px; padding-top: 28px;">
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+                <div>
+                    <h2 style="margin:0; font-size:22px;">Patient Overview</h2>
+                    <p style="color:#a0a0a0; font-size:13px; margin:4px 0 0 0;">Real-time screening data from all registered parents</p>
+                </div>
+                <button onclick="loadDashboard()" style="padding: 10px 20px; font-size:13px;">↻ Refresh</button>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="stat-cards-grid" id="stat-cards">
+                <div class="stat-card"><div class="stat-card-value" id="stat-total">—</div><div class="stat-card-label">Total Patients</div></div>
+                <div class="stat-card"><div class="stat-card-value" id="stat-screenings">—</div><div class="stat-card-label">Total Screenings</div></div>
+                <div class="stat-card"><div class="stat-card-value stat-danger" id="stat-highrisk">—</div><div class="stat-card-label">High Risk</div></div>
+                <div class="stat-card"><div class="stat-card-value stat-warn" id="stat-moderate">—</div><div class="stat-card-label">Moderate Risk</div></div>
+                <div class="stat-card"><div class="stat-card-value stat-ok" id="stat-lowrisk">—</div><div class="stat-card-label">Low / No Risk</div></div>
+                <div class="stat-card"><div class="stat-card-value" id="stat-avglikelihood">—</div><div class="stat-card-label">Avg Likelihood</div></div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-row">
+                <div class="chart-card">
+                    <h3 class="chart-title">Risk Distribution</h3>
+                    <div class="chart-container"><canvas id="riskPieChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Domain Averages</h3>
+                    <div class="chart-container"><canvas id="domainBarChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Likelihood Distribution</h3>
+                    <div class="chart-container"><canvas id="likelihoodHistChart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Patient Table -->
+            <div class="info-card" id="patients-section" style="margin-top: 24px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <h3 style="margin:0; font-size:16px;">Patient Records</h3>
+                        <p style="margin:4px 0 0 0; font-size:12px; color:#a0a0a0;">Click any row to view patient-specific charts</p>
+                    </div>
+                    <input id="patient-search" class="input-field" placeholder="Search by email or name…" style="width:260px; margin:0; padding:9px 14px; font-size:13px;" oninput="filterPatients(this.value)">
+                </div>
+                <div class="patient-table-wrap">
+                    <table class="patient-table" id="patient-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Screenings</th>
+                                <th>Last Screened</th>
+                                <th>Likelihood</th>
+                                <th>Social %</th>
+                                <th>Behavioral %</th>
+                                <th>Flags</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patient-tbody">
+                            <tr><td colspan="8" class="table-empty">Loading patient data…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Patient Detail Modal -->
+<div id="patient-modal" class="modal hidden">
+    <div class="modal-card" style="max-width:660px; width:95%; max-height:90vh; overflow-y:auto;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+            <div>
+                <h3 id="modal-patient-name" style="margin:0; font-size:18px;"></h3>
+                <p id="modal-patient-email" style="color:#a0a0a0; font-size:13px; margin:4px 0 0 0;"></p>
+            </div>
+            <button onclick="closePatientModal()" style="background:#444; color:white; padding:8px 16px; font-size:13px; margin:0;">✕ Close</button>
+        </div>
+
+        <!-- Key metrics row -->
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px;" id="modal-metrics"></div>
+
+        <!-- Two mini charts inside modal -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+            <div class="chart-card" style="padding:16px;">
+                <h3 class="chart-title">Domain Breakdown</h3>
+                <div class="chart-container" style="max-height:180px;"><canvas id="modalDoughnutChart"></canvas></div>
+            </div>
+            <div class="chart-card" style="padding:16px;">
+                <h3 class="chart-title">Score Profile</h3>
+                <div class="chart-container" style="max-height:180px;"><canvas id="modalBarChart"></canvas></div>
+            </div>
+        </div>
+
+        <div class="chart-card" style="padding:16px;">
+            <h3 class="chart-title" style="margin-bottom:8px;">Latest Interpretation</h3>
+            <p id="modal-interpretation" style="color:#cccccc; font-size:14px; line-height:1.6; margin:0;"></p>
+        </div>
+    </div>
+</div>
+
+<script src="js/api.js?v=3"></script>
+<script src="js/doctor-dashboard.js?v=3"></script>
+</body>
+</html>
