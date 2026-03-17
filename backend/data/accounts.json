@@ -2,7 +2,6 @@
     {
         "email": "thiruaadhis15@gmail.com",
         "password": "scrypt:32768:8:1$yy5y6DEbDGRduvzQ$a155d38686f29fdd444e6fbc134c13321a433c0ac0a4234c543b7cdbfc7c312f0f08de90b2ff13c82fdc56b417b197a0b7b64e401155c428ec0b898bd8e5c9c9",
-        "username": "thiruaadhis15",
         "role": "parent"
     },
     {

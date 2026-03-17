@@ -1,12 +1,3 @@
-// Role tracking — default to parent
-let selectedRole = "parent";
-
-function selectRole(role) {
-    selectedRole = role;
-    document.getElementById("role-parent").classList.toggle("role-active", role === "parent");
-    document.getElementById("role-doctor").classList.toggle("role-active", role === "doctor");
-}
-
 function togglePassword(inputId) {
     const input = document.getElementById(inputId || 'password');
     input.type = input.type === 'password' ? 'text' : 'password';
@@ -57,9 +48,11 @@ async function login() {
         // Trust the server's stored role — no manual toggle check needed
         const accountRole = data.role || "parent";
         
-        // --- DIAGNOSTIC ALERTS FOR USER ---
-        alert(`Login Success! Server says your email is: ${data.email}\nServer says your role is: ${accountRole}`);
-        // ----------------------------------
+        // Show in-page success feedback
+        const successDiv = document.getElementById('login-success');
+        const roleLabel = accountRole === "doctor" ? "Medical Professional" : "Parent";
+        successDiv.innerText = `Login successful! Logged in as: ${roleLabel}`;
+        successDiv.style.display = 'block';
 
         console.log("Login Success! Server returned role:", accountRole);
 
@@ -75,12 +68,14 @@ async function login() {
 
         console.log("Session saved. Redirecting...");
 
-        // Redirect based on account role, not the UI toggle
-        if (accountRole === "doctor") {
-            window.location.href = 'doctor-dashboard.html';
-        } else {
-            window.location.href = 'dashboard.html';
-        }
+        // Redirect after brief delay so user sees the success message
+        setTimeout(() => {
+            if (accountRole === "doctor") {
+                window.location.href = 'doctor-dashboard.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        }, 3000);
 
     } catch (error) {
         console.error("Login error:", error);
@@ -88,11 +83,3 @@ async function login() {
         errorDiv.style.display = 'block';
     }
 }
-
-// Pre-select role from URL param if provided
-document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const roleParam = params.get("role");
-    if (roleParam === "doctor") selectRole("doctor");
-    else selectRole("parent");
-});

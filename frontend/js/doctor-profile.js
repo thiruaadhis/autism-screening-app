@@ -111,17 +111,17 @@ async function saveProfile() {
         const { ok, data } = await apiUpdateDoctorProfile(payload);
         if (ok) {
             msgEl.innerText = "✓ Profile saved successfully!";
-            msgEl.style.color = "#6bff8d";
-            msgEl.style.borderColor = "#6bff8d";
-            msgEl.style.backgroundColor = "rgba(107,255,141,0.08)";
+            msgEl.style.color = "#2e7d32";
+            msgEl.style.borderColor = "#2e7d32";
+            msgEl.style.backgroundColor = "rgba(46,125,50,0.12)";
             msgEl.style.display = "block";
             await loadProfile();
             setTimeout(() => { msgEl.style.display = "none"; }, 3000);
         } else {
             msgEl.innerText = data.error || "Failed to save profile.";
-            msgEl.style.color = "#ff6b6b";
-            msgEl.style.borderColor = "#ff6b6b";
-            msgEl.style.backgroundColor = "rgba(255,107,107,0.08)";
+            msgEl.style.color = "#dc143c";
+            msgEl.style.borderColor = "#dc143c";
+            msgEl.style.backgroundColor = "rgba(220,20,60,0.1)";
             msgEl.style.display = "block";
         }
     } catch (e) {

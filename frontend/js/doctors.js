@@ -144,7 +144,7 @@ async function loadDoctors() {
         const { ok, data } = await apiGetDoctors();
         if (!ok) {
             document.getElementById("doctors-grid").innerHTML =
-                '<p style="color:#ff6b6b; text-align:center; width:100%;">Failed to load doctors. Is the server running?</p>';
+                '<p style="color:#dc143c; text-align:center; width:100%;">Failed to load doctors. Is the server running?</p>';
             return;
         }
         allDoctors = data.doctors || [];
@@ -152,7 +152,7 @@ async function loadDoctors() {
     } catch (e) {
         console.error("Doctors load error:", e);
         document.getElementById("doctors-grid").innerHTML =
-            '<p style="color:#ff6b6b; text-align:center; width:100%;">Unable to reach the server.</p>';
+            '<p style="color:#dc143c; text-align:center; width:100%;">Unable to reach the server.</p>';
     }
 }
 

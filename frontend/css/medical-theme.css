@@ -28,7 +28,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #6ba4ff; /* Kaiju Blue on hover! */
+    background: #888; /* Neutral on hover */
 }
 
 h2 {
@@ -314,16 +314,29 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 }
 
 .error-message {
-    color: #ff6b6b; 
+    color: #dc143c; 
     font-size: 14px;
     font-weight: 600;
     text-align: center;
     margin: 10px 0 0 0; 
     padding: 10px;
     border-radius: 8px;
-    background-color: rgba(255, 107, 107, 0.1); 
-    border: 1px solid #ff6b6b;
+    background-color: rgba(220, 20, 60, 0.1); 
+    border: 1px solid #dc143c;
     display: none; 
+}
+
+.success-message {
+    color: #2e7d32;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin: 18px 0;
+    padding: 12px 10px;
+    border-radius: 8px;
+    background-color: rgba(46, 125, 50, 0.12);
+    border: 1px solid #2e7d32;
+    display: none;
 }
 
 .dashboard-container {
@@ -335,7 +348,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 
 .sidebar {
     width: 260px;
-    background: #17181a;
+    background: #2b2d31;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -511,7 +524,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 
 .content-area {
     padding: 40px 25px;
-    max-width: 850px;
+    max-width: 1400px;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
@@ -562,7 +575,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 
 .info-link:hover {
     background: #404249;
-    border-color: #6ba4ff; 
+    border-color: #eaeaea; 
     transform: translateX(6px) scale(1.01);
     color: #ffffff;
 }
@@ -637,11 +650,11 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 }
 
 input:checked + .slider {
-    background-color: #6ba4ff;
+    background-color: #555;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #6ba4ff;
+    box-shadow: 0 0 1px #555;
 }
 
 input:checked + .slider:before {
@@ -661,8 +674,8 @@ input:checked + .slider:before {
     gap: 10px;
     padding: 12px 24px;
     background: transparent;
-    color: #ff6b6b;
-    border: 1px solid #ff6b6b;
+    color: #dc143c;
+    border: 1px solid #dc143c;
     border-radius: 12px;
     font-family: 'Comfortaa', sans-serif;
     font-size: 15px;
@@ -673,7 +686,7 @@ input:checked + .slider:before {
 }
 
 .stealth-btn:hover {
-    background: rgba(255, 107, 107, 0.1);
+    background: rgba(220, 20, 60, 0.1);
     transform: translateY(-2px);
 }
 
@@ -682,7 +695,7 @@ input:checked + .slider:before {
 }
 
 .stealth-btn svg {
-    fill: #ff6b6b;
+    fill: #dc143c;
     width: 20px;
     height: 20px;
     flex-shrink: 0;
@@ -769,8 +782,8 @@ input:checked + .slider:before {
     gap: 6px;
     padding: 6px 14px;
     background: transparent;
-    border: 1px solid #ff6b6b;
-    color: #ff6b6b;
+    border: 1px solid #dc143c;
+    color: #dc143c;
     border-radius: 8px;
     font-family: 'Comfortaa', sans-serif;
     font-size: 12px;
@@ -781,7 +794,7 @@ input:checked + .slider:before {
 }
 
 .history-delete-btn:hover {
-    background: rgba(255, 107, 107, 0.1);
+    background: rgba(220, 20, 60, 0.1);
     transform: translateY(-2px);
 }
 
@@ -823,7 +836,7 @@ body.light-mode ::-webkit-scrollbar-thumb {
 }
 
 body.light-mode ::-webkit-scrollbar-thumb:hover {
-    background: #1a73e8 !important;
+    background: #555 !important;
 }
 
 body.light-mode,
@@ -907,25 +920,29 @@ body.light-mode .stat-card-label {
 
 body.light-mode .history-delete-btn {
     background-color: transparent !important;
-    color: #d32f2f !important;
-    border: 1px solid #d32f2f !important;
+    color: #b71c1c !important;
+    border: 1px solid #b71c1c !important;
 }
 
 body.light-mode .history-delete-btn:hover {
-    background-color: rgba(211, 47, 47, 0.1) !important;
+    background-color: rgba(183, 28, 28, 0.1) !important;
 }
 
 body.light-mode h1, 
-body.light-mode h2:not([style*="#ff6b6b"]), 
+body.light-mode h2:not([style*="#dc143c"]), 
 body.light-mode .setting-label,
 body.light-mode .info-card p, 
 body.light-mode .info-card li {
     color: #1e1f22 !important;
 }
 
+body.light-mode [style*="#6ba4ff" i] {
+    color: #6ba4ff !important;
+}
+
 body.light-mode h3,
-body.light-mode h3[style*="#6ba4ff"] {
-    color: #1a73e8 !important; 
+body.light-mode h3[style*="#eaeaea"] {
+    color: #1e1f22 !important; 
 }
 
 body.light-mode .setting-desc,
@@ -957,23 +974,40 @@ body.light-mode button.menu-btn svg {
     fill: #1e1f22 !important;
 }
 
-body.light-mode button[style*="#ff6b6b"],
+body.light-mode button[style*="#dc143c"],
 body.light-mode .stealth-btn {
     background-color: transparent !important;
-    color: #d32f2f !important;
-    border: 1px solid #d32f2f !important;
+    color: #b71c1c !important;
+    border: 1px solid #b71c1c !important;
 }
 
-body.light-mode button[style*="#ff6b6b"]:hover,
+body.light-mode button[style*="#dc143c"]:hover,
 body.light-mode .stealth-btn:hover {
-    background-color: rgba(211, 47, 47, 0.1) !important;
+    background-color: rgba(183, 28, 28, 0.1) !important;
 }
 
-body.light-mode button[style*="#ff6b6b"] svg,
-body.light-mode button[style*="#ff6b6b"] svg path,
+body.light-mode button[style*="#dc143c"] svg,
+body.light-mode button[style*="#dc143c"] svg path,
 body.light-mode .stealth-btn svg,
 body.light-mode .stealth-btn svg path {
-    fill: #d32f2f !important;
+    fill: #b71c1c !important;
+}
+
+body.light-mode .setting-label[style*="#dc143c"] {
+    color: #b71c1c !important;
+}
+
+body.light-mode #purge-notification {
+    color: #b71c1c !important;
+}
+
+body.light-mode .role-btn.role-active {
+    background: #1e1f22 !important;
+    color: #ffffff !important;
+    border-color: #1e1f22 !important;
+}
+body.light-mode .role-btn.role-active svg {
+    fill: #ffffff !important;
 }
 
 body.light-mode .info-link {
@@ -984,8 +1018,8 @@ body.light-mode .info-link {
 
 body.light-mode .info-link:hover {
     background: rgba(26, 115, 232, 0.05) !important; 
-    color: #1a73e8 !important; 
-    border-color: #1a73e8 !important; 
+    color: #333 !important; 
+    border-color: #333 !important; 
     transform: translateX(6px) scale(1.01) !important; 
 }
 
@@ -1019,8 +1053,14 @@ body.light-mode .options input[type="radio"]:checked {
 }
 
 body.light-mode .options label:has(input:checked) {
-    background: rgba(49, 51, 56, 0.1) !important;
-    border-color: #313338 !important;
+    background: #1e1f22 !important;
+    border-color: #1e1f22 !important;
+    color: #ffffff !important;
+    transform: scale(1.03) !important;
+}
+
+body.light-mode .options label:has(input:checked) span {
+    color: #ffffff !important;
 }
 
 body.light-mode .options input[type="radio"]:checked + span {
@@ -1173,11 +1213,11 @@ body.light-mode .age-input-hint {
 }
 
 .result-progress-bar.social {
-    background: linear-gradient(90deg, #6ba4ff, #a78bfa);
+    background: linear-gradient(90deg, #888, #aaa);
 }
 
 .result-progress-bar.behavioral {
-    background: linear-gradient(90deg, #ffb347, #ff6b6b);
+    background: linear-gradient(90deg, #d4a017, #dc143c);
 }
 
 .result-flags-row {
@@ -1192,7 +1232,7 @@ body.light-mode .age-input-hint {
 .result-flags-value {
     font-size: 18px;
     font-weight: 700;
-    color: #ffb347;
+    color: #d4a017;
 }
 
 .result-actions {
@@ -1284,7 +1324,7 @@ body.light-mode .result-flags-row {
 }
 
 .role-btn.role-active svg {
-    fill: #6ba4ff;
+    fill: #eaeaea;
 }
 
 body.light-mode .role-selector {
@@ -1338,9 +1378,9 @@ body.light-mode .role-btn.role-active {
     letter-spacing: 0.5px;
 }
 
-.stat-danger { color: #ff6b6b; }
-.stat-warn   { color: #ffb347; }
-.stat-ok     { color: #6bff8d; }
+.stat-danger { color: #dc143c; }
+.stat-warn   { color: #d4a017; }
+.stat-ok     { color: #2e7d32; }
 
 /* ====================================================
    CHART ROW
@@ -1436,9 +1476,9 @@ body.light-mode .role-btn.role-active {
     letter-spacing: 0.3px;
 }
 
-.risk-high     { background: rgba(255,107,107,0.15); color: #ff6b6b; }
-.risk-moderate { background: rgba(255,179,71,0.15);  color: #ffb347; }
-.risk-low      { background: rgba(107,255,141,0.15); color: #6bff8d; }
+.risk-high     { background: rgba(220,20,60,0.15); color: #dc143c; }
+.risk-moderate { background: rgba(212,160,23,0.15);  color: #d4a017; }
+.risk-low      { background: rgba(46,125,50,0.15); color: #2e7d32; }
 .risk-none     { background: rgba(160,160,160,0.15); color: #a0a0a0; }
 
 /* ====================================================
@@ -1464,16 +1504,16 @@ body.light-mode .role-btn.role-active {
 }
 
 .doctor-card:hover {
-    border-color: #6ba4ff;
+    border-color: #eaeaea;
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(107,164,255,0.12);
+    box-shadow: 0 8px 24px rgba(234,234,234,0.08);
 }
 
 .doctor-card-avatar {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6ba4ff, #a78bfa);
+    background: linear-gradient(135deg, #555, #777);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1498,7 +1538,7 @@ body.light-mode .role-btn.role-active {
 
 .doctor-card-spec {
     font-size: 13px;
-    color: #6ba4ff;
+    color: #eaeaea;
     font-weight: 600;
     margin-bottom: 8px;
 }
@@ -1546,16 +1586,16 @@ body.light-mode .role-btn.role-active {
     width: 100%;
     padding: 10px;
     font-size: 13px;
-    background: rgba(107,164,255,0.12);
-    color: #6ba4ff;
-    border: 1px solid #6ba4ff;
+    background: rgba(234,234,234,0.1);
+    color: #eaeaea;
+    border: 1px solid #eaeaea;
     border-radius: 10px;
     margin: 0;
     transition: all 0.2s ease;
 }
 
 .rate-btn:hover {
-    background: rgba(107,164,255,0.22);
+    background: rgba(234,234,234,0.18);
     transform: none;
     box-shadow: none;
 }
@@ -1564,8 +1604,8 @@ body.light-mode .role-btn.role-active {
    STAR COMPONENTS
    ==================================================== */
 
-.star-filled { color: #ffb347; }
-.star-half   { color: #ffb347; opacity: 0.6; }
+.star-filled { color: #d4a017; }
+.star-half   { color: #d4a017; opacity: 0.6; }
 .star-empty  { color: #3f4147; }
 
 .star-input-row {
@@ -1584,7 +1624,7 @@ body.light-mode .role-btn.role-active {
 
 .star-input-item:hover,
 .star-input-item.star-input-active {
-    color: #ffb347;
+    color: #d4a017;
 }
 
 .star-input-item:hover {
@@ -1623,7 +1663,7 @@ body.light-mode .role-btn.role-active {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6ba4ff, #a78bfa);
+    background: linear-gradient(135deg, #555, #777);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1711,3 +1751,252 @@ body.light-mode .star-empty { color: #d0d0d0 !important; }
 
 body.light-mode .role-btn { color: #888 !important; }
 body.light-mode .role-btn.role-active { color: #1e1f22 !important; }
+
+/* Text color consistency — dark-on-light for readable content */
+body.light-mode .doctor-card-bio,
+body.light-mode .rating-review-comment,
+body.light-mode #modal-interpretation { color: #444444 !important; }
+
+body.light-mode .patient-table td { color: #1e1f22 !important; }
+
+body.light-mode .table-empty { color: #888888 !important; }
+
+body.light-mode .stat-danger { color: #b71c1c !important; }
+body.light-mode .stat-warn   { color: #b8860b !important; }
+body.light-mode .stat-ok     { color: #1b5e20 !important; }
+
+body.light-mode .success-message {
+    color: #1b5e20 !important;
+    background-color: rgba(27, 94, 32, 0.1) !important;
+    border-color: #1b5e20 !important;
+}
+
+body.light-mode .brand-logo-auth { color: #1e1f22 !important; }
+body.light-mode .brand-logo-auth svg { fill: #1e1f22 !important; }
+
+/* ====================================================
+   MILESTONE TRACKER COMPONENTS
+   ==================================================== */
+
+.milestone-section {
+    background: #1e1f23;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.milestone-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.milestone-section-header:hover {
+    background: rgba(107,164,255,0.05);
+}
+
+.milestone-section-body {
+    display: none;
+    padding: 0 20px 20px;
+}
+
+.milestone-section.open .milestone-section-body {
+    display: block;
+}
+
+.milestone-section.open .milestone-chevron {
+    transform: rotate(180deg);
+}
+
+.milestone-chevron {
+    transition: transform 0.2s ease;
+    color: #a0a0a0;
+}
+
+.milestone-age-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #eaeaea;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: rgba(234,234,234,0.08);
+    border: 1px solid rgba(234,234,234,0.15);
+}
+
+.milestone-age-badge.current {
+    background: rgba(234,234,234,0.15);
+    border-color: #eaeaea;
+    color: #eaeaea;
+}
+
+.milestone-progress-mini {
+    width: 60px;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.milestone-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Individual milestone card */
+.milestone-card {
+    background: #232428;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 10px;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: border-color 0.2s ease;
+}
+
+.milestone-card.delayed {
+    border-color: rgba(220,20,60,0.3);
+    background: rgba(220,20,60,0.04);
+}
+
+.milestone-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.milestone-cat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.milestone-cat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.milestone-delay-badge {
+    font-size: 11px;
+    font-weight: 600;
+    color: #dc143c;
+    background: rgba(220,20,60,0.12);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.milestone-status-btn {
+    background: transparent !important;
+    border: 1px solid #a0a0a0 !important;
+    padding: 4px 14px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-family: 'Comfortaa', sans-serif !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.milestone-status-btn:hover {
+    transform: translateY(-1px) !important;
+    opacity: 0.85;
+}
+
+.milestone-text {
+    font-size: 14px;
+    margin: 10px 0 8px;
+    color: #eaeaea;
+    line-height: 1.5;
+}
+
+.milestone-notes {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #ccc;
+    font-size: 12px;
+    font-family: 'Comfortaa', sans-serif;
+    resize: vertical;
+    min-height: 36px;
+    max-height: 100px;
+    box-sizing: border-box;
+}
+
+.milestone-notes::placeholder {
+    color: #555;
+}
+
+.milestone-notes:focus {
+    outline: none;
+    border-color: #eaeaea;
+}
+
+/* ── Light mode overrides ──────────────────────── */
+body.light-mode .milestone-section {
+    background: #ffffff;
+    border-color: #e0e0e0;
+}
+
+body.light-mode .milestone-section-header:hover {
+    background: rgba(0,0,0,0.03);
+}
+
+body.light-mode .milestone-age-badge {
+    color: #1e1f22;
+}
+
+body.light-mode .milestone-age-badge.current {
+    color: #1e1f22;
+}
+
+body.light-mode .milestone-info-card { border-left-color: #333 !important; }
+body.light-mode .milestone-info-heading,
+body.light-mode .milestone-text-strong,
+body.light-mode .milestone-age-display { color: #1e1f22 !important; }
+body.light-mode .milestone-info-text { color: #666 !important; }
+
+body.light-mode .milestone-card {
+    background: #f8f8fa;
+    border-color: #e0e0e0;
+}
+
+body.light-mode .milestone-card.delayed {
+    border-color: rgba(183,28,28,0.3);
+    background: rgba(183,28,28,0.04);
+}
+
+body.light-mode .milestone-text {
+    color: #1e1f22;
+}
+
+body.light-mode .milestone-progress-mini {
+    background: #e0e0e0;
+}
+
+body.light-mode .milestone-notes {
+    background: #ffffff;
+    border-color: #d0d0d0;
+    color: #333;
+}
+
+body.light-mode .milestone-notes::placeholder {
+    color: #999;
+}
+
+
+.milestone-info-card { border-left: 3px solid #eaeaea; }
+.milestone-info-heading { margin:0 0 8px 0; font-size:15px; color:#eaeaea; }
+.milestone-info-text { color:#a0a0a0; font-size:13px; margin:0; line-height:1.6; }
+.milestone-text-strong { color:#eaeaea; }
+.milestone-age-display { font-size:22px; font-weight:700; margin-top:8px; color:#eaeaea; }

@@ -60,7 +60,7 @@
                 <div class="doctor-profile-avatar" id="profile-avatar-letter">D</div>
                 <div>
                     <h2 id="profile-display-name" style="margin:0; font-size:22px;">—</h2>
-                    <p id="profile-display-spec" style="color:#6ba4ff; margin:4px 0; font-size:14px;">—</p>
+                    <p id="profile-display-spec" style="color:#eaeaea; margin:4px 0; font-size:14px;">—</p>
                     <div class="star-display" id="profile-star-display">
                         <span id="profile-avg-stars"></span>
                         <span id="profile-rating-text" style="color:#a0a0a0; font-size:13px; margin-left:8px;"></span>
@@ -70,7 +70,7 @@
 
             <!-- Edit Form -->
             <div class="info-card" style="margin-top:20px;">
-                <h3 style="margin-top:0; margin-bottom:20px; font-size:16px; color:#6ba4ff;">Edit Profile Information</h3>
+                <h3 style="margin-top:0; margin-bottom:20px; font-size:16px; color:#eaeaea;">Edit Profile Information</h3>
 
                 <div class="profile-field-group">
                     <label class="profile-field-label">Display Name</label>
@@ -99,9 +99,25 @@
 
             <!-- Ratings Section -->
             <div class="info-card" style="margin-top:20px;">
-                <h3 style="margin-top:0; margin-bottom:16px; font-size:16px; color:#6ba4ff;">Parent Reviews</h3>
+                <h3 style="margin-top:0; margin-bottom:16px; font-size:16px; color:#eaeaea;">Parent Reviews</h3>
                 <div id="ratings-container">
                     <p style="color:#a0a0a0; font-size:14px; text-align:center;">No reviews yet.</p>
+                </div>
+            </div>
+
+            <!-- Logout -->
+            <div class="info-card" style="margin-top:20px; padding: 20px 40px;">
+                <div class="setting-item" style="border-bottom: none; padding: 0; align-items: center;">
+                    <div class="setting-info">
+                        <div class="setting-label" style="color: #dc143c;">End Session</div>
+                        <div class="setting-desc">Sign out of your current Medzilla session.</div>
+                    </div>
+                    <div class="action-column">
+                        <button onclick="logout()" style="margin: 0; background: transparent; border: 1px solid #dc143c; color: #dc143c; padding: 10px 20px; font-size: 14px; border-radius: 10px; display: flex; align-items: center; gap: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" style="flex-shrink: 0;"><path fill="#dc143c" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -111,5 +127,9 @@
 
 <script src="js/api.js"></script>
 <script src="js/doctor-profile.js"></script>
+<script>
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+function logout() { localStorage.removeItem('currentUser'); window.location.replace('login.html'); }
+</script>
 </body>
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestones | Medzilla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/medical-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <script>
+        (function() {
+            const reduceMotion = localStorage.getItem('setting_reduceMotion') === 'true';
+            const dyslexiaFont = localStorage.getItem('setting_dyslexiaFont') === 'true';
+            const lightMode = localStorage.getItem('setting_lightMode') === 'true';
+            if (reduceMotion) document.body.classList.add('reduce-motion');
+            if (dyslexiaFont) document.body.classList.add('dyslexia-mode');
+            if (lightMode) document.body.classList.add('light-mode');
+        })();
+    </script>
+
+<div class="dashboard-container">
+    <aside id="sidebar" class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <button class="menu-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    <span>Home</span>
+                </a>
+                <a href="questionnaire.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+                    <span>Autism Test</span>
+                </a>
+                <a href="milestones.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    <span>Milestones</span>
+                </a>
+                <a href="doctors.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
+                    <span>Doctors</span>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <a href="settings.html" class="nav-link" style="font-size: 14px;">
+                <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                <span>Settings</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content-area" style="overflow-y: auto; padding: 28px 32px;">
+
+        <!-- How It Works -->
+        <div class="info-card milestone-info-card" style="padding:20px 28px; margin-bottom:20px;">
+            <h3 class="milestone-info-heading">📋 How Milestone Tracking Works</h3>
+            <p class="milestone-info-text">
+                Enter your child's name and date of birth below. We'll show <strong class="milestone-text-strong">CDC-aligned developmental milestones</strong> grouped by age.
+                For each milestone, click the status button to cycle through: <strong style="color:#a0a0a0;">Not Yet</strong> → <strong style="color:#d4a017;">Emerging</strong> → <strong style="color:#2e7d32;">Achieved</strong>.
+                Milestones your child should have reached by their current age are automatically <strong style="color:#dc143c;">flagged if delayed</strong>.
+                Click <strong class="milestone-text-strong">Save</strong> to store your progress. Use the notes field to record observations for your doctor.
+            </p>
+        </div>
+
+        <!-- Child Info Bar -->
+        <div class="info-card" style="display:flex; align-items:center; gap:24px; flex-wrap:wrap; padding:20px 28px;">
+            <div style="flex:1; min-width:160px;">
+                <label style="font-size:11px; color:#a0a0a0; text-transform:uppercase; letter-spacing:1px;">Child's Name</label>
+                <input id="child-name" class="input-field" placeholder="Enter child's name" style="margin-top:6px;">
+            </div>
+            <div style="flex:1; min-width:160px;">
+                <label style="font-size:11px; color:#a0a0a0; text-transform:uppercase; letter-spacing:1px;">Date of Birth</label>
+                <input id="child-dob" type="date" class="input-field" style="margin-top:6px;">
+            </div>
+            <div style="min-width:120px;">
+                <label style="font-size:11px; color:#a0a0a0; text-transform:uppercase; letter-spacing:1px;">Current Age</label>
+                <div id="child-age-display" class="milestone-age-display">—</div>
+            </div>
+            <button id="save-profile-btn" onclick="saveData()" style="align-self:flex-end; padding:10px 24px; font-size:14px;">
+                Save
+            </button>
+        </div>
+
+        <div id="save-msg" style="display:none; text-align:center; font-weight:600; font-size:14px; padding:10px; border-radius:8px; margin-top:10px;"></div>
+
+        <!-- Stats Row — matching doctor dashboard grid -->
+        <div class="stat-cards-grid" style="margin-top:20px;">
+            <div class="stat-card"><div class="stat-card-value" id="stat-total">0</div><div class="stat-card-label">Total Milestones</div></div>
+            <div class="stat-card"><div class="stat-card-value stat-ok" id="stat-achieved">0</div><div class="stat-card-label">Achieved</div></div>
+            <div class="stat-card"><div class="stat-card-value stat-warn" id="stat-emerging">0</div><div class="stat-card-label">Emerging</div></div>
+            <div class="stat-card"><div class="stat-card-value stat-danger" id="stat-delayed">0</div><div class="stat-card-label">Delayed</div></div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="chart-row" style="margin-top:20px;">
+            <div class="chart-card">
+                <div class="chart-title">Overall Progress</div>
+                <canvas id="chart-donut" height="220"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Progress by Category</div>
+                <canvas id="chart-category" height="220"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Age Group Completion</div>
+                <canvas id="chart-age-progress" height="220"></canvas>
+            </div>
+        </div>
+
+        <!-- Milestone Accordion -->
+        <h2 style="margin-top:28px; font-size:17px;">Developmental Milestones</h2>
+        <p style="color:#a0a0a0; font-size:13px; margin-bottom:16px;">Based on CDC developmental milestones. Click each age group to expand.</p>
+
+        <div id="milestone-accordion"></div>
+
+    </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/milestones.js"></script>
+</body>
+</html>

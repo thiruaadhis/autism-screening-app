@@ -92,3 +92,19 @@ async function apiGetPatients() {
     const response = await fetch(`${API_BASE}/api/patients`);
     return { ok: response.ok, status: response.status, data: await response.json() };
 }
+
+// ── Milestones ────────────────────────────────────────────────────────────────
+
+async function apiGetMilestones(email) {
+    const response = await fetch(`${API_BASE}/api/milestones?email=${encodeURIComponent(email)}`);
+    return { ok: response.ok, status: response.status, data: await response.json() };
+}
+
+async function apiSaveMilestones(payload) {
+    const response = await fetch(`${API_BASE}/api/milestones`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+    return { ok: response.ok, status: response.status, data: await response.json() };
+}

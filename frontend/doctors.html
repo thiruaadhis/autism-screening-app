@@ -37,6 +37,10 @@
                     <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
                     <span>Autism Test</span>
                 </a>
+                <a href="milestones.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    <span>Milestones</span>
+                </a>
                 <a href="doctors.html" class="nav-link active">
                     <svg viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
                     <span>Doctors</span>
@@ -62,12 +66,10 @@
         </header>
 
         <section class="content-area">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
-                <div>
-                    <h2 style="margin:0;">Find a Specialist</h2>
-                    <p style="color:#a0a0a0; font-size:13px; margin:4px 0 0 0;">Browse verified doctors and share your feedback</p>
-                </div>
-                <input id="doctor-search" class="input-field" placeholder="Search by name or specialization…" style="width:260px; margin:0; padding:9px 14px; font-size:13px;" oninput="filterDoctors(this.value)">
+            <div style="text-align:center; margin-bottom:24px;">
+                <h2 style="margin:0;">Find a Specialist</h2>
+                <p style="color:#a0a0a0; font-size:13px; margin:4px 0 16px 0;">Browse verified doctors and share your feedback</p>
+                <input id="doctor-search" class="input-field" placeholder="Search by name or specialization…" style="width:320px; max-width:100%; margin:0 auto; padding:9px 14px; font-size:13px; display:block;" oninput="filterDoctors(this.value)">
             </div>
 
             <div id="doctors-grid" class="doctor-cards-grid">

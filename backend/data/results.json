@@ -1,21 +1,11 @@
 [
     {
-        "id": "05474624-ddde-4bd6-a636-48420642887f",
+        "id": "c94eab54-fa22-49d5-95a5-2b317e98378c",
         "email": "thiruaadhis15@gmail.com",
-        "timestamp": "2026-03-13T05:32:40.052754+00:00",
-        "likelihood": 54.56,
-        "social_percent": 66.67,
-        "behavioral_percent": 45.16,
-        "critical_flags": 2,
-        "interpretation": "Moderate likelihood. Some specific behaviors were flagged. It is recommended to consult a developmental pediatrician for a follow-up."
-    },
-    {
-        "id": "dd144fbe-6cf8-4d8b-86ea-40f2346110ae",
-        "email": "thiruaadhis15@gmail.com",
-        "timestamp": "2026-03-13T05:43:57.930753+00:00",
+        "timestamp": "2026-03-17T06:02:21.052431+00:00",
         "likelihood": 70.0,
-        "social_percent": 93.94,
-        "behavioral_percent": 12.9,
+        "social_percent": 60.61,
+        "behavioral_percent": 59.68,
         "critical_flags": 3,
         "interpretation": "High likelihood. Significant developmental markers were flagged. A formal evaluation by a specialist is strongly recommended."
     }

@@ -21,9 +21,9 @@ function formatDate(isoString) {
 }
 
 function getLikelihoodColor(likelihood) {
-    if (likelihood >= 70) return "#ff6b6b";
-    if (likelihood >= 35) return "#ffb347";
-    return "#6bff8d";
+    if (likelihood >= 70) return "#dc143c";
+    if (likelihood >= 35) return "#d4a017";
+    return "#2e7d32";
 }
 
 function renderHistoryCard(result) {
@@ -86,7 +86,7 @@ async function loadHistory() {
         const { ok, data } = await apiGetResults(email);
 
         if (!ok) {
-            container.innerHTML = '<p style="text-align: center; color: #ff6b6b; font-size: 14px;">Failed to load history.</p>';
+            container.innerHTML = '<p style="text-align: center; color: #dc143c; font-size: 14px;">Failed to load history.</p>';
             return;
         }
 
@@ -103,7 +103,7 @@ async function loadHistory() {
 
     } catch (error) {
         console.error("History fetch error:", error);
-        container.innerHTML = '<p style="text-align: center; color: #ff6b6b; font-size: 14px;">Unable to reach the server. Please check your connection.</p>';
+        container.innerHTML = '<p style="text-align: center; color: #dc143c; font-size: 14px;">Unable to reach the server. Please check your connection.</p>';
     }
 }
 

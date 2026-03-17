@@ -10,9 +10,9 @@ if (!data) {
 }
 
 function getLikelihoodColor(likelihood) {
-    if (likelihood >= 70) return "#ff6b6b";
-    if (likelihood >= 35) return "#ffb347";
-    return "#6bff8d";
+    if (likelihood >= 70) return "#dc143c";
+    if (likelihood >= 35) return "#d4a017";
+    return "#2e7d32";
 }
 
 function renderResults(result) {

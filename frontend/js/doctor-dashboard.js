@@ -45,9 +45,9 @@ function riskBadge(v) {
 }
 function likelihoodColor(v) {
     if (v === null || v === undefined) return "#a0a0a0";
-    if (v >= 70) return "#ff6b6b";
-    if (v >= 35) return "#ffb347";
-    return "#6bff8d";
+    if (v >= 70) return "#dc143c";
+    if (v >= 35) return "#d4a017";
+    return "#2e7d32";
 }
 
 // ── Chart defaults ───────────────────────────────────────────
@@ -107,7 +107,7 @@ function renderCharts(patients) {
         type: "doughnut",
         data: { labels: ["High Risk","Moderate Risk","Low Risk"],
                 datasets: [{ data: [high,mod,low],
-                             backgroundColor: ["#ff6b6b","#ffb347","#6bff8d"],
+                             backgroundColor: ["#dc143c","#d4a017","#2e7d32"],
                              borderColor: CD.border, borderWidth: 3, hoverOffset: 8 }] },
         options: { responsive: true, maintainAspectRatio: true, cutout: "62%",
                    plugins: { legend: { position: "bottom", labels: { color: CD.color, font: CD.font, padding:16 } } } }
@@ -119,8 +119,8 @@ function renderCharts(patients) {
         type: "bar",
         data: { labels: ["Social","Behavioral","Flags ×20"],
                 datasets: [{ label: "Average", data: [avg(screened,"last_social"), avg(screened,"last_behavioral"), (parseFloat(avg(screened,"last_flags")) * 20).toFixed(1)],
-                             backgroundColor: ["rgba(107,164,255,.75)","rgba(255,179,71,.75)","rgba(167,139,250,.75)"],
-                             borderColor: ["#6ba4ff","#ffb347","#a78bfa"], borderWidth: 2, borderRadius: 8 }] },
+                             backgroundColor: ["rgba(200,200,200,.6)","rgba(212,160,23,.6)","rgba(160,160,160,.5)"],
+                             borderColor: ["#ccc","#d4a017","#999"], borderWidth: 2, borderRadius: 8 }] },
         options: { responsive:true, maintainAspectRatio:true, plugins:{legend:{display:false}},
                    scales: { y:{beginAtZero:true,max:100,grid:{color:CD.grid},ticks:{color:CD.color,font:CD.font,callback:v=>v+"%"}},
                              x:{grid:{display:false},ticks:{color:CD.color,font:CD.font,maxRotation:0,minRotation:0}} } }
@@ -133,7 +133,7 @@ function renderCharts(patients) {
         type: "bar",
         data: { labels: ["0–20%","20–40%","40–60%","60–80%","80–100%"],
                 datasets: [{ label:"Patients", data:bins,
-                             backgroundColor: ["#6bff8d","#b8ff6b","#ffdb47","#ffb347","#ff6b6b"],
+                             backgroundColor: ["#2e7d32","#4a7c2e","#c9a800","#d4a017","#dc143c"],
                              borderColor:CD.border, borderWidth:2, borderRadius:8 }] },
         options: { responsive:true, maintainAspectRatio:true, plugins:{legend:{display:false}},
                    scales: { y:{beginAtZero:true,ticks:{stepSize:1,color:CD.color,font:CD.font},grid:{color:CD.grid}},
@@ -189,7 +189,7 @@ function openPatientModal(p) {
             <div class="stat-card-label">Likelihood</div>
         </div>
         <div class="stat-card" style="padding:16px;">
-            <div class="stat-card-value" style="font-size:24px; color:#ffb347;">${p.last_flags != null ? p.last_flags : "—"}</div>
+            <div class="stat-card-value" style="font-size:24px; color:#d4a017;">${p.last_flags != null ? p.last_flags : "—"}</div>
             <div class="stat-card-label">Critical Flags</div>
         </div>
         <div class="stat-card" style="padding:16px;">
@@ -213,7 +213,7 @@ function openPatientModal(p) {
         type: "doughnut",
         data: { labels: ["Social","Behavioral","Other"],
                 datasets: [{ data: [social, behavioral, other],
-                             backgroundColor: ["rgba(107,164,255,.8)","rgba(255,179,71,.8)","rgba(100,100,100,.4)"],
+                             backgroundColor: ["rgba(200,200,200,.65)","rgba(212,160,23,.65)","rgba(100,100,100,.4)"],
                              borderColor: CD.border, borderWidth: 2 }] },
         options: { responsive:true, maintainAspectRatio:true, cutout:"55%",
                    plugins: { legend: { position:"bottom", labels: { color:CD.color, font:CD.font, padding:10 } } } }
@@ -224,8 +224,8 @@ function openPatientModal(p) {
         type: "bar",
         data: { labels: ["Social","Behavioral","Likelihood"],
                 datasets: [{ label:"Score", data:[social, behavioral, p.last_likelihood || 0],
-                             backgroundColor: ["rgba(107,164,255,.75)","rgba(255,179,71,.75)",`${likelihoodColor(p.last_likelihood)}cc`],
-                             borderColor:["#6ba4ff","#ffb347",likelihoodColor(p.last_likelihood)],
+                             backgroundColor: ["rgba(200,200,200,.6)","rgba(212,160,23,.6)",`${likelihoodColor(p.last_likelihood)}cc`],
+                             borderColor:["#ccc","#d4a017",likelihoodColor(p.last_likelihood)],
                              borderWidth:2, borderRadius:8 }] },
         options: { responsive:true, maintainAspectRatio:true, plugins:{legend:{display:false}},
                    scales: { y:{beginAtZero:true,max:100,grid:{color:CD.grid},ticks:{color:CD.color,font:CD.font,callback:v=>v+"%"}},
