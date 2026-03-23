@@ -65,6 +65,8 @@ And honestly, neither should you.
 * Real-time metrics tracking global patient risk distribution  
 * Interactive Chart.js visualizations adapting flawlessly to dark and light modes  
 * Patient table rendering individual screening histories for immediate clinical review  
+* Comprehensive Milestone Analytics tracking developmental progress across 90 specific definitions  
+* Precise rendering of delayed versus emerging developmental timelines without status overlap
 
 Doctors shouldn't have to decipher UI matrices. The dashboard gives them the data immediately.
 
@@ -109,6 +111,7 @@ Quietly. Respectfully. Without unnecessary commentary.
 * Hardware-accelerated animation pipelines with intentionally smooth transitions  
 * Layered layout hierarchy preventing visual chaos while still looking suspiciously premium  
 * Responsive sidebar behavior optimized for assessment flow stability  
+* Fine-tuned contrast accessibility ensuring data readability (especially complex patient records) remains pristine across both theme modes
 
 The UI attempts to remain calm even when the backend is doing psychological calculus.
 
