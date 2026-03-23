@@ -108,6 +108,7 @@ button {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 600;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(0);
 }
 
 button:hover {
@@ -318,7 +319,7 @@ body:not(:has(.dashboard-container)) .result-wrapper {
     font-size: 14px;
     font-weight: 600;
     text-align: center;
-    margin: 10px 0 0 0; 
+    margin: 10px 0 14px 0; 
     padding: 10px;
     border-radius: 8px;
     background-color: rgba(220, 20, 60, 0.1); 
@@ -650,11 +651,11 @@ body:not(:has(.dashboard-container)) .result-wrapper {
 }
 
 input:checked + .slider {
-    background-color: #555;
+    background-color: #6ba4ff;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #555;
+    box-shadow: 0 0 1px #6ba4ff;
 }
 
 input:checked + .slider:before {
@@ -918,6 +919,13 @@ body.light-mode .stat-card-label {
     color: #666666 !important;
 }
 
+body.light-mode #modal-patient-name,
+body.light-mode #modal-patient-email,
+body.light-mode #modal-child-info,
+body.light-mode #modal-interpretation {
+    color: #1e1f22 !important;
+}
+
 body.light-mode .history-delete-btn {
     background-color: transparent !important;
     color: #b71c1c !important;
@@ -932,7 +940,8 @@ body.light-mode h1,
 body.light-mode h2:not([style*="#dc143c"]), 
 body.light-mode .setting-label,
 body.light-mode .info-card p, 
-body.light-mode .info-card li {
+body.light-mode .info-card li,
+body.light-mode .info-card .highlight {
     color: #1e1f22 !important;
 }
 
@@ -986,6 +995,17 @@ body.light-mode .stealth-btn:hover {
     background-color: rgba(183, 28, 28, 0.1) !important;
 }
 
+body.light-mode button[style*="#444"] {
+    background-color: #e0e0e0 !important;
+    color: #444444 !important;
+    border: none !important;
+}
+
+body.light-mode button[style*="#444"]:hover {
+    background-color: #cccccc !important;
+    color: #1e1f22 !important;
+}
+
 body.light-mode button[style*="#dc143c"] svg,
 body.light-mode button[style*="#dc143c"] svg path,
 body.light-mode .stealth-btn svg,
@@ -1032,7 +1052,7 @@ body.light-mode .slider {
 }
 
 body.light-mode input:checked + .slider {
-    background-color: #313338 !important;
+    background-color: #6ba4ff !important;
 }
 
 body.light-mode .options label {
@@ -1048,19 +1068,19 @@ body.light-mode .options input[type="radio"] {
 }
 
 body.light-mode .options input[type="radio"]:checked {
-    background: #313338 !important;
-    border-color: #313338 !important;
+    background: #1e1f22 !important;
+    border-color: #1e1f22 !important;
 }
 
 body.light-mode .options label:has(input:checked) {
-    background: #1e1f22 !important;
+    background: #ffffff !important;
     border-color: #1e1f22 !important;
-    color: #ffffff !important;
+    color: #1e1f22 !important;
     transform: scale(1.03) !important;
 }
 
 body.light-mode .options label:has(input:checked) span {
-    color: #ffffff !important;
+    color: #1e1f22 !important;
 }
 
 body.light-mode .options input[type="radio"]:checked + span {
@@ -1114,6 +1134,37 @@ body.light-mode .patient-table th {
 
 body.light-mode .patient-table td {
     border-bottom: 1px solid #e0e0e0 !important;
+    color: #1e1f22 !important;
+}
+
+body.light-mode .patient-table td > div[style*="font-weight:600"],
+body.light-mode .patient-table td > div[style*="font-weight: 600"],
+body.light-mode .patient-table td[style*="font-weight:700"],
+body.light-mode .patient-table td[style*="font-weight: 700"] {
+    color: #1e1f22 !important;
+}
+
+body.light-mode .patient-table td > div[style*="color:#a0a0a0"],
+body.light-mode .patient-table td > div[style*="color: #a0a0a0"],
+body.light-mode .patient-table td[style*="color:#a0a0a0"],
+body.light-mode .patient-table td[style*="color: #a0a0a0"] {
+    color: #666666 !important;
+}
+
+/* Specific Likelihood colored text overrides */
+body.light-mode .patient-table td[style*="color:#2e7d32"],
+body.light-mode .patient-table td[style*="color: #2e7d32"] {
+    color: #1b5e20 !important; /* Darker green */
+}
+
+body.light-mode .patient-table td[style*="color:#d4a017"],
+body.light-mode .patient-table td[style*="color: #d4a017"] {
+    color: #8f6d11 !important; /* Darker yellow/gold */
+}
+
+body.light-mode .patient-table td[style*="color:#dc143c"],
+body.light-mode .patient-table td[style*="color: #dc143c"] {
+    color: #a80f2d !important; /* Darker red */
 }
 
 body.light-mode .patient-table tbody tr:hover td {
@@ -1303,22 +1354,28 @@ body.light-mode .result-flags-row {
     transition: all 0.25s ease;
     box-shadow: none;
     margin: 0;
+    transform: translateY(0);
 }
 
 .role-btn svg {
     fill: currentColor;
     flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), fill 0.2s ease;
 }
 
 .role-btn:hover {
-    background: rgba(255,255,255,0.05);
-    color: #eaeaea;
-    transform: none;
-    box-shadow: none;
+    background: #4a4d54 !important;
+    color: #ffffff;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.role-btn:hover svg {
+    transform: scale(1.15) translateY(-2px);
 }
 
 .role-btn.role-active {
-    background: #2b2d31;
+    background: #3a3c42;
     color: #ffffff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
@@ -1327,12 +1384,25 @@ body.light-mode .result-flags-row {
     fill: #eaeaea;
 }
 
+.role-btn.role-active:hover {
+    background: #4a4d54 !important;
+}
+
 body.light-mode .role-selector {
     background: #f0f0f0 !important;
 }
 
 body.light-mode .role-btn.role-active {
     background: #ffffff !important;
+    color: #1e1f22 !important;
+}
+
+body.light-mode .role-btn.role-active svg {
+    fill: #1e1f22 !important;
+}
+
+body.light-mode .role-btn:hover {
+    background: #e0e0e0 !important;
     color: #1e1f22 !important;
 }
 
@@ -1504,9 +1574,9 @@ body.light-mode .role-btn.role-active {
 }
 
 .doctor-card:hover {
-    border-color: #eaeaea;
+    border-color: #3f4147;
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(234,234,234,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .doctor-card-avatar {
@@ -1586,18 +1656,30 @@ body.light-mode .role-btn.role-active {
     width: 100%;
     padding: 10px;
     font-size: 13px;
-    background: rgba(234,234,234,0.1);
-    color: #eaeaea;
-    border: 1px solid #eaeaea;
+    background: #eaeaea;
+    color: #1e1f22;
+    border: none;
     border-radius: 10px;
     margin: 0;
     transition: all 0.2s ease;
 }
 
 .rate-btn:hover {
-    background: rgba(234,234,234,0.18);
-    transform: none;
-    box-shadow: none;
+    background: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.light-mode .rate-btn {
+    background: #313338 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+body.light-mode .rate-btn:hover {
+    background: #1e1f22 !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
 }
 
 /* ====================================================
@@ -1743,6 +1825,8 @@ body.light-mode .rating-review-avatar { color: #666 !important; }
 
 body.light-mode .stat-card-value,
 body.light-mode .doctor-card-name { color: #1e1f22 !important; }
+
+body.light-mode .doctor-card-spec { color: #666666 !important; }
 
 body.light-mode .patient-table th { background: rgba(0,0,0,0.03) !important; }
 body.light-mode .patient-table td { border-color: rgba(0,0,0,0.05) !important; }
@@ -1894,9 +1978,7 @@ body.light-mode .brand-logo-auth svg { fill: #1e1f22 !important; }
 }
 
 .milestone-status-btn {
-    background: transparent !important;
-    border: 1px solid #a0a0a0 !important;
-    padding: 4px 14px !important;
+    padding: 6px 18px !important;
     border-radius: 20px !important;
     font-size: 12px !important;
     font-weight: 600 !important;
@@ -1904,11 +1986,46 @@ body.light-mode .brand-logo-auth svg { fill: #1e1f22 !important; }
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
+    border: none !important;
+    color: #ffffff !important;
+}
+
+.milestone-status-btn.status-not-yet {
+    background: #a0a0a0 !important;
+}
+
+.milestone-status-btn.status-emerging {
+    background: #d4a017 !important;
+}
+
+.milestone-status-btn.status-achieved {
+    background: #2e7d32 !important;
 }
 
 .milestone-status-btn:hover {
-    transform: translateY(-1px) !important;
-    opacity: 0.85;
+    transform: translateY(-4px) !important;
+    opacity: 0.9;
+}
+
+body.light-mode .milestone-status-btn {
+    color: #ffffff !important;
+    border: none !important;
+}
+
+body.light-mode .milestone-status-btn.status-not-yet {
+    background: #888888 !important;
+}
+
+body.light-mode .milestone-status-btn.status-emerging {
+    background: #b8860b !important;
+}
+
+body.light-mode .milestone-status-btn.status-achieved {
+    background: #1b5e20 !important;
+}
+
+body.light-mode .milestone-status-btn:hover {
+    transform: translateY(-4px) !important;
 }
 
 .milestone-text {
@@ -1958,6 +2075,21 @@ body.light-mode .milestone-age-badge {
 
 body.light-mode .milestone-age-badge.current {
     color: #1e1f22;
+}
+
+body.light-mode .milestone-current-text {
+    color: #1e1f22 !important;
+}
+
+.milestone-current-text {
+    font-size: 11px;
+    color: #eaeaea;
+    font-weight: 600;
+}
+
+.milestone-progress-text {
+    font-size: 13px;
+    color: #a0a0a0;
 }
 
 body.light-mode .milestone-info-card { border-left-color: #333 !important; }

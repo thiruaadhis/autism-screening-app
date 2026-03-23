@@ -74,7 +74,13 @@
                 <div class="age-input-card">
                     <p><strong>Child's Age (in years)</strong></p>
                     <p class="age-input-hint">Used to adjust scoring for developmental stage. Not stored in results.</p>
-                    <input type="text" id="child-age" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 3" class="input-field age-input-field">
+                    <div style="position: relative; display: inline-block;">
+                        <input type="text" id="child-age" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 3" class="input-field age-input-field">
+                        <div id="age-error-toast" style="display:none; position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%); background: #dc143c; color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; white-space: nowrap; z-index: 10; font-weight: 600; box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3); animation: popIn 0.2s ease-out;">
+                            <div style="position: absolute; left: -4px; top: 50%; transform: translateY(-50%) rotate(45deg); width: 8px; height: 8px; background: #dc143c;"></div>
+                            <span id="age-error-text">Please enter an age between 1 and 18</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

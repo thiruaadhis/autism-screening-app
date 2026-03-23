@@ -2,6 +2,7 @@ import os
 from datetime import datetime, timezone
 from flask import Blueprint, request, jsonify
 from utils import load_json, save_json
+from routes.milestone_routes import MILESTONE_DEFINITIONS
 
 doctor_bp = Blueprint("doctors", __name__)
 
@@ -9,6 +10,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCTORS_FILE = os.path.join(BASE_DIR, "../data/doctors.json")
 ACCOUNTS_FILE = os.path.join(BASE_DIR, "../data/accounts.json")
 RESULTS_FILE = os.path.join(BASE_DIR, "../data/results.json")
+MILESTONES_FILE = os.path.join(BASE_DIR, "../data/milestones.json")
 
 
 def get_or_create_doctor_profile(email):
@@ -188,10 +190,11 @@ def rate_doctor():
 
 @doctor_bp.route("/api/patients", methods=["GET"])
 def get_patients():
-    """Return all parent accounts with their full result history."""
+    """Return all parent accounts with their full result history + milestone summary."""
     try:
         accounts = load_json(ACCOUNTS_FILE)
         results = load_json(RESULTS_FILE)
+        milestones_data = load_json(MILESTONES_FILE)
 
         parent_accounts = [a for a in accounts if a.get("role", "parent") == "parent"]
         patients = []
@@ -203,6 +206,23 @@ def get_patients():
                 reverse=True
             )
             last = user_results[0] if user_results else None
+
+            # Milestone summary
+            user_ms = next((m for m in milestones_data if m.get("email") == email), None)
+            ms_summary = {"total": len(MILESTONE_DEFINITIONS), "achieved": 0, "emerging": 0, "not_yet": 0, "child_name": "", "child_dob": ""}
+            if user_ms:
+                ms_summary["child_name"] = user_ms.get("child_name", "")
+                ms_summary["child_dob"] = user_ms.get("child_dob", "")
+                user_milestones = user_ms.get("milestones", {})
+                for d in MILESTONE_DEFINITIONS:
+                    status = (user_milestones.get(d["id"]) or {}).get("status", "not_yet")
+                    if status == "achieved":
+                        ms_summary["achieved"] += 1
+                    elif status == "emerging":
+                        ms_summary["emerging"] += 1
+                    else:
+                        ms_summary["not_yet"] += 1
+
             patients.append({
                 "email": email,
                 "username": acc.get("username", email.split("@")[0]),
@@ -213,10 +233,35 @@ def get_patients():
                 "last_behavioral": last["behavioral_percent"] if last else None,
                 "last_flags": last["critical_flags"] if last else None,
                 "last_interpretation": last["interpretation"] if last else None,
+                "milestone_summary": ms_summary,
                 "results": user_results   # full history
             })
 
         return jsonify({"patients": patients}), 200
+
+    except Exception:
+        return jsonify({"error": "Internal server error."}), 500
+
+
+@doctor_bp.route("/api/patients/<path:email>/milestones", methods=["GET"])
+def get_patient_milestones(email):
+    """Return a patient's full milestone data for doctor viewing."""
+    try:
+        email = email.strip().lower()
+        milestones_data = load_json(MILESTONES_FILE)
+        user_data = next((m for m in milestones_data if m.get("email") == email), None)
+
+        if not user_data:
+            return jsonify({
+                "email": email,
+                "child_name": "",
+                "child_dob": "",
+                "milestones": {},
+                "definitions": MILESTONE_DEFINITIONS
+            }), 200
+
+        user_data["definitions"] = MILESTONE_DEFINITIONS
+        return jsonify(user_data), 200
 
     except Exception:
         return jsonify({"error": "Internal server error."}), 500

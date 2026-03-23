@@ -108,3 +108,8 @@ async function apiSaveMilestones(payload) {
     });
     return { ok: response.ok, status: response.status, data: await response.json() };
 }
+
+async function apiGetPatientMilestones(email) {
+    const response = await fetch(`${API_BASE}/api/patients/${encodeURIComponent(email)}/milestones`);
+    return { ok: response.ok, status: response.status, data: await response.json() };
+}

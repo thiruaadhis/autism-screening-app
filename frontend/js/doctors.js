@@ -38,8 +38,8 @@ function renderDoctorCard(doc) {
             <div class="doctor-card-body">
                 <div class="doctor-card-name">${displayName}</div>
                 <div class="doctor-card-spec">${doc.specialization || "Specialist"}</div>
-                ${doc.clinic_name ? `<div class="doctor-card-clinic">🏥 ${doc.clinic_name}</div>` : ""}
-                ${doc.clinic_address ? `<div class="doctor-card-location">📍 ${doc.clinic_address}</div>` : ""}
+                ${doc.clinic_name ? `<div class="doctor-card-clinic"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px; margin-right:4px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>${doc.clinic_name}</div>` : ""}
+                ${doc.clinic_address ? `<div class="doctor-card-location"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px; margin-right:4px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>${doc.clinic_address}</div>` : ""}
                 ${doc.bio ? `<p class="doctor-card-bio">${doc.bio}</p>` : ""}
                 <div class="doctor-card-rating">
                     <span class="doctor-star-row">${starsDisplay(doc.rating_avg)}</span>

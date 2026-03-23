@@ -108,12 +108,13 @@
                                 <th>Likelihood</th>
                                 <th>Social %</th>
                                 <th>Behavioral %</th>
+                                <th>Milestones</th>
                                 <th>Flags</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="patient-tbody">
-                            <tr><td colspan="8" class="table-empty">Loading patient data…</td></tr>
+                            <tr><td colspan="9" class="table-empty">Loading patient data…</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -122,21 +123,22 @@
     </main>
 </div>
 
-<!-- Patient Detail Modal -->
+<!-- Patient Detail Modal — Full Analytics -->
 <div id="patient-modal" class="modal hidden">
-    <div class="modal-card" style="max-width:660px; width:95%; max-height:90vh; overflow-y:auto;">
+    <div class="modal-card" style="max-width:900px; width:95%; max-height:90vh; overflow-y:auto;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
             <div>
-                <h3 id="modal-patient-name" style="margin:0; font-size:18px;"></h3>
+                <h3 id="modal-patient-name" style="margin:0; font-size:20px;"></h3>
                 <p id="modal-patient-email" style="color:#a0a0a0; font-size:13px; margin:4px 0 0 0;"></p>
+                <p id="modal-child-info" style="color:#a0a0a0; font-size:12px; margin:4px 0 0 0;"></p>
             </div>
             <button onclick="closePatientModal()" style="background:#444; color:white; padding:8px 16px; font-size:13px; margin:0;">✕ Close</button>
         </div>
 
-        <!-- Key metrics row -->
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px;" id="modal-metrics"></div>
+        <!-- Key Metrics Row -->
+        <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:20px;" id="modal-metrics"></div>
 
-        <!-- Two mini charts inside modal -->
+        <!-- Overview Charts -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
             <div class="chart-card" style="padding:16px;">
                 <h3 class="chart-title">Domain Breakdown</h3>
@@ -148,14 +150,53 @@
             </div>
         </div>
 
-        <div class="chart-card" style="padding:16px;">
+        <!-- Screening History -->
+        <div class="chart-card" style="padding:16px; margin-bottom:20px;">
+            <h3 class="chart-title" style="margin-bottom:10px;">Screening History</h3>
+            <div class="chart-container" style="max-height:200px; margin-bottom:14px;"><canvas id="modalTrendChart"></canvas></div>
+            <div class="patient-table-wrap" style="max-height:200px; overflow-y:auto;">
+                <table class="patient-table" id="modal-history-table">
+                    <thead>
+                        <tr><th>Date</th><th>Likelihood</th><th>Social %</th><th>Behavioral %</th><th>Flags</th></tr>
+                    </thead>
+                    <tbody id="modal-history-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Interpretation -->
+        <div class="chart-card" style="padding:16px; margin-bottom:20px;">
             <h3 class="chart-title" style="margin-bottom:8px;">Latest Interpretation</h3>
             <p id="modal-interpretation" style="color:#cccccc; font-size:14px; line-height:1.6; margin:0;"></p>
+        </div>
+
+        <!-- Milestone Analytics -->
+        <div class="chart-card" style="padding:16px; margin-bottom:20px;">
+            <h3 class="chart-title" style="margin-bottom:14px;">Milestone Analytics</h3>
+            <div id="milestone-loading" style="text-align:center; color:#a0a0a0; font-size:13px; padding:20px;">Loading milestones…</div>
+            <div id="milestone-analytics" style="display:none;">
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px;" id="ms-stat-cards"></div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px;">
+                    <div class="chart-card" style="padding:12px;">
+                        <h3 class="chart-title" style="font-size:12px;">Overall Progress</h3>
+                        <div class="chart-container" style="max-height:160px;"><canvas id="msDonutChart"></canvas></div>
+                    </div>
+                    <div class="chart-card" style="padding:12px;">
+                        <h3 class="chart-title" style="font-size:12px;">By Category</h3>
+                        <div class="chart-container" style="max-height:160px;"><canvas id="msCategoryChart"></canvas></div>
+                    </div>
+                    <div class="chart-card" style="padding:12px;">
+                        <h3 class="chart-title" style="font-size:12px;">Age Group Completion</h3>
+                        <div class="chart-container" style="max-height:160px;"><canvas id="msAgeChart"></canvas></div>
+                    </div>
+                </div>
+                <div id="ms-accordion" style="max-height:300px; overflow-y:auto;"></div>
+            </div>
         </div>
     </div>
 </div>
 
-<script src="js/api.js?v=3"></script>
-<script src="js/doctor-dashboard.js?v=3"></script>
+<script src="js/api.js?v=4"></script>
+<script src="js/doctor-dashboard.js?v=4"></script>
 </body>
 </html>

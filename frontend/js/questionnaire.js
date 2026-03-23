@@ -62,6 +62,35 @@ autismQuestions.forEach((q, index) => {
     questionsDiv.appendChild(div);
 });
 
+// Real-time age validation
+document.addEventListener("DOMContentLoaded", () => {
+    const ageInput = document.getElementById("child-age");
+    const toast = document.getElementById("age-error-toast");
+    const toastText = document.getElementById("age-error-text");
+
+    if (ageInput) {
+        ageInput.addEventListener("input", (e) => {
+            const val = e.target.value.trim();
+            if (!val) {
+                toast.style.display = "none";
+                return;
+            }
+            if (!/^\d*$/.test(val)) {
+                toastText.innerText = "Only numbers are allowed";
+                toast.style.display = "block";
+                return;
+            }
+            const age = parseInt(val);
+            if (age < 1 || age > 18) {
+                toastText.innerText = "Please enter an age between 1 and 18";
+                toast.style.display = "block";
+            } else {
+                toast.style.display = "none";
+            }
+        });
+    }
+});
+
 async function submitAnswers() {
     const btn = document.getElementById("submit-btn");
     const errorDiv = document.getElementById("form-error");

@@ -112,19 +112,22 @@ function renderAll() {
 
 // ── Stats ────────────────────────────────────────────────────────────────────
 function getStats() {
-    // Only count milestones relevant to child's age (or all if no DOB)
-    const relevant = childAgeMonths !== null
-        ? definitions.filter(d => d.age_months <= childAgeMonths)
-        : definitions;
+    // Count all milestones (total 90)
+    const relevant = definitions;
 
     let achieved = 0, emerging = 0, notYet = 0, delayed = 0;
     relevant.forEach(d => {
         const status = (userMilestones[d.id] || {}).status || "not_yet";
-        if (status === "achieved") achieved++;
-        else if (status === "emerging") emerging++;
-        else {
+        const isPast = childAgeMonths !== null && d.age_months < childAgeMonths;
+        
+        if (status === "achieved") {
+            achieved++;
+        } else if (isPast) {
+            delayed++;
+        } else if (status === "emerging") {
+            emerging++;
+        } else {
             notYet++;
-            if (childAgeMonths !== null && d.age_months < childAgeMonths) delayed++;
         }
     });
     return { total: relevant.length, achieved, emerging, notYet, delayed };
@@ -158,10 +161,10 @@ function renderCharts() {
     donutChart = new Chart(document.getElementById("chart-donut"), {
         type: "doughnut",
         data: {
-            labels: ["Achieved", "Emerging", "Not Yet"],
+            labels: ["Achieved", "Emerging", "Not Yet", "Delayed"],
             datasets: [{
-                data: [s.achieved, s.emerging, s.notYet],
-                backgroundColor: ["#2e7d32", "#d4a017", "#555"],
+                data: [s.achieved, s.emerging, s.notYet, s.delayed],
+                backgroundColor: ["#2e7d32", "#d4a017", "#555", "#dc143c"],
                 borderColor: CD.border, borderWidth: 3, hoverOffset: 8
             }]
         },
@@ -272,10 +275,10 @@ function renderAccordion() {
             <div class="milestone-section-header" onclick="this.parentElement.classList.toggle('open')">
                 <div style="display:flex; align-items:center; gap:12px;">
                     <span class="milestone-age-badge ${isCurrentGroup ? 'current' : ''}">${AGE_LABELS[age]}</span>
-                    ${isCurrentGroup ? '<span style="font-size:11px; color:#eaeaea; font-weight:600;">CURRENT</span>' : ''}
+                    ${isCurrentGroup ? '<span class="milestone-current-text">CURRENT</span>' : ''}
                 </div>
                 <div style="display:flex; align-items:center; gap:16px;">
-                    <span style="font-size:13px; color:#a0a0a0;">${achieved}/${group.length}</span>
+                    <span class="milestone-progress-text">${achieved}/${group.length}</span>
                     <div class="milestone-progress-mini">
                         <div class="milestone-progress-fill" style="width:${pct}%; background:${pct === 100 ? '#2e7d32' : pct > 0 ? '#d4a017' : '#555'};"></div>
                     </div>
@@ -309,7 +312,7 @@ function renderMilestoneCard(def, isPastGroup) {
                     <span class="milestone-cat-label" style="color:${catColor};">${CAT_LABELS[def.category]}</span>
                     ${isDelayed ? '<span class="milestone-delay-badge">⚠ Delayed</span>' : ''}
                 </div>
-                <button class="milestone-status-btn" style="color:${STATUS_COLORS[status]}; border-color:${STATUS_COLORS[status]};"
+                <button class="milestone-status-btn status-${status.replace('_', '-')}" 
                         onclick="cycleStatus('${def.id}')">
                     ${STATUS_LABELS[status]}
                 </button>
@@ -327,7 +330,55 @@ function cycleStatus(id) {
     const nextIdx = (STATUS_CYCLE.indexOf(current) + 1) % STATUS_CYCLE.length;
     if (!userMilestones[id]) userMilestones[id] = { status: "not_yet", notes: "" };
     userMilestones[id].status = STATUS_CYCLE[nextIdx];
-    renderAll();
+
+    const newStatus = STATUS_CYCLE[nextIdx];
+    const card = document.getElementById(`mc-${id}`);
+    if (card) {
+        // Update the status button text and color
+        const btn = card.querySelector(".milestone-status-btn");
+        if (btn) {
+            btn.innerText = STATUS_LABELS[newStatus];
+            btn.className = `milestone-status-btn status-${newStatus.replace('_', '-')}`;
+        }
+
+        // Update delayed state
+        const def = definitions.find(d => d.id === id);
+        const isDelayed = newStatus !== "achieved" && childAgeMonths !== null && def && def.age_months < childAgeMonths;
+        card.classList.toggle("delayed", isDelayed);
+
+        // Update or remove the delay badge
+        const existingBadge = card.querySelector(".milestone-delay-badge");
+        if (isDelayed && !existingBadge) {
+            const topDiv = card.querySelector(".milestone-card-top > div");
+            if (topDiv) topDiv.insertAdjacentHTML("beforeend", '<span class="milestone-delay-badge">⚠ Delayed</span>');
+        } else if (!isDelayed && existingBadge) {
+            existingBadge.remove();
+        }
+    }
+
+    // Update stats and charts without rebuilding accordion
+    renderStats();
+    renderCharts();
+
+    // Update the section header progress bar
+    if (card) {
+        const section = card.closest(".milestone-section");
+        if (section) {
+            const def = definitions.find(d => d.id === id);
+            if (def) {
+                const ageGroup = definitions.filter(d => d.age_months === def.age_months);
+                const achieved = ageGroup.filter(d => (userMilestones[d.id] || {}).status === "achieved").length;
+                const pct = Math.round((achieved / ageGroup.length) * 100);
+                const countEl = section.querySelector(".milestone-progress-text");
+                if (countEl) countEl.innerText = `${achieved}/${ageGroup.length}`;
+                const fillEl = section.querySelector(".milestone-progress-fill");
+                if (fillEl) {
+                    fillEl.style.width = pct + "%";
+                    fillEl.style.background = pct === 100 ? "#2e7d32" : pct > 0 ? "#d4a017" : "#555";
+                }
+            }
+        }
+    }
 }
 
 function updateNotes(id, val) {
