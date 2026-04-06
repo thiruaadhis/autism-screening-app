@@ -45,11 +45,11 @@ Not diagnostic replacement — but confusion reduction technology.
 
 ---
 
-## What Has Been Built (The Accomplishments So Far)
+## Core Features
 
 ### Cognitive Scoring Engine
 
-* Transitioned to the clinical AQ-10 dataset logic  
+* Clinical AQ-10 dataset logic and Machine Learning integration  
 * Evaluation matrix tracking critical behavioral indicators like a zero-tolerance moderation system  
 * Automated DSM-5 trait segmentation with percentage visualization readiness  
 * Bias suppression mechanisms preventing accidental over-interpretation  
@@ -141,30 +141,6 @@ If it feels suspiciously smooth, also intentional.
 
 ---
 
-## What's Next (The AQ-10 ML Model Arc)
-
-The questionnaire engine is locked in. The Doctor Dashboard is live. The frontend is polished.  
-
-Now the system evolves.
-
-The next phase is the **machine learning model** — the core intelligence layer that takes Medzilla from static deterministic scoring to an adaptive predictive engine using clinical AQ-10 data.
-
-- [ ] Public Dataset Acquisition  
-Downloading and preparing a validated AQ-10 dataset for model consumption
-
-- [ ] Data Pipeline Implementation  
-Preprocessing, feature engineering, and class balancing
-
-- [ ] Model Training and Validation  
-Supervised learning pipeline (XGBoost / Random Forest) to identify complex behavioral patterns
-
-- [ ] Inference Engine Integration  
-Connecting the trained model to the backend scoring service so patient results are predicted by ML
-
-This is the point where the system stops being an elaborate calculator and starts doing real math.
-
----
-
 ## Technology Stack
 
 ### Frontend
@@ -222,16 +198,18 @@ Think of it as cognitive reconnaissance, not final judgment.
 
 ---
 
-## Build Status
+## System Status
 
-Questionnaire engine — **AQ-10 integration complete.**  
-Scoring pipeline — **live and computing.**  
-Doctor Dashboard — **deployed and rendering insights.**  
-Profile and history — **tracking and displaying.**  
-Age-aware screening — **calibrated and influencing.**  
+All core systems are fully deployed and operational:
 
-ML model — **next in the queue. The AQ-10 dataset awaits.**
+* **Questionnaire Engine:** AQ-10 and ML integration complete  
+* **Scoring Pipeline:** Live and computing  
+* **Doctor Dashboard:** Deployed and rendering insights  
+* **Profile & Appointments:** Tracking histories and managing bookings  
+* **Age-Aware Screening:** Calibrated and influencing  
 
-The kaiju is no longer dormant. It walked through Phase 1 and is now eyeing the machine learning horizon.
+The system is no longer an elaborate calculator; it is fully integrated and doing real predictive math. 
+
+The kaiju is fully operational.
 
 *Built with savage grind, 24/7 dedication, and zero distractions. Code, eat, sleep, repeat.*
