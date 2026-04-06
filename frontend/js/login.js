@@ -75,7 +75,7 @@ async function login() {
             } else {
                 window.location.href = 'dashboard.html';
             }
-        }, 3000);
+        }, 2000);
 
     } catch (error) {
         console.error("Login error:", error);

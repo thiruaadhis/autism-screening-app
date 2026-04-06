@@ -2,7 +2,7 @@
     {
         "email": "thiruaadhis15@gmail.com",
         "child_name": "xyz",
-        "child_dob": "2005-09-09",
+        "child_dob": "2022-09-09",
         "milestones": {
             "12m_cog_1": {
                 "notes": "yes",
@@ -122,35 +122,35 @@
             },
             "2m_cog_1": {
                 "notes": "he looks at people but i don't think he pays attention",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_cog_2": {
                 "notes": "he does, not all the time",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_lang_1": {
                 "notes": "well, sometimes",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_lang_2": {
                 "notes": "he does",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_mov_1": {
                 "notes": "he can",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_mov_2": {
                 "notes": "yes, like jackson",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_soc_1": {
                 "notes": "yes he does, sometimes",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "2m_soc_2": {
                 "notes": "yes he does",
-                "status": "achieved"
+                "status": "not_yet"
             },
             "36m_cog_1": {
                 "notes": "yes",

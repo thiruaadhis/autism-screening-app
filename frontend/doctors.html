@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find a Doctor | Medzilla</title>
+    <meta name="description" content="Browse verified specialists and book appointments directly from the Medzilla parent dashboard.">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/medical-theme.css">
     <script>
@@ -16,6 +17,73 @@
             if (lightMode) document.documentElement.classList.add('light-mode');
         })();
     </script>
+    <style>
+        /* ── Appointment status badges ─────────────────────────────── */
+        .appt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .appt-badge::before { content: '●'; font-size: 8px; }
+
+        .appt-badge.pending  { background: rgba(212,160,23,0.15);  color: #d4a017; border: 1px solid rgba(212,160,23,0.35); }
+        .appt-badge.approved { background: rgba(46,125,50,0.15);   color: #2e7d32; border: 1px solid rgba(46,125,50,0.35); }
+        .appt-badge.rejected { background: rgba(220,20,60,0.12);   color: #dc143c; border: 1px solid rgba(220,20,60,0.3); }
+
+        /* ── Doctor profile modal extras ──────────────────────────── */
+        .doc-profile-avatar {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: var(--accent, #555);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; font-weight: 700; color: white;
+            flex-shrink: 0;
+        }
+        .doc-info-row {
+            display: flex; align-items: flex-start; gap: 9px;
+            font-size: 13.5px; color: var(--text-muted, #a0a0a0);
+            margin-bottom: 6px;
+        }
+        .doc-info-row svg { flex-shrink: 0; margin-top: 2px; }
+
+        /* ── My appointments table ────────────────────────────────── */
+        .appt-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .appt-table th { text-align: left; padding: 10px 14px; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.7px; color: #a0a0a0;
+            border-bottom: 1px solid rgba(255,255,255,0.06); }
+        body.light-mode .appt-table th { border-bottom-color: rgba(0,0,0,0.08); }
+        .appt-table td { padding: 12px 14px; vertical-align: middle;
+            border-bottom: 1px solid rgba(255,255,255,0.04); }
+        body.light-mode .appt-table td { border-bottom-color: rgba(0,0,0,0.05); }
+        .appt-table tr:last-child td { border-bottom: none; }
+        .appt-table tr:hover td { background: rgba(255,255,255,0.025); }
+        body.light-mode .appt-table tr:hover td { background: rgba(0,0,0,0.025); }
+
+        .appt-rejection-reason {
+            font-size: 11.5px; color: #dc143c; margin-top: 4px;
+            display: flex; align-items: flex-start; gap: 4px;
+        }
+
+        /* ── Star input (rating inside profile modal) ────────────── */
+        .dp-star-input {
+            display: flex; gap: 6px; margin-bottom: 6px;
+        }
+        .dp-star {
+            font-size: 24px; cursor: pointer;
+            color: #3f4147; transition: color 0.15s;
+        }
+        .dp-star.active { color: #d4a017; }
+        body.light-mode .dp-star { color: #c0c0c0; }
+        body.light-mode .dp-star.active { color: #d4a017; }
+
+        /* Input date fix */
+        input[type="date"] { color-scheme: dark; }
+        body.light-mode input[type="date"] { color-scheme: light; }
+    </style>
 </head>
 <body>
 <script>document.body.className = document.documentElement.className;</script>
@@ -45,7 +113,6 @@
                     <svg viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a4 4 0 1 0 8 0A4 4 0 0 0 4 8zm4 6c-4 0-6 2-6 3v1h12v-1c0-1-2-3-6-3z"/></svg>
                     <span>Doctors</span>
                 </a>
-
             </div>
         </div>
         <div class="sidebar-footer">
@@ -66,46 +133,129 @@
         </header>
 
         <section class="content-area">
+            <!-- Doctors Grid -->
             <div style="text-align:center; margin-bottom:24px;">
                 <h2 style="margin:0;">Find a Specialist</h2>
-                <p style="color:#a0a0a0; font-size:13px; margin:4px 0 16px 0;">Browse verified doctors and share your feedback</p>
-                <input id="doctor-search" class="input-field" placeholder="Search by name or specialization…" style="width:320px; max-width:100%; margin:0 auto; padding:9px 14px; font-size:13px; display:block;" oninput="filterDoctors(this.value)">
+                <p style="color:#a0a0a0; font-size:13px; margin:4px 0 16px 0;">Browse verified doctors and book an appointment</p>
+                <input id="doctor-search" class="input-field" placeholder="Search by name or specialization…"
+                    style="width:320px; max-width:100%; margin:0 auto; padding:9px 14px; font-size:13px; display:block;"
+                    oninput="filterDoctors(this.value)">
             </div>
 
             <div id="doctors-grid" class="doctor-cards-grid">
                 <p style="color:#a0a0a0; text-align:center; width:100%;">Loading doctors…</p>
             </div>
+
+            <!-- My Appointments -->
+            <div class="info-card" style="margin-top:36px;" id="my-appointments-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                        <h3 style="margin:0; font-size:16px;">My Appointments</h3>
+                        <p style="margin:4px 0 0 0; font-size:12px; color:#a0a0a0;">Your appointment requests and their status</p>
+                    </div>
+                    <button onclick="loadMyAppointments()" id="appt-refresh-btn"
+                        style="padding:8px 16px; font-size:12px;">↻ Refresh</button>
+                </div>
+                <div class="patient-table-wrap">
+                    <table class="appt-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Reason</th>
+                                <th>Requested Date</th>
+                                <th>Booked On</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="my-appointments-tbody">
+                            <tr><td colspan="6" style="text-align:center; color:#a0a0a0; padding:24px;">Loading…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </main>
 </div>
 
-<!-- Rating Modal -->
-<div id="rating-modal" class="modal hidden">
-    <div class="modal-card" style="max-width:420px; width:90%;">
-        <h3 id="rating-modal-title" style="margin:0 0 6px 0;">Rate Doctor</h3>
-        <p id="rating-modal-subtitle" style="color:#a0a0a0; font-size:13px; margin:0 0 20px 0;"></p>
-
-        <div class="star-input-row" id="star-input">
-            <span class="star-input-item" data-val="1" onclick="selectStar(1)">★</span>
-            <span class="star-input-item" data-val="2" onclick="selectStar(2)">★</span>
-            <span class="star-input-item" data-val="3" onclick="selectStar(3)">★</span>
-            <span class="star-input-item" data-val="4" onclick="selectStar(4)">★</span>
-            <span class="star-input-item" data-val="5" onclick="selectStar(5)">★</span>
+<!-- ══ Doctor Profile Modal ══════════════════════════════════════════════════ -->
+<div id="doctor-profile-modal" class="modal hidden">
+    <div class="modal-card" style="max-width:520px; width:94%;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+            <div style="display:flex; gap:16px; align-items:center; flex:1;">
+                <div id="dp-avatar" class="doc-profile-avatar">?</div>
+                <div>
+                    <h3 id="dp-name" style="margin:0; font-size:20px;"></h3>
+                    <p id="dp-spec" style="color:#a0a0a0; font-size:13px; margin:3px 0 0 0;"></p>
+                </div>
+            </div>
+            <button onclick="closeDoctorProfileModal()"
+                style="background:#444; color:white; padding:7px 14px; font-size:13px; margin:0; flex-shrink:0;">✕</button>
         </div>
-        <p id="star-label" style="font-size:12px; color:#a0a0a0; text-align:center; margin:6px 0 14px 0;">Tap a star to rate</p>
 
-        <textarea id="rating-comment" class="input-field" rows="3" placeholder="Optional comment…" style="resize:none; line-height:1.6;"></textarea>
+        <div id="dp-details" style="margin-bottom:20px;"></div>
 
-        <div id="rating-error" class="error-message" style="display:none;"></div>
-        <div style="display:flex; gap:10px; margin-top:14px;">
-            <button onclick="submitRating()" style="flex:1;">Submit Rating</button>
-            <button onclick="closeRatingModal()" style="flex:1; background:#444; color:white;">Cancel</button>
+        <div id="dp-bio-wrap" style="margin-bottom:20px; display:none;">
+            <p id="dp-bio" style="font-size:13.5px; line-height:1.7; color:#cccccc; margin:0;"></p>
+        </div>
+
+        <!-- Rating summary -->
+        <div id="dp-rating-wrap" style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+            <span id="dp-stars" style="font-size:18px; letter-spacing:2px;"></span>
+            <span id="dp-rating-text" style="font-size:13px; color:#a0a0a0;"></span>
+        </div>
+
+        <button id="dp-book-btn" onclick="openBookingModal()"
+            style="width:100%; padding:12px; font-size:14px; font-weight:600; margin-bottom:14px;">
+            Book Appointment
+        </button>
+
+        <!-- Leave a Review -->
+        <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px;">
+            <h4 style="margin:0 0 12px 0; font-size:13.5px; font-weight:600;">Leave a Review</h4>
+            <div class="dp-star-input" id="dp-star-input">
+                <span class="dp-star" data-val="1" onclick="selectDpStar(1)">&#9733;</span>
+                <span class="dp-star" data-val="2" onclick="selectDpStar(2)">&#9733;</span>
+                <span class="dp-star" data-val="3" onclick="selectDpStar(3)">&#9733;</span>
+                <span class="dp-star" data-val="4" onclick="selectDpStar(4)">&#9733;</span>
+                <span class="dp-star" data-val="5" onclick="selectDpStar(5)">&#9733;</span>
+            </div>
+            <p id="dp-star-label" style="font-size:12px; color:#a0a0a0; margin:0 0 10px 0;">Tap a star to rate</p>
+            <textarea id="dp-comment" class="input-field" rows="2"
+                placeholder="Optional comment…"
+                style="resize:none; line-height:1.6; margin-bottom:10px;"></textarea>
+            <div id="dp-rating-error" class="error-message" style="display:none;"></div>
+            <button id="dp-submit-rating-btn" onclick="submitDpRating()"
+                style="width:100%; margin:0; padding:10px; font-size:13px;">Submit Review</button>
         </div>
     </div>
 </div>
 
-<script src="js/api.js?v=2"></script>
+<!-- ══ Book Appointment Modal ═════════════════════════════════════════════════ -->
+<div id="booking-modal" class="modal hidden">
+    <div class="modal-card" style="max-width:440px; width:94%;">
+        <h3 id="booking-modal-title" style="margin:0 0 4px 0;">Book Appointment</h3>
+        <p id="booking-modal-subtitle" style="color:#a0a0a0; font-size:13px; margin:0 0 20px 0;"></p>
+
+        <label style="display:block; font-size:12px; color:#a0a0a0; margin-bottom:5px;">Preferred Date</label>
+        <input id="booking-date" type="date" class="input-field" style="margin-bottom:14px;">
+
+        <label style="display:block; font-size:12px; color:#a0a0a0; margin-bottom:5px;">Reason / Notes <span style="opacity:.5;">(optional)</span></label>
+        <textarea id="booking-reason" class="input-field" rows="3"
+            placeholder="Briefly describe why you're booking this appointment…"
+            style="resize:none; line-height:1.6;"></textarea>
+
+        <div id="booking-error" class="error-message" style="display:none; margin-top:10px;"></div>
+
+        <div style="display:flex; gap:10px; margin-top:16px;">
+            <button id="booking-submit-btn" onclick="submitBooking()" style="flex:1;">Confirm Booking</button>
+            <button onclick="closeBookingModal()" style="flex:1; background:#444; color:white;">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/api.js?v=4"></script>
 <script src="js/dashboard.js?v=2"></script>
-<script src="js/doctors.js?v=2"></script>
+<script src="js/doctors.js?v=5"></script>
 </body>
 </html>

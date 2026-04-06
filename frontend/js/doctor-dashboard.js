@@ -200,13 +200,17 @@ async function openPatientModal(p) {
     // Metrics (3-column — milestone details shown in analytics section below)
     document.getElementById("modal-metrics").innerHTML = `
         <div class="stat-card" style="padding:14px;">
-            <div class="stat-card-value" style="font-size:22px; color:${likelihoodColor(p.last_likelihood)};">
-                ${p.last_likelihood != null ? p.last_likelihood + "%" : "—"}
+            <div class="stat-card-value" style="font-size:22px;">
+                <span style="color:${likelihoodColor(p.last_likelihood)};">
+                    ${p.last_likelihood != null ? p.last_likelihood + "%" : "—"}
+                </span>
             </div>
             <div class="stat-card-label">Likelihood</div>
         </div>
         <div class="stat-card" style="padding:14px;">
-            <div class="stat-card-value" style="font-size:22px; color:#d4a017;">${p.last_flags != null ? p.last_flags : "—"}</div>
+            <div class="stat-card-value" style="font-size:22px;">
+                <span style="color:#d4a017;">${p.last_flags != null ? p.last_flags : "—"}</span>
+            </div>
             <div class="stat-card-label">Critical Flags</div>
         </div>
         <div class="stat-card" style="padding:14px;">

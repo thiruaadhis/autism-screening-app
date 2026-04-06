@@ -3,7 +3,7 @@
 // the backend base URL and all fetch calls.
 // ==========================================
 
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";  // Relative URLs — works on localhost and production equally
 const SERVER_DOWN_MSG = "Unable to reach the server. Please check your connection and try again.";
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
@@ -112,4 +112,34 @@ async function apiSaveMilestones(payload) {
 async function apiGetPatientMilestones(email) {
     const response = await fetch(`${API_BASE}/api/patients/${encodeURIComponent(email)}/milestones`);
     return { ok: response.ok, status: response.status, data: await response.json() };
+}
+
+// ── Appointments ───────────────────────────────────────────────────────────────
+
+async function apiBookAppointment(parentEmail, doctorEmail, reason, requestedDate) {
+    const response = await fetch(`${API_BASE}/api/appointments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ parent_email: parentEmail, doctor_email: doctorEmail, reason, requested_date: requestedDate })
+    });
+    return { ok: response.ok, status: response.status, data: await response.json() };
+}
+
+async function apiGetAppointments(email, role = "parent") {
+    const response = await fetch(`${API_BASE}/api/appointments?email=${encodeURIComponent(email)}&role=${role}`);
+    return { ok: response.ok, status: response.status, data: await response.json() };
+}
+
+async function apiRespondAppointment(id, action, rejectionReason, doctorEmail) {
+    const response = await fetch(`${API_BASE}/api/appointments/${id}/respond`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, rejection_reason: rejectionReason, doctor_email: doctorEmail })
+    });
+    return { ok: response.ok, status: response.status, data: await response.json() };
+}
+
+async function apiCancelAppointment(id) {
+    const response = await fetch(`${API_BASE}/api/appointments/${id}`, { method: "DELETE" });
+    return { ok: response.ok, status: response.status, data: response.ok ? {} : await response.json() };
 }

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments | Medzilla Doctor</title>
+    <meta name="description" content="Manage patient appointment requests – approve or reject with notes.">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/medical-theme.css">
+    <script>
+        (function() {
+            if (localStorage.getItem('setting_reduceMotion') === 'true') document.documentElement.classList.add('reduce-motion');
+            if (localStorage.getItem('setting_dyslexiaFont') === 'true') document.documentElement.classList.add('dyslexia-mode');
+            if (localStorage.getItem('setting_lightMode') === 'true') document.documentElement.classList.add('light-mode');
+        })();
+    </script>
+    <style>
+        /* ── Status badges (mirror milestone colors) ─────────────────── */
+        .appt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        .appt-badge::before { content: '●'; font-size: 8px; }
+
+        /* Pending  → amber  (same as "Emerging") */
+        .appt-badge.pending  { background: rgba(212,160,23,0.15);  color: #d4a017; border: 1px solid rgba(212,160,23,0.35); }
+        /* Approved → green  (same as "Achieved") */
+        .appt-badge.approved { background: rgba(46,125,50,0.15);   color: #2e7d32; border: 1px solid rgba(46,125,50,0.35); }
+        /* Rejected → red    (same as "Delayed" in milestones) */
+        .appt-badge.rejected { background: rgba(220,20,60,0.12);   color: #dc143c; border: 1px solid rgba(220,20,60,0.3); }
+
+        /* ── Appointments table ───────────────────────────────────────── */
+        .appt-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .appt-table th {
+            text-align: left; padding: 11px 14px; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.7px; color: #a0a0a0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        body.light-mode .appt-table th { border-bottom-color: rgba(0,0,0,0.08); }
+        .appt-table td {
+            padding: 13px 14px; vertical-align: middle;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        body.light-mode .appt-table td { border-bottom-color: rgba(0,0,0,0.05); }
+        .appt-table tr:last-child td { border-bottom: none; }
+        .appt-table tr:hover td { background: rgba(255,255,255,0.025); }
+        body.light-mode .appt-table tr:hover td { background: rgba(0,0,0,0.025); }
+
+        /* ── Action buttons ───────────────────────────────────────────── */
+        .btn-approve {
+            padding: 6px 14px; font-size: 12px; font-weight: 600;
+            border-radius: 7px; cursor: pointer;
+            background: rgba(46,125,50,0.15); color: #2e7d32;
+            border: 1.5px solid rgba(46,125,50,0.4);
+            transition: background 0.18s;
+        }
+        .btn-approve:hover { background: rgba(46,125,50,0.3); }
+        .btn-reject {
+            padding: 6px 14px; font-size: 12px; font-weight: 600;
+            border-radius: 7px; cursor: pointer;
+            background: rgba(220,20,60,0.1); color: #dc143c;
+            border: 1.5px solid rgba(220,20,60,0.35);
+            transition: background 0.18s;
+        }
+        .btn-reject:hover { background: rgba(220,20,60,0.2); }
+
+        /* ── Summary stat strip ────────────────────────────────────────── */
+        .appt-stat-strip {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+            margin-bottom: 24px;
+        }
+        .appt-stat-card {
+            border-radius: 14px; padding: 18px 20px;
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        .appt-stat-value { font-size: 30px; font-weight: 700; }
+        .appt-stat-label { font-size: 12px; color: #a0a0a0; }
+
+        .appt-stat-pending  { background: rgba(212,160,23,0.1);  border: 1px solid rgba(212,160,23,0.25); }
+        .appt-stat-approved { background: rgba(46,125,50,0.1);   border: 1px solid rgba(46,125,50,0.25); }
+        .appt-stat-rejected { background: rgba(220,20,60,0.08);  border: 1px solid rgba(220,20,60,0.2); }
+        .appt-stat-pending .appt-stat-value  { color: #d4a017; }
+        .appt-stat-approved .appt-stat-value { color: #2e7d32; }
+        .appt-stat-rejected .appt-stat-value { color: #dc143c; }
+    </style>
+</head>
+<body>
+<script>document.body.className = document.documentElement.className;</script>
+
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <button class="menu-btn" onclick="toggleSidebar()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
+            </div>
+            <div class="nav-links">
+                <a href="doctor-dashboard.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="doctor-appointments.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+                    <span>Appointments</span>
+                </a>
+                <a href="doctor-profile.html" class="nav-link">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <a href="doctor-settings.html" class="nav-link" style="font-size: 14px;">
+                <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                <span>Settings</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-header">
+            <h1 class="brand-title">Medzilla</h1>
+        </header>
+
+        <section class="content-area" style="max-width:1100px; padding-top:28px;">
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+                <div>
+                    <h2 style="margin:0; font-size:22px;">Appointments</h2>
+                    <p style="color:#a0a0a0; font-size:13px; margin:4px 0 0 0;">Review and manage patient appointment requests</p>
+                </div>
+                <button onclick="loadAppointments()" style="padding:10px 20px; font-size:13px;">↻ Refresh</button>
+            </div>
+
+            <!-- Summary strip -->
+            <div class="appt-stat-strip" id="appt-stats">
+                <div class="appt-stat-card appt-stat-pending">
+                    <div class="appt-stat-value" id="stat-pending">—</div>
+                    <div class="appt-stat-label">Pending</div>
+                </div>
+                <div class="appt-stat-card appt-stat-approved">
+                    <div class="appt-stat-value" id="stat-approved">—</div>
+                    <div class="appt-stat-label">Approved</div>
+                </div>
+                <div class="appt-stat-card appt-stat-rejected">
+                    <div class="appt-stat-value" id="stat-rejected">—</div>
+                    <div class="appt-stat-label">Rejected</div>
+                </div>
+            </div>
+
+            <!-- Filter tabs -->
+            <div style="display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+                <button class="appt-filter-btn active" id="filter-all"    onclick="setFilter('all')"      style="padding:7px 18px; font-size:12.5px;">All</button>
+                <button class="appt-filter-btn"        id="filter-pending" onclick="setFilter('pending')"  style="padding:7px 18px; font-size:12.5px;">Pending</button>
+                <button class="appt-filter-btn"        id="filter-approved" onclick="setFilter('approved')" style="padding:7px 18px; font-size:12.5px;">Approved</button>
+                <button class="appt-filter-btn"        id="filter-rejected" onclick="setFilter('rejected')" style="padding:7px 18px; font-size:12.5px;">Rejected</button>
+            </div>
+
+            <!-- Appointments table -->
+            <div class="info-card">
+                <div class="patient-table-wrap">
+                    <table class="appt-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Reason / Notes</th>
+                                <th>Requested Date</th>
+                                <th>Booked On</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appt-tbody">
+                            <tr><td colspan="6" style="text-align:center; color:#a0a0a0; padding:28px;">Loading…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ══ Reject Modal ═══════════════════════════════════════════════════════════ -->
+<div id="reject-modal" class="modal hidden">
+    <div class="modal-card" style="max-width:420px; width:94%;">
+        <h3 style="margin:0 0 6px 0; color:#dc143c;">Reject Appointment</h3>
+        <p id="reject-modal-subtitle" style="color:#a0a0a0; font-size:13px; margin:0 0 18px 0;"></p>
+
+        <label style="display:block; font-size:12px; color:#a0a0a0; margin-bottom:5px;">Reason for rejection <span style="color:#dc143c;">*</span></label>
+        <textarea id="reject-reason-input" class="input-field" rows="4"
+            placeholder="Explain why you cannot accept this appointment (this will be shown to the parent)…"
+            style="resize:none; line-height:1.6;"></textarea>
+
+        <div id="reject-error" class="error-message" style="display:none; margin-top:8px;"></div>
+
+        <div style="display:flex; gap:10px; margin-top:16px;">
+            <button id="reject-confirm-btn" onclick="confirmReject()" style="flex:1; background:#dc143c; border-color:#dc143c;">Confirm Rejection</button>
+            <button onclick="closeRejectModal()" style="flex:1; background:#444; color:white;">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/api.js?v=3"></script>
+<script src="js/doctor-appointments.js?v=1"></script>
+</body>
+</html>
